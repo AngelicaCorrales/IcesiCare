@@ -1,4 +1,4 @@
-package icesi.edu.co.icesicare
+package icesi.edu.co.icesicare.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
