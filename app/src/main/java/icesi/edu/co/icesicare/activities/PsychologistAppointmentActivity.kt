@@ -33,7 +33,7 @@ class PsychologistAppointmentActivity : AppCompatActivity() {
 
         viewModel.studentLV.observe(this){
             val completeName = it.name+" "+it.lastname+""
-            val studentInfo = "Edad: "+it.age +"\nCarrera: "+it.carreer+"\nCódigo: "+ it.code
+            val studentInfo = "Edad: "+it.age +"\nCarrera: "+it.career+"\nCódigo: "+ it.code
 
             binding.studentName.text = completeName
             binding.studentGenre.text = validateGenre(it.genre)
