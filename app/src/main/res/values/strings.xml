@@ -1,4 +1,12 @@
 <resources>
     <string name="app_name">Icesi Care</string>
     <string name="detalles_de_cita">Detalles de cita</string>
+    <string name="nombre_de_psic_loga_o">Nombre de psicóloga/o</string>
+    <string name="psic_logo_a">Psicólogo/a</string>
+    <string name="descripci_n_del_psic_logo">Descripción del psicólogo</string>
+    <string name="fecha_de_la_cita">Fecha de la cita</string>
+    <string name="hora_de_la_cita">Hora de la cita</string>
+    <string name="motivo_de_la_consulta">Motivo de la consulta</string>
+    <string name="comentario_de_la_cita">Comentario de la cita</string>
+    <string name="cancelar_cita">Cancelar cita</string>
 </resources>
