@@ -1,5 +1,7 @@
 package icesi.edu.co.icesicare.activities
 
+import android.annotation.SuppressLint
+import android.icu.text.SimpleDateFormat
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -8,6 +10,7 @@ import icesi.edu.co.icesicare.databinding.ActivityStudentAppointmentInfoBinding
 import icesi.edu.co.icesicare.model.entity.Psychologist
 import icesi.edu.co.icesicare.viewmodel.AppointmentViewModel
 import icesi.edu.co.icesicare.viewmodel.PsychologistViewModel
+import java.util.Date
 
 class StudentAppointmentInfo : AppCompatActivity() {
 
@@ -29,12 +32,25 @@ class StudentAppointmentInfo : AppCompatActivity() {
         }
 
         viewModelAppointment.appointmentLV.observe(this){
-            binding.appointmentDay.text = it.date.date.toString()
-            binding.appointmentHour.text = it.date.time.toString()
+            binding.appointmentDay.text = formatDay(it.date)
+            binding.appointmentHour.text = formatHour(it.date)
             binding.appointmentComment.text = it.motive
         }
+    }
 
+    @SuppressLint("SimpleDateFormat")
+    fun formatHour(date : Date) : String{
+        val formatHour = SimpleDateFormat("HH:mm:ss")
 
+        return formatHour.format(date)
+    }
+
+    @SuppressLint("SimpleDateFormat")
+    fun formatDay(date : Date) : String{
+        date.hours = date.hours - 5
+        val formatDay = SimpleDateFormat("dd/MM/yyyy")
+
+        return formatDay.format(date)
     }
 
 }
