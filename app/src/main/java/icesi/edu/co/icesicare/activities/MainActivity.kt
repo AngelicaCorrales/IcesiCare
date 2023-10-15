@@ -16,7 +16,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.btn.setOnClickListener{
-            val intent = Intent(this, StudentAppointmentInfo::class.java)
+            val intent = Intent(this, StudentAppointmentActivity::class.java)
             startActivity(intent)
         }
     }

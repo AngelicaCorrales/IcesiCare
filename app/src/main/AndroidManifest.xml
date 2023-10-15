@@ -13,7 +13,7 @@
         android:theme="@style/Theme.IcesiCare"
         tools:targetApi="31">
         <activity
-            android:name=".activities.StudentAppointmentInfo"
+            android:name=".activities.StudentAppointmentActivity"
             android:exported="false" />
         <activity
             android:name=".activities.MainActivity"

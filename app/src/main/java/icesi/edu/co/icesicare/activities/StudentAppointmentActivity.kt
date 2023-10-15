@@ -4,15 +4,13 @@ import android.annotation.SuppressLint
 import android.icu.text.SimpleDateFormat
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.viewModels
+import com.bumptech.glide.Glide
 import icesi.edu.co.icesicare.databinding.ActivityStudentAppointmentInfoBinding
-import icesi.edu.co.icesicare.model.entity.Psychologist
 import icesi.edu.co.icesicare.viewmodel.AppointmentViewModel
-import icesi.edu.co.icesicare.viewmodel.PsychologistViewModel
 import java.util.Date
 
-class StudentAppointmentInfo : AppCompatActivity() {
+class StudentAppointmentActivity : AppCompatActivity() {
 
     private val binding by lazy {
         ActivityStudentAppointmentInfoBinding.inflate(layoutInflater)
@@ -29,6 +27,8 @@ class StudentAppointmentInfo : AppCompatActivity() {
         viewModelAppointment.psychologistLV.observe(this){
             binding.psychologistName.text = it.name
             binding.psychologistDescription.text = it.description
+            binding.psychologistCarrer.text = validateGenre(it.genre)
+            Glide.with(this).load(it.profileImage).into(binding.psychologistProfileImg)
         }
 
         viewModelAppointment.appointmentLV.observe(this){
@@ -36,6 +36,15 @@ class StudentAppointmentInfo : AppCompatActivity() {
             binding.appointmentHour.text = formatHour(it.date)
             binding.appointmentComment.text = it.motive
         }
+    }
+
+    fun validateGenre(genre : String) : String{
+        var psychologistGenre = "Psicóloga"
+
+        if (genre == "M"){
+            psychologistGenre = "Psicólogo"
+        }
+        return psychologistGenre
     }
 
     @SuppressLint("SimpleDateFormat")
