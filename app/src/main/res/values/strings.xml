@@ -9,4 +9,5 @@
     <string name="motivo_de_la_consulta">Motivo de la consulta</string>
     <string name="comentario_de_la_cita">Comentario de la cita</string>
     <string name="g_nero_del_estudiante">Género del estudiante</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
