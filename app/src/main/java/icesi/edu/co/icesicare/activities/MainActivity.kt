@@ -1,5 +1,6 @@
 package icesi.edu.co.icesicare.activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import icesi.edu.co.icesicare.databinding.ActivityMainBinding
@@ -13,5 +14,10 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+
+        binding.btn.setOnClickListener{
+            val intent = Intent(this, StudentAppointmentInfo::class.java)
+            startActivity(intent)
+        }
     }
 }
