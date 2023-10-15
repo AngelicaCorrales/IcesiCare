@@ -3,7 +3,7 @@ package icesi.edu.co.icesicare.model.entity
 data class Student (
 
     var age : Int = 0,
-    var carrer : String = "",
+    var carreer : String = "",
     var code : String = "",
     var genre : String = "",
     var id : String = "",

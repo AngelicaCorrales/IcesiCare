@@ -13,7 +13,7 @@
         android:theme="@style/Theme.IcesiCare"
         tools:targetApi="31">
         <activity
-            android:name=".activities.ApproveAppointmentActivity"
+            android:name=".activities.PsychologistAppointmentActivity"
             android:exported="false" />
         <activity
             android:name=".activities.MakeAppointmentActivity"
