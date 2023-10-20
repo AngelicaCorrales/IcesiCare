@@ -55,4 +55,5 @@ dependencies {
     implementation("androidx.fragment:fragment-ktx:1.6.1")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.7.3")
     implementation("com.github.bumptech.glide:glide:4.16.0")
+    implementation("com.pnikosis:materialish-progress:1.7")
 }

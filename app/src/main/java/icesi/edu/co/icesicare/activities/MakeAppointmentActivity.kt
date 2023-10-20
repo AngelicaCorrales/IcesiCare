@@ -10,6 +10,8 @@ import icesi.edu.co.icesicare.databinding.ActivityMakeAppointmentBinding
 import icesi.edu.co.icesicare.model.entity.Psychologist
 import icesi.edu.co.icesicare.view.fragments.MakeAppointmentPsychDetailFragment
 import icesi.edu.co.icesicare.view.fragments.MakeAppointmentPsychListFragment
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 class MakeAppointmentActivity : AppCompatActivity() {
 
@@ -27,6 +29,7 @@ class MakeAppointmentActivity : AppCompatActivity() {
     }
 
     fun showFragmentPsychList(){
+        changeProgressBarVisibility(true)
         supportFragmentManager.beginTransaction().replace(R.id.fragmentContainer,makeAppntPsychListFragment).commit()
 
         binding.psychTV.visibility = View.VISIBLE
@@ -41,7 +44,15 @@ class MakeAppointmentActivity : AppCompatActivity() {
         }
     }
 
+    fun changeProgressBarVisibility(isVisible:Boolean){
+        if(isVisible)
+            binding.progressBar.visibility = View.VISIBLE
+        else
+            binding.progressBar.visibility = View.GONE
+    }
+
     fun showFragmentPsychDetail(psych:Psychologist?){
+
         supportFragmentManager.beginTransaction().replace(R.id.fragmentContainer,makeAppntPsychDetailFragment).commit()
 
         makeAppntPsychDetailFragment.psych = psych
