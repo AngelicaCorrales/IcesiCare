@@ -12,13 +12,14 @@ import icesi.edu.co.icesicare.model.entity.Psychologist
 class MakeAppointmentPsychDetailFragment : Fragment() {
 
     var psych:Psychologist? = null
+    lateinit var binding:FragmentMakeAppointmentPsychDetailBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
-        val binding = FragmentMakeAppointmentPsychDetailBinding.inflate(inflater,container,false)
+        binding = FragmentMakeAppointmentPsychDetailBinding.inflate(inflater,container,false)
         return binding.root
     }
 

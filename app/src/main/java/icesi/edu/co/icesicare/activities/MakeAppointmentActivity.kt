@@ -1,7 +1,9 @@
 package icesi.edu.co.icesicare.activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.fragment.app.Fragment
 import icesi.edu.co.icesicare.R
 import icesi.edu.co.icesicare.databinding.ActivityMakeAppointmentBinding
@@ -26,10 +28,30 @@ class MakeAppointmentActivity : AppCompatActivity() {
 
     fun showFragmentPsychList(){
         supportFragmentManager.beginTransaction().replace(R.id.fragmentContainer,makeAppntPsychListFragment).commit()
+
+        binding.psychTV.visibility = View.VISIBLE
+        binding.searchBtn.visibility = View.VISIBLE
+        binding.filterBtn.visibility = View.VISIBLE
+        binding.helpBtn.visibility = View.VISIBLE
+
+        binding.backBtn.setOnClickListener{
+            val intent= Intent(this,MainActivity::class.java)
+            startActivity(intent)
+            this.finish()
+        }
     }
 
     fun showFragmentPsychDetail(psych:Psychologist?){
-        makeAppntPsychDetailFragment.psych = psych
         supportFragmentManager.beginTransaction().replace(R.id.fragmentContainer,makeAppntPsychDetailFragment).commit()
+
+        makeAppntPsychDetailFragment.psych = psych
+        binding.psychTV.visibility = View.GONE
+        binding.searchBtn.visibility = View.GONE
+        binding.filterBtn.visibility = View.GONE
+        binding.helpBtn.visibility = View.GONE
+
+        binding.backBtn.setOnClickListener{
+            showFragmentPsychList()
+        }
     }
 }
