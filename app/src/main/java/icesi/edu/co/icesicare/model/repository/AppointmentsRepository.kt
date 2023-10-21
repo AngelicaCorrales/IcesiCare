@@ -4,6 +4,7 @@ import android.util.Log
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
+import icesi.edu.co.icesicare.model.entity.Appointment
 import icesi.edu.co.icesicare.model.entity.Student
 import kotlinx.coroutines.tasks.await
 
@@ -27,5 +28,14 @@ class AppointmentsRepository {
         }
 
         return student!!
+    }
+
+    suspend fun getAppointment(appointmentId : String) : Appointment {
+        val document = Firebase.firestore.collection("appointments")
+            .document(appointmentId).get().await()
+
+        val appointment = document.toObject(Appointment::class.java)
+
+        return appointment!!
     }
 }

@@ -40,13 +40,4 @@ object PsychRepository {
         }
         psychsLiveData.postValue(psychs)
     }
-
-    suspend fun getAppointment(appointmentId : String) : Appointment {
-        val document = Firebase.firestore.collection("appointments")
-            .document(appointmentId).get().await()
-
-        val appointment = document.toObject(Appointment::class.java)
-
-        return appointment!!
-    }
 }
