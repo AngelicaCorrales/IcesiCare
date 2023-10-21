@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import icesi.edu.co.icesicare.activities.MakeAppointmentActivity
+import icesi.edu.co.icesicare.activities.PsychologistAppointmentActivity
 import icesi.edu.co.icesicare.databinding.HomeFragmentBinding
 
 class HomeFragment: Fragment() {
@@ -21,6 +22,11 @@ class HomeFragment: Fragment() {
         binding.makeAppmBtn.setOnClickListener {
             val intent=Intent(activity,MakeAppointmentActivity::class.java)
             startActivity(intent) //if handling result needed, change to launch
+        }
+
+        binding.button3.setOnClickListener {
+            val intent = Intent(activity, PsychologistAppointmentActivity::class.java)
+            startActivity(intent)
         }
 
         return binding.root

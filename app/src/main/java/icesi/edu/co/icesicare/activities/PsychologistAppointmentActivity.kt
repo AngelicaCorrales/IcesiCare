@@ -38,7 +38,7 @@ class PsychologistAppointmentActivity : AppCompatActivity() {
             binding.studentName.text = completeName
             binding.studentGenre.text = validateGenre(it.genre)
             binding.studentInfo.text = studentInfo
-            Glide.with(this).load(it.profileImage).into(binding.studentImageProfile)
+            Glide.with(this).load(it.profileImageUrl).into(binding.studentImageProfile)
         }
     }
 
