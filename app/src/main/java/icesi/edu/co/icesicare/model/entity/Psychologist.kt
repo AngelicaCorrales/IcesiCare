@@ -7,6 +7,7 @@ data class Psychologist(
     var genre : String = "",
     var id : String = "",
     var name : String = "",
-    var profileImageId : String = "",
-    var profileImageUrl : String = ""
+    var profileImageId : String? = null,
+    var profileImageURL : String? = null,
+    var scheduleId : String = "",
 )

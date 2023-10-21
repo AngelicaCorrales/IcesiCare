@@ -28,7 +28,7 @@ class StudentAppointmentActivity : AppCompatActivity() {
             binding.psychologistName.text = it.name
             binding.psychologistDescription.text = it.description
             binding.psychologistCarrer.text = validateGenre(it.genre)
-            Glide.with(this).load(it.profileImageUrl).into(binding.psychologistProfileImg)
+            Glide.with(this).load(it.profileImageURL).into(binding.psychologistProfileImg)
         }
 
         viewModelAppointment.appointmentLV.observe(this){

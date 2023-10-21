@@ -31,7 +31,7 @@ class AppointmentsRepository {
                 .child("profileImages")
                 .child(it.profileImageId.toString()).downloadUrl.await()
 
-            psychologist.profileImageUrl = url.toString()
+            psychologist.profileImageURL = url.toString()
         }
 
         return psychologist!!
