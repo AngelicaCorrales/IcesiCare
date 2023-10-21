@@ -7,7 +7,7 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import com.bumptech.glide.Glide
 import icesi.edu.co.icesicare.databinding.ActivityStudentAppointmentInfoBinding
-import icesi.edu.co.icesicare.viewmodel.AppointmentViewModel
+import icesi.edu.co.icesicare.viewmodel.StudentViewModel
 import java.util.Date
 
 class StudentAppointmentActivity : AppCompatActivity() {
@@ -16,7 +16,7 @@ class StudentAppointmentActivity : AppCompatActivity() {
         ActivityStudentAppointmentInfoBinding.inflate(layoutInflater)
     }
 
-    val viewModelAppointment : AppointmentViewModel by viewModels()
+    val viewModelAppointment : StudentViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,7 +28,7 @@ class StudentAppointmentActivity : AppCompatActivity() {
             binding.psychologistName.text = it.name
             binding.psychologistDescription.text = it.description
             binding.psychologistCarrer.text = validateGenre(it.genre)
-            Glide.with(this).load(it.profileImage).into(binding.psychologistProfileImg)
+            Glide.with(this).load(it.profileImageUrl).into(binding.psychologistProfileImg)
         }
 
         viewModelAppointment.appointmentLV.observe(this){
