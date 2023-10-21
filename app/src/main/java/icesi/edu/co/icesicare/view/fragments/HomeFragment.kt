@@ -20,7 +20,7 @@ class HomeFragment: Fragment() {
 
         binding.makeAppmBtn.setOnClickListener {
             val intent=Intent(activity,MakeAppointmentActivity::class.java)
-            startActivity(intent)//if handling result needed, change to launch
+            startActivity(intent) //if handling result needed, change to launch
         }
 
         return binding.root
