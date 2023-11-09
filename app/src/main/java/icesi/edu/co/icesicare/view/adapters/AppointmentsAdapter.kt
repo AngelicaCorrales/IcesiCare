@@ -1,47 +1,58 @@
 package icesi.edu.co.icesicare.view.adapters
 
-import android.database.DataSetObserver
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.Adapter
 import icesi.edu.co.icesicare.R
-import icesi.edu.co.icesicare.databinding.ElementappointmentBinding
 import icesi.edu.co.icesicare.model.entity.Appointments
+import icesi.edu.co.icesicare.viewmodel.ElementAppointmentView
+import java.text.SimpleDateFormat
+import java.util.Date
 
-class AppointmentsAdapter: Adapter<AppointmentsVH>() {
-    private val caughtAppointmen = ArrayList<Appointments>()
+class AppointmentsAdapter : RecyclerView.Adapter<ElementAppointmentView>(){
+    val appointments = ArrayList<Appointments>()
 
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AppointmentsVH {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.elementappointment, parent, false)
-        return AppointmentsVH(view)
+    //    Construye los esqueletos de los items de la lista
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ElementAppointmentView {
+        val inflater = LayoutInflater.from(parent.context)
+        //ahi va el nombre del elemento de layout que se utiliza
+        val view = inflater.inflate(R.layout.elementappointment, parent, false)
+        val itemView = ElementAppointmentView(view)
+        return itemView
     }
 
-    override fun getItemCount(): Int = caughtAppointmen.size
-
-
-    override fun onBindViewHolder(holder: AppointmentsVH, position: Int) {
-        holder.psychologistName.text = caughtAppointmen[position].psychologistId
-        holder.hour.text = caughtAppointmen[position].date.toString()
+    override fun getItemCount(): Int {
+        return appointments.size
     }
 
-    fun addAppointment(appointments:Appointments){
-        caughtAppointmen.add(appointments)
+    //    Carga los datos en los esqueletos
+    override fun onBindViewHolder(holder: ElementAppointmentView, position: Int) {
+        val data = appointments[position]
+        holder.namePsychologist.text = data.psychologistId
+        holder.hourText.text = formatDay(data.date)
+
+    }
+
+    fun addItem(appointment: Appointments){
+        appointments.add(appointment)
         notifyDataSetChanged()
     }
 
-    fun addAppoinmentsList(appointmentsList: ArrayList<Appointments>) {
-        caughtAppointmen.clear()
-        caughtAppointmen.addAll(appointmentsList)
+    fun addAppoinmentsList(appointmentList : ArrayList<Appointments>) {
+        appointments.clear()
+        appointments.addAll(appointmentList)
         notifyDataSetChanged()
     }
 
-}
-class AppointmentsVH(item: View): RecyclerView.ViewHolder(item){
-    private val binding = ElementappointmentBinding.bind(item)
-    val psychologistName = binding.psychologistNameText
-    val hour = binding.hourText
+    @SuppressLint("SimpleDateFormat")
+    fun formatDay(date : Date) : String{
+        date.hours = date.hours - 5
+        val formatDay = SimpleDateFormat("dd/MM/yyyy")
+
+        return formatDay.format(date)
+    }
+
+
 }
