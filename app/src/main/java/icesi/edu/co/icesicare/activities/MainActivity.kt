@@ -7,7 +7,7 @@ import icesi.edu.co.icesicare.R
 import icesi.edu.co.icesicare.databinding.ActivityMainBinding
 import icesi.edu.co.icesicare.view.fragments.ChatsFragment
 import icesi.edu.co.icesicare.view.fragments.HomeFragment
-import icesi.edu.co.icesicare.view.fragments.ProfileFragment
+import icesi.edu.co.icesicare.view.fragments.StudentProfileFragment
 import icesi.edu.co.icesicare.view.fragments.ScheduleFragment
 
 class MainActivity : AppCompatActivity() {
@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity() {
     private val home= HomeFragment.newInstance()
     private val schedule= ScheduleFragment.newInstance()
     private val chats= ChatsFragment.newInstance()
-    private val profile= ProfileFragment.newInstance()
+    private val profile= StudentProfileFragment.newInstance()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
