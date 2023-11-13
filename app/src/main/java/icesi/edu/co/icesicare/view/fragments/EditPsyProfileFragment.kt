@@ -40,7 +40,7 @@ class EditPsyProfileFragment : Fragment() {
                     binding.psyRole.text = psy.role
                     binding.psyImgId.text = psy.profileImageId
                     binding.psyImgUrl.text = psy.profileImageURL
-
+                    binding.psySchId.text = psy.scheduleId
                     binding.psyEmail.text = psy.email.toEditable()
                     binding.psyName.text = psy.name.toEditable()
                     binding.psyDescr.text = psy.description.toEditable()
@@ -86,7 +86,9 @@ class EditPsyProfileFragment : Fragment() {
             genre = if (binding.radioFemale.isChecked) "F" else if (binding.radioMale.isChecked) "M" else "O",
             description = binding.psyDescr.text.toString(),
             profileImageId = binding.psyImgId.text.toString(),
-            profileImageURL = binding.psyImgUrl.text.toString()
+            profileImageURL = binding.psyImgUrl.text.toString(),
+            scheduleId = binding.psySchId.text.toString()
+
             // TODO: save new image
         )
 

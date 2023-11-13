@@ -51,7 +51,7 @@ object PsychRepository {
             val psy = documentSnapshot.toObject(Psychologist::class.java)
 
             psy?.let {
-                Log.e("DEV", "Name: ${psy.name}, Email: ${psy.email}, Genre: ${psy.genre}, Description: ${psy.description}, ProfileImageId: ${psy.profileImageId}")
+                Log.e("DEV", "Role: ${psy.role}, Name: ${psy.name}, Email: ${psy.email}, Genre: ${psy.genre}, Description: ${psy.description}, ProfileImageId: ${psy.profileImageId}")
 
                 if (psy.profileImageId != null && psy.profileImageId != "") {
                     val url = Firebase.storage.reference
