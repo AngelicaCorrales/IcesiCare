@@ -16,6 +16,7 @@ import icesi.edu.co.icesicare.model.repository.PsychRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import kotlin.concurrent.thread
 
 class EditPsyProfileFragment : Fragment() {
 
@@ -95,7 +96,7 @@ class EditPsyProfileFragment : Fragment() {
         lifecycleScope.launch(Dispatchers.IO) {
             PsychRepository.updatePsy(psychologistId, updatedPsy)
             withContext(Dispatchers.Main) {
-                Toast.makeText(context, "Changes saved successfully", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireActivity(), "Changes saved successfully", Toast.LENGTH_SHORT).show()
             }
         }
     }

@@ -28,7 +28,7 @@ class EditPsyScheduleFragment  : Fragment() {
         binding.saveScheduleChangesBtn.setOnClickListener {
             lifecycleScope.launch(Dispatchers.IO) {
                 withContext(Dispatchers.Main) {
-                    Toast.makeText(context, "Changes saved successfully", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireActivity(), "Changes saved successfully", Toast.LENGTH_SHORT).show()
                 }
             }
             fragmentActivity.showEditProfileFragment()
