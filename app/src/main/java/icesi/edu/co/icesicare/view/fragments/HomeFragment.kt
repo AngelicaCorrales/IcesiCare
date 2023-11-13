@@ -15,7 +15,7 @@ class HomeFragment: Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val binding: HomeFragmentBinding=HomeFragmentBinding.inflate(inflater,container,false)
 
         binding.makeAppmBtn.setOnClickListener {

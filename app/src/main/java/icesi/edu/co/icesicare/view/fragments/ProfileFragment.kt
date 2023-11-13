@@ -13,7 +13,7 @@ class ProfileFragment: Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val binding: ProfileFragmentBinding=ProfileFragmentBinding.inflate(inflater,container,false)
         return binding.root
     }
