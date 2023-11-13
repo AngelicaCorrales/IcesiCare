@@ -22,10 +22,15 @@ class StudentProfileFragment: Fragment() {
     ): View {
         val binding: StudentProfileFragmentBinding = StudentProfileFragmentBinding.inflate(inflater,container,false)
 
-        viewModel.getStudent("UjZ9bvrXxCexOXvFV2nF")
+        viewModel.getStudent("UjZ9bvrXxCexOXvFV2nF")//falta hacerlo con current user
         viewModel.studentLV.observe(viewLifecycleOwner){
             val name = it.name+" "+it.lastname
             val age = it.age.toString()+" años"
+            val role = "Estudiante"
+
+            if (it.role == "student"){
+                binding.profileRole.text = role
+            }
 
             binding.profileName.text = name
             binding.profileAge.text = age
