@@ -11,6 +11,5 @@ class PsyProfileViewHolder(root:View) : ViewHolder(root){
     val psyName = binding.psyName
     val psyGenre = binding.psyGenre
     val psyDescr = binding.psyDescr
-    val editScheduleBtn = binding.editScheduleBtn
     val saveChangesBtn = binding.editPsyBtn
 }

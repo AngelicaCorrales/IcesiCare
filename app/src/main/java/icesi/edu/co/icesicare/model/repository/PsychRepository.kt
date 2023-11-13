@@ -69,4 +69,16 @@ object PsychRepository {
             return null
         }
     }
+
+    suspend fun updatePsy(psyId: String, updatedPsy: Psychologist) {
+        try {
+            Firebase.firestore.collection("psychologists")
+                .document(psyId)
+                .set(updatedPsy)
+                .await()
+        } catch (e: Exception) {
+            Log.e("PsychRepository", "Error saving psychologist changes", e)
+        }
+    }
+
 }

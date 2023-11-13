@@ -23,6 +23,7 @@ class PsyProfileFragment  : Fragment() {
 
     private lateinit var fragmentActivity: MainActivity
     private lateinit var binding: FragmentPsyProfileBinding
+    private val psychologistId = "tdapPPL5ut9eyOzOkIso"
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -33,8 +34,6 @@ class PsyProfileFragment  : Fragment() {
         binding = FragmentPsyProfileBinding.inflate(inflater,container,false)
 
         showLoading(true)
-
-        val psychologistId = "tdapPPL5ut9eyOzOkIso"
 
         lifecycleScope.launch(Dispatchers.IO) {
             val psy = PsychRepository.fetchOnePsy(psychologistId)
@@ -63,6 +62,11 @@ class PsyProfileFragment  : Fragment() {
         return binding.root
     }
 
+    override fun onResume() {
+        super.onResume()
+        refreshPsychologistData()
+    }
+
     private fun showLoading(isLoading: Boolean) {
         binding.progressBarHome.visibility = if (isLoading) View.VISIBLE else View.GONE
         val negationVisibility = if (isLoading) View.INVISIBLE else View.VISIBLE
@@ -74,6 +78,32 @@ class PsyProfileFragment  : Fragment() {
         }
     }
 
+    private fun refreshPsychologistData() {
+        showLoading(true)
+
+        lifecycleScope.launch(Dispatchers.IO) {
+            val psy = PsychRepository.fetchOnePsy(psychologistId)
+            withContext(Dispatchers.Main) {
+                showLoading(false)
+                updateViews(psy)
+            }
+        }
+    }
+
+    private fun updateViews(psy: Psychologist?) {
+        psy?.let {
+            binding.psyEmail.text = it.email
+            binding.psyName.text = it.name
+            binding.psyGenre.text = it.genre
+            binding.psyDescr.text = it.description
+
+            it.profileImageURL?.let { imageUrl ->
+                if (imageUrl.isNotEmpty()) {
+                    Glide.with(this@PsyProfileFragment).load(imageUrl).into(binding.psyProfileImg)
+                }
+            }
+        }
+    }
 
     companion object {
         @JvmStatic
