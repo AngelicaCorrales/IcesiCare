@@ -4,14 +4,11 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import androidx.fragment.app.Fragment
 import icesi.edu.co.icesicare.R
 import icesi.edu.co.icesicare.databinding.ActivityMakeAppointmentBinding
 import icesi.edu.co.icesicare.model.entity.Psychologist
 import icesi.edu.co.icesicare.view.fragments.MakeAppointmentPsychDetailFragment
 import icesi.edu.co.icesicare.view.fragments.MakeAppointmentPsychListFragment
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 
 class MakeAppointmentActivity : AppCompatActivity() {
 
@@ -30,7 +27,7 @@ class MakeAppointmentActivity : AppCompatActivity() {
 
     fun showFragmentPsychList(){
         changeProgressBarVisibility(true)
-        supportFragmentManager.beginTransaction().replace(R.id.fragmentContainer,makeAppntPsychListFragment).commit()
+        supportFragmentManager.beginTransaction().replace(R.id.progressBarContainer,makeAppntPsychListFragment).commit()
 
         binding.psychTV.visibility = View.VISIBLE
         binding.searchBtn.visibility = View.VISIBLE
@@ -53,7 +50,7 @@ class MakeAppointmentActivity : AppCompatActivity() {
 
     fun showFragmentPsychDetail(psych:Psychologist?){
 
-        supportFragmentManager.beginTransaction().replace(R.id.fragmentContainer,makeAppntPsychDetailFragment).commit()
+        supportFragmentManager.beginTransaction().replace(R.id.progressBarContainer,makeAppntPsychDetailFragment).commit()
 
         makeAppntPsychDetailFragment.psych = psych
         binding.psychTV.visibility = View.GONE

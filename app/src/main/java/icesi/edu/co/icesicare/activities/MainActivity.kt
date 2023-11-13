@@ -7,8 +7,9 @@ import icesi.edu.co.icesicare.R
 import icesi.edu.co.icesicare.databinding.ActivityMainBinding
 import icesi.edu.co.icesicare.view.fragments.ChatsFragment
 import icesi.edu.co.icesicare.view.fragments.HomeFragment
-import icesi.edu.co.icesicare.view.fragments.ProfileFragment
 import icesi.edu.co.icesicare.view.fragments.ScheduleFragment
+import icesi.edu.co.icesicare.view.fragments.PsyProfileFragment
+import icesi.edu.co.icesicare.view.fragments.ProfileFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -19,10 +20,10 @@ class MainActivity : AppCompatActivity() {
     private val schedule= ScheduleFragment.newInstance()
     private val chats= ChatsFragment.newInstance()
     private val profile= ProfileFragment.newInstance()
+    private val profilePsy= PsyProfileFragment.newInstance()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-
         showFragment(home)
 
 
@@ -38,7 +39,7 @@ class MainActivity : AppCompatActivity() {
                     showFragment(chats)
                 }
                 R.id.profilemenu->{
-                    showFragment(profile)
+                    showFragment(profilePsy)
                 }
 
             }
@@ -47,8 +48,7 @@ class MainActivity : AppCompatActivity() {
 
 
     }
-
     fun showFragment(fragment: Fragment){
-        supportFragmentManager.beginTransaction().replace(R.id.fragmentContainer,fragment).commit()
+        supportFragmentManager.beginTransaction().replace(R.id.progressBarContainer,fragment).commit()
     }
 }

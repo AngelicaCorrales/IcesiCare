@@ -7,7 +7,7 @@
     tools:context=".activities.MainActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/fragmentContainer"
+        android:id="@+id/progressBarContainer"
         android:layout_width="409dp"
         android:layout_height="665dp"
         app:layout_constraintBottom_toTopOf="@+id/navbar"

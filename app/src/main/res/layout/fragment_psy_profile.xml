@@ -47,25 +47,7 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/ic_launcher_background" />
 
-
-                <Button
-                    android:id="@+id/selectPictureBtn"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:background="@drawable/appointment_button_background"
-                    android:fontFamily="@font/roboto_medium"
-                    android:textAllCaps="false"
-                    android:textColor="@color/white"
-                    android:textSize="16sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/psyProfileImg"
-                    android:text="Edit Profile Picture" />
-
-                <EditText
+                <TextView
                     android:id="@+id/psyName"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -75,9 +57,9 @@
                     android:textSize="20sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/selectPictureBtn" />
+                    app:layout_constraintTop_toBottomOf="@+id/psyProfileImg" />
 
-                <EditText
+                <TextView
                     android:id="@+id/psyEmail"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -89,7 +71,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/psyName" />
 
-                <EditText
+                <TextView
                     android:id="@+id/psyGenre"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -101,7 +83,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/psyEmail" />
 
-                <EditText
+                <TextView
                     android:id="@+id/psyDescr"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -114,7 +96,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/psyGenre" />
 
                 <Button
-                    android:id="@+id/saveChangesBtn"
+                    android:id="@+id/editPsyBtn"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -128,7 +110,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/psyDescr"
-                    android:text="Save changes" />
+                    android:text="Edit Profile" />
 
                 <Button
                     android:id="@+id/editScheduleBtn"
@@ -144,8 +126,8 @@
                     android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/saveChangesBtn"
-                    android:text="Save changes and Edit Schedule" />
+                    app:layout_constraintTop_toBottomOf="@+id/editPsyBtn"
+                    android:text="Edit Schedule" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -153,7 +135,7 @@
 
 
         <ProgressBar
-            android:id="@+id/progressBar"
+            android:id="@+id/progressBarHome"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:indeterminateTint="@color/purple"

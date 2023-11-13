@@ -39,4 +39,34 @@ object PsychRepository {
         }
         psychsLiveData.postValue(psychs)
     }
+
+    suspend fun fetchOnePsy(psyId: String): Psychologist? {
+        try {
+            val documentSnapshot = Firebase.firestore
+                .collection("psychologists")
+                .document(psyId)
+                .get()
+                .await()
+
+            val psy = documentSnapshot.toObject(Psychologist::class.java)
+
+            psy?.let {
+                Log.e("DEV", "Name: ${psy.name}, Email: ${psy.email}, Genre: ${psy.genre}, Description: ${psy.description}, ProfileImageId: ${psy.profileImageId}")
+
+                if (psy.profileImageId != null && psy.profileImageId != "") {
+                    val url = Firebase.storage.reference
+                        .child("users")
+                        .child("profileImages")
+                        .child(psy.profileImageId!!).downloadUrl.await()
+                    Log.e(">>>", url.toString())
+                    psy.profileImageURL = url.toString()
+                }
+            }
+
+            return psy
+        } catch (e: Exception) {
+            Log.e("PsychRepository", "Error fetching psychologist", e)
+            return null
+        }
+    }
 }
