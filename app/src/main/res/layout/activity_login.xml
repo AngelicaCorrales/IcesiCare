@@ -211,7 +211,7 @@
             app:layout_constraintTop_toBottomOf="@+id/constraintLayout4">
 
             <TextView
-                android:id="@+id/textView20"
+                android:id="@+id/registro"
                 android:layout_width="67dp"
                 android:layout_height="21dp"
                 android:layout_marginEnd="72dp"
@@ -226,9 +226,11 @@
                 android:layout_width="145dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="72dp"
+                android:layout_marginEnd="12dp"
                 android:text="¿No tienes una cuenta?"
                 android:textColor="@color/black"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/registro"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
