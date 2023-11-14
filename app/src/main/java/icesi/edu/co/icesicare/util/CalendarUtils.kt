@@ -15,23 +15,6 @@ object CalendarUtils {
         return date.format(formatter)
     }
 
-    fun daysInMonthArray(date: LocalDate): ArrayList<LocalDate?> {
-        val daysInMonthArray = ArrayList<LocalDate?>()
-        val yearMonth = YearMonth.from(date)
-        val daysInMonth = yearMonth.lengthOfMonth()
-        val firstOfMonth = selectedDate!!.withDayOfMonth(1)
-        val dayOfWeek = firstOfMonth.dayOfWeek.value-1
-        for (i in 1..42) {
-            if (i <= dayOfWeek || i > daysInMonth + dayOfWeek){
-                daysInMonthArray.add(null)
-            } else {
-                daysInMonthArray.add(
-                    LocalDate.of(selectedDate!!.year, selectedDate!!.month, i - dayOfWeek )
-                )
-            }
-        }
-        return daysInMonthArray
-    }
 
     fun daysInWeekArray(selectedDate: LocalDate): ArrayList<LocalDate?> {
         val days = ArrayList<LocalDate?>()

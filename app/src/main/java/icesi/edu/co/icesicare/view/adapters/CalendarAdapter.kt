@@ -1,6 +1,7 @@
 package icesi.edu.co.icesicare.view.adapters
 
 import android.graphics.Color
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,9 +21,8 @@ class CalendarAdapter(
         val inflater = LayoutInflater.from(parent.context)
         val view: View = inflater.inflate(R.layout.calendar_cell, parent, false)
         val layoutParams = view.layoutParams
-        if (days!!.size > 15) //month view
-            layoutParams.height = (parent.height * 0.166666666).toInt() else  // week view
-            layoutParams.height = parent.height
+        layoutParams.height = 70
+
         return CalendarViewHolder(view, onItemListener, days)
     }
 
