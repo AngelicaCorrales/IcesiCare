@@ -3,52 +3,63 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/bg">
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/hello_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/roboto_medium"
         android:text="¡Hola!"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/noti_img_btn" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/welcomeTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:fontFamily="@font/roboto_medium"
         android:text="Bienvenido"
-        android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="@+id/textView4"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        android:textSize="45sp"
+        app:layout_constraintStart_toStartOf="@+id/hello_tv"
+        app:layout_constraintTop_toBottomOf="@+id/hello_tv" />
 
     <Button
         android:id="@+id/makeAppmBtn"
         android:layout_width="96dp"
         android:layout_height="96dp"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="64dp"
+        android:background="@drawable/home_menu_buttons_background"
         android:drawableTop="@drawable/pencil"
+        android:drawablePadding="10dp"
+        android:drawableTint="@color/purple"
+        android:gravity="center_horizontal"
+        android:paddingTop="24dp"
         android:text="Pedir cita"
         android:textAllCaps="false"
-        app:layout_constraintEnd_toStartOf="@+id/eventsBtn"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+        app:layout_constraintTop_toBottomOf="@+id/welcomeTV" />
 
     <Button
         android:id="@+id/eventsBtn"
         android:layout_width="96dp"
         android:layout_height="96dp"
+        android:background="@drawable/home_menu_buttons_background"
         android:drawableTop="@drawable/ticket"
+        android:drawablePadding="10dp"
+        android:drawableTint="@color/purple"
+        android:enabled="false"
+        android:gravity="center_horizontal"
+        android:paddingTop="24dp"
         android:text="Eventos"
         android:textAllCaps="false"
         app:layout_constraintBottom_toBottomOf="@+id/makeAppmBtn"
         app:layout_constraintEnd_toStartOf="@+id/activitiesBtn"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/makeAppmBtn"
         app:layout_constraintTop_toTopOf="@+id/makeAppmBtn" />
 
@@ -56,23 +67,30 @@
         android:id="@+id/activitiesBtn"
         android:layout_width="96dp"
         android:layout_height="96dp"
+        android:layout_marginEnd="32dp"
+        android:background="@drawable/home_menu_buttons_background"
         android:drawableTop="@drawable/basketball"
+        android:drawablePadding="10dp"
+        android:drawableTint="@color/purple"
+        android:enabled="false"
+        android:gravity="center_horizontal"
+        android:paddingTop="24dp"
         android:text="Actividades"
         android:textAllCaps="false"
-        android:textSize="12sp"
+        android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="@+id/eventsBtn"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/eventsBtn"
         app:layout_constraintTop_toTopOf="@+id/eventsBtn" />
 
-    <Button
-        android:id="@+id/acceptApptBtn"
+    <ImageButton
+        android:id="@+id/noti_img_btn"
         android:layout_width="wrap_content"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:text="Aceptar Citas"
-        app:layout_constraintEnd_toEndOf="@+id/makeAppmBtn"
-        app:layout_constraintStart_toStartOf="@+id/makeAppmBtn"
-        app:layout_constraintTop_toBottomOf="@+id/makeAppmBtn" />
+        android:layout_marginEnd="32dp"
+        android:background="#00FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/noti_icon_xml" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
