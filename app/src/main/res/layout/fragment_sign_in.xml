@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg"
-    tools:context=".activities.LoginActivity">
+    android:background="@drawable/bg">
 
     <TextView
         android:id="@+id/textView7"
@@ -116,7 +115,7 @@
             app:layout_constraintStart_toStartOf="parent">
 
             <TextView
-                android:id="@+id/textView20"
+                android:id="@+id/signupLink"
                 android:layout_width="67dp"
                 android:layout_height="21dp"
                 android:layout_marginEnd="72dp"
