@@ -11,6 +11,7 @@ import icesi.edu.co.icesicare.databinding.ActivityMainBinding
 import icesi.edu.co.icesicare.view.fragments.ChatsFragment
 import icesi.edu.co.icesicare.view.fragments.HomeFragment
 import icesi.edu.co.icesicare.view.fragments.ProfileFragment
+import icesi.edu.co.icesicare.view.fragments.PsyProfileFragment
 import icesi.edu.co.icesicare.view.fragments.ScheduleFragment
 
 class MainActivity : AppCompatActivity() {
@@ -21,19 +22,11 @@ class MainActivity : AppCompatActivity() {
     private val homeStud= HomeFragment.newInstance()
     private val schedule= ScheduleFragment.newInstance()
     private val chats= ChatsFragment.newInstance()
-    private val profile= ProfileFragment.newInstance()
+    private val profile= PsyProfileFragment.newInstance()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        val user= Firebase.auth.currentUser
-        if(user == null){
-            startActivity(Intent(this, AuthActivity::class.java))
-            finish()
-            return
-        }
-
-        //if (user.uid)
 
 
         showFragment(homeStud)
