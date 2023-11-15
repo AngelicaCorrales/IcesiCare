@@ -8,20 +8,23 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import icesi.edu.co.icesicare.R
 import icesi.edu.co.icesicare.databinding.ActivityMainBinding
+import icesi.edu.co.icesicare.databinding.ActivityPsychologistMainBinding
 import icesi.edu.co.icesicare.view.fragments.ChatsFragment
-import icesi.edu.co.icesicare.view.fragments.HomeFragment
-import icesi.edu.co.icesicare.view.fragments.StudentProfileFragment
+import icesi.edu.co.icesicare.view.fragments.HomeFragmentPsych
 import icesi.edu.co.icesicare.view.fragments.ScheduleFragment
+import icesi.edu.co.icesicare.view.fragments.StudentProfileFragment
 
-class MainActivity : AppCompatActivity() {
+class PsychologistMainActivity : AppCompatActivity() {
 
     private val binding by lazy {
-        ActivityMainBinding.inflate(layoutInflater)
+        ActivityPsychologistMainBinding.inflate(layoutInflater)
     }
-    private val homeStud= HomeFragment.newInstance()
+
+    private val homeStud= HomeFragmentPsych.newInstance()
     private val schedule= ScheduleFragment.newInstance()
     private val chats= ChatsFragment.newInstance()
-    private val profile= StudentProfileFragment.newInstance()
+    private val profile= StudentProfileFragment.newInstance() //Psychologist PROFILE
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
@@ -33,11 +36,7 @@ class MainActivity : AppCompatActivity() {
             return
         }
 
-        //if (user.uid)
-
-
         showFragment(homeStud)
-
 
         binding.navbar.setOnItemSelectedListener {
             when(it.itemId){
@@ -59,6 +58,11 @@ class MainActivity : AppCompatActivity() {
         }
 
 
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Firebase.auth.signOut()
     }
 
     fun showFragment(fragment: Fragment){

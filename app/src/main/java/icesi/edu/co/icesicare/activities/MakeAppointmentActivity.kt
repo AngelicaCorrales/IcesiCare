@@ -4,14 +4,11 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import androidx.fragment.app.Fragment
 import icesi.edu.co.icesicare.R
 import icesi.edu.co.icesicare.databinding.ActivityMakeAppointmentBinding
 import icesi.edu.co.icesicare.model.entity.Psychologist
 import icesi.edu.co.icesicare.view.fragments.MakeAppointmentPsychDetailFragment
 import icesi.edu.co.icesicare.view.fragments.MakeAppointmentPsychListFragment
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 
 class MakeAppointmentActivity : AppCompatActivity() {
 
@@ -38,7 +35,7 @@ class MakeAppointmentActivity : AppCompatActivity() {
         binding.helpBtn.visibility = View.VISIBLE
 
         binding.backBtn.setOnClickListener{
-            val intent= Intent(this,MainActivity::class.java)
+            val intent= Intent(this,StudentMainActivity::class.java)
             startActivity(intent)
             this.finish()
         }

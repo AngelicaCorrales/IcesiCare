@@ -3,10 +3,8 @@ package icesi.edu.co.icesicare.activities
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
 import icesi.edu.co.icesicare.R
 import icesi.edu.co.icesicare.databinding.ActivityAcceptAppointmentBinding
-import icesi.edu.co.icesicare.model.entity.Psychologist
 import icesi.edu.co.icesicare.view.fragments.AcceptAppointmentFragment
 
 class AcceptAppointmentActivity : AppCompatActivity() {
@@ -22,7 +20,7 @@ class AcceptAppointmentActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.backBtn.setOnClickListener{
-            val intent = Intent(this,MainActivity::class.java)
+            val intent = Intent(this,PsychologistMainActivity::class.java)
             startActivity(intent)
             this.finish()
         }

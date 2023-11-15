@@ -10,22 +10,26 @@ class StudentRepository {
 
     suspend fun getStudent(studentId : String) : Student {
 
-        val docStudent = Firebase.firestore.collection("students")
-            .document(studentId.replace("\"", "")).get().await()
+        try {
+            val docStudent = Firebase.firestore.collection("students")
+                .document(studentId.replace("\"", "")).get().await()
 
-        val student = docStudent.toObject(Student::class.java)
+            val student = docStudent.toObject(Student::class.java)
 
-        student?.let {
+            student?.let {
 
-            val url = Firebase.storage.reference
-                .child("users")
-                .child("profileImages")
-                .child(it.profileImageId.toString()).downloadUrl.await()
+                val url = Firebase.storage.reference
+                    .child("users")
+                    .child("profileImages")
+                    .child(it.profileImageId.toString()).downloadUrl.await()
 
-            student.profileImageURL = url.toString()
+                student.profileImageURL = url.toString()
+            }
+            return student!!
+
+        }catch (e : Exception){
+            return Student(-1)
         }
-
-        return student!!
     }
 
 }

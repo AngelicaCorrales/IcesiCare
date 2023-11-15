@@ -11,4 +11,6 @@
     <string name="g_nero_del_estudiante">Género del estudiante</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="perfil">Perfil</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
 </resources>
