@@ -27,7 +27,7 @@ class StudentProfileFragment: Fragment() {
     ): View {
         val binding: StudentProfileFragmentBinding = StudentProfileFragmentBinding.inflate(inflater,container,false)
 
-        viewModel.getStudent("UjZ9bvrXxCexOXvFV2nF")//falta hacerlo con current user
+        viewModel.getStudent(Firebase.auth.currentUser?.uid.toString())
         viewModel.studentLV.observe(viewLifecycleOwner){
             val name = it.name+" "+it.lastname
             val age = it.age.toString()+" años"
@@ -44,7 +44,7 @@ class StudentProfileFragment: Fragment() {
         }
 
         binding.logoutBtn.setOnClickListener {
-            Log.e("ala", "mamahev")
+
             val activity = requireActivity()
             activity.finish()
             startActivity(Intent(requireContext(), AuthActivity::class.java))

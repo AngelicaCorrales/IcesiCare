@@ -2,7 +2,6 @@ package icesi.edu.co.icesicare.view.fragments
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,7 +13,6 @@ import icesi.edu.co.icesicare.activities.PsychologistMainActivity
 import icesi.edu.co.icesicare.activities.StudentMainActivity
 import icesi.edu.co.icesicare.databinding.FragmentSignInBinding
 import icesi.edu.co.icesicare.model.entity.Student
-import icesi.edu.co.icesicare.model.repository.StudentRepository
 import icesi.edu.co.icesicare.viewmodel.AuthViewModel
 
 class SignInFragment : Fragment() {
@@ -51,12 +49,17 @@ class SignInFragment : Fragment() {
     }
 
     private fun sendToCorrectActivity(userId : String){
-        Log.e("a", vm.getRoleOfLoggedStudent(userId).toString())
-        if (vm.getRoleOfLoggedStudent(userId) is Student){
-            startActivity(Intent(requireContext(), StudentMainActivity::class.java))
 
-        }else{
-            startActivity(Intent(requireContext(), PsychologistMainActivity::class.java))
+        vm.getRoleOfLoggedStudent(userId)
+
+        vm.user.observe(viewLifecycleOwner){
+            if (it is Student){
+                startActivity(Intent(requireContext(), StudentMainActivity::class.java))
+
+            }else{
+                startActivity(Intent(requireContext(), PsychologistMainActivity::class.java))
+
+            }
         }
     }
 

@@ -61,7 +61,8 @@ class SignUpStudFragment : Fragment() {
                 binding.ageET.text.toString().toInt(),
                 genre,
                 binding.emailAddrET.text.toString(),
-                binding.passwordET.text.toString()
+                binding.passwordET.text.toString(),
+                binding.confirmPasswordET.text.toString()
             )
         }
 

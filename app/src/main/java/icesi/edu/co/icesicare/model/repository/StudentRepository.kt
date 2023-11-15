@@ -17,7 +17,7 @@ class StudentRepository {
 
             val student = docStudent.toObject(Student::class.java)
 
-            student?.let {
+            /*student?.let {
 
                 val url = Firebase.storage.reference
                     .child("users")
@@ -26,7 +26,8 @@ class StudentRepository {
 
                 student.profileImageURL = url.toString()
             }
-            Log.e("yya", student.toString())
+
+             */
             return student!!
 
         }catch (e : Exception){

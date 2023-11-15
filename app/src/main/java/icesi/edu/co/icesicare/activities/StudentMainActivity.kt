@@ -7,10 +7,8 @@ import androidx.fragment.app.Fragment
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import icesi.edu.co.icesicare.R
-import icesi.edu.co.icesicare.databinding.ActivityPsychologistMainBinding
 import icesi.edu.co.icesicare.databinding.ActivityStudentMainBinding
 import icesi.edu.co.icesicare.view.fragments.ChatsFragment
-import icesi.edu.co.icesicare.view.fragments.HomeFragmentPsych
 import icesi.edu.co.icesicare.view.fragments.HomeFragmentStud
 import icesi.edu.co.icesicare.view.fragments.ScheduleFragment
 import icesi.edu.co.icesicare.view.fragments.StudentProfileFragment

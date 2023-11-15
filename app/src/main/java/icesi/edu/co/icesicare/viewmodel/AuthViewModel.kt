@@ -1,8 +1,6 @@
 package icesi.edu.co.icesicare.viewmodel
 
 import android.net.Uri
-import android.util.Log
-import androidx.core.net.toUri
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -24,17 +22,17 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
-import java.io.File
 import java.util.UUID
 
 class AuthViewModel : ViewModel() {
 
     val authStateLV = MutableLiveData<AuthState>()
     val errorLV = MutableLiveData<ErrorMessage>()
+    val user = MutableLiveData<Any?>()
 
     private var studentRepository: StudentRepository = StudentRepository()
 
-    fun signupPsych(fullName:String, genre:String,email: String, password: String) {
+    fun signupPsych(fullName:String, genre:String,email: String, password: String, confirmPass: String) {
 
         viewModelScope.launch(Dispatchers.IO) {
 
@@ -43,15 +41,22 @@ class AuthViewModel : ViewModel() {
                 val result = Firebase.auth.createUserWithEmailAndPassword(email, password).await()
                 val psychologistId = Firebase.auth.currentUser?.uid
 
-                val psychologist = Psychologist("", email, genre, psychologistId.toString(),
-                    fullName, "","", "psychologist", "")
+                if (validatePasswords(password, confirmPass)){
 
+                    val psychologist = Psychologist("", email, genre, psychologistId.toString(),
+                        fullName, "","", "psychologist", "")
 
-                Firebase.firestore.collection("psychologists").document(psychologistId!!)
-                    .set(psychologist).await()
+                    Firebase.firestore.collection("psychologists").document(psychologistId!!)
+                        .set(psychologist).await()
 
-                withContext(Dispatchers.Main){
-                    authStateLV.value = AuthState(result.user?.uid, true)
+                    withContext(Dispatchers.Main){
+                        authStateLV.value = AuthState(result.user?.uid, true)
+                    }
+
+                }else{
+                    withContext(Dispatchers.Main){
+                        errorLV.value = ErrorMessage("Las contraseñas no coinciden")
+                    }
                 }
 
             }catch (e: FirebaseAuthInvalidCredentialsException) {
@@ -72,7 +77,7 @@ class AuthViewModel : ViewModel() {
         }
     }
 
-    fun signupStud(name:String,lastname:String,career:String,code:String,age:Int,genre:String,email: String, password: String) {
+    fun signupStud(name:String,lastname:String,career:String,code:String,age:Int,genre:String,email: String, password: String, confirmPass : String) {
 
         viewModelScope.launch(Dispatchers.IO) {
 
@@ -84,11 +89,18 @@ class AuthViewModel : ViewModel() {
                 val student = Student(age, career, code, genre, studentId.toString(),
                     lastname, name, "", "", "student", email)
 
-                Firebase.firestore.collection("students").document(studentId!!)
-                    .set(student).await()
+                if (validatePasswords(password, confirmPass)){
+                    Firebase.firestore.collection("students").document(studentId!!)
+                        .set(student).await()
 
-                withContext(Dispatchers.Main){
-                    authStateLV.value = AuthState(result.user?.uid, true)
+                    withContext(Dispatchers.Main){
+                        authStateLV.value = AuthState(result.user?.uid, true)
+                    }
+
+                }else{
+                    withContext(Dispatchers.Main){
+                        errorLV.value = ErrorMessage("Las contraseñas no coinciden")
+                    }
                 }
 
             }catch (e: FirebaseAuthInvalidCredentialsException) {
@@ -165,33 +177,39 @@ class AuthViewModel : ViewModel() {
         }
     }
 
-    fun getRoleOfLoggedStudent(userId : String) : Any? {
+    private fun validatePasswords(password: String, confirmPass : String) : Boolean{
 
-        var student: Student? = null
-        var psychologist: Psychologist? = null
-        var validator = 0
+        var verifyPass = true
+
+        if (password != confirmPass){
+            verifyPass = false
+        }
+
+        return verifyPass
+    }
+
+    fun getRoleOfLoggedStudent(userId : String) {
 
         viewModelScope.launch(Dispatchers.IO) {
-            student = studentRepository.getStudent(userId)
-            Log.e("student", student.toString())
-            if (student!!.age == -1){
-                psychologist = PsychRepository.getPsychologist(userId)
-                Log.e("psycho", psychologist.toString())
+            var student: Student? = null
+            var psychologist: Psychologist? = null
 
-                if (psychologist!!.description != "-1"){
-                    validator = -1
+            student = studentRepository.getStudent(userId)
+
+            if (student.age == -1){
+                psychologist = PsychRepository.getPsychologist(userId)
+
+                if (psychologist.description != "-1"){
+                    withContext(Dispatchers.Main){
+                        user.value = psychologist
+                    }
                 }
 
             }else{
-                validator = 1
+                withContext(Dispatchers.Main){
+                    user.value = student
+                }
             }
-        }
-
-        return if (validator == 1){
-            student
-
-        }else{
-            psychologist
         }
     }
 }
