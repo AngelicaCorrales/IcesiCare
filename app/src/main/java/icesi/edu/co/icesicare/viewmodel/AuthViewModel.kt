@@ -11,6 +11,7 @@ import com.google.firebase.auth.FirebaseAuthWeakPasswordException
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import icesi.edu.co.icesicare.model.entity.Student
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
@@ -21,7 +22,7 @@ class AuthViewModel : ViewModel() {
     val authStateLV = MutableLiveData<AuthState>()
     val errorLV = MutableLiveData<ErrorMessage>()
 
-    fun signup(fullname:String,genre:String,email: String, pass: String) {
+    fun signupPsych(fullname:String,genre:String,email: String, pass: String) {
         viewModelScope.launch(Dispatchers.IO) {
 
             try {
@@ -38,6 +39,41 @@ class AuthViewModel : ViewModel() {
                 )
 
                 Firebase.firestore.collection("psychologists").document(user["id"]!!).set(user).await()
+                withContext(Dispatchers.Main){ authStateLV.value = AuthState(result.user?.uid, true)}
+                Log.e(">>>", "Registrado")
+                Firebase.auth.currentUser
+            }catch (e: FirebaseAuthInvalidCredentialsException) {
+                withContext(Dispatchers.Main){errorLV.value = ErrorMessage("El correo está mal formado")}
+                Log.e(">>>", "Mal formado")
+            } catch (e: FirebaseAuthUserCollisionException) {
+                withContext(Dispatchers.Main){errorLV.value = ErrorMessage("El correo está repetido")}
+                Log.e(">>>", "Repetido")
+            } catch (e: FirebaseAuthWeakPasswordException) {
+                withContext(Dispatchers.Main){errorLV.value = ErrorMessage("La clave es muy debil")}
+                Log.e(">>>", "Clave muy corta")
+            }
+        }
+    }
+
+    fun signupStud(name:String,lastname:String,career:String,code:String,age:Int,genre:String,email: String, pass: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+
+            try {
+                val result = Firebase.auth.createUserWithEmailAndPassword(email, pass).await()
+                val user= hashMapOf(
+                    "name" to name,
+                    "lastname" to lastname,
+                    "career" to career,
+                    "code" to code,
+                    "age" to age,
+                    "genre" to genre,
+                    "email" to email,
+                    "id" to Firebase.auth.currentUser?.uid,
+                    "profileImageId" to "",
+                    "role" to "student"
+                )
+
+                Firebase.firestore.collection("students").document(user["id"]!!.toString()).set(user).await()
                 withContext(Dispatchers.Main){ authStateLV.value = AuthState(result.user?.uid, true)}
                 Log.e(">>>", "Registrado")
                 Firebase.auth.currentUser
