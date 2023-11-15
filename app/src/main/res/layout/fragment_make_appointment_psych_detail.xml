@@ -102,6 +102,7 @@
                     android:layout_marginStart="24dp"
                     android:layout_marginTop="24dp"
                     android:text="Tarde"
+                    android:textColor="@color/black"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/button6" />
 
@@ -111,6 +112,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
                     android:text="Mañana"
+                    android:textColor="@color/black"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/weeklyCalendar" />
 
@@ -319,6 +321,7 @@
                     android:layout_marginStart="24dp"
                     android:layout_marginTop="8dp"
                     android:text="Escribe el motivo de la consulta"
+                    android:textColor="@color/black"
                     android:textSize="18sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -334,6 +337,7 @@
                     android:gravity="start|top"
                     android:hint="Escribe el motivo de la consulta"
                     android:inputType="textMultiLine"
+                    android:textColorHint="#6C6767"
                     android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.497"
