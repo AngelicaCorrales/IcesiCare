@@ -49,7 +49,7 @@ object PsychRepository {
 
             val psychologist = docStudent.toObject(Psychologist::class.java)
 
-            psychologist?.let {
+            /*psychologist?.let {
 
                 val url = Firebase.storage.reference
                     .child("users")
@@ -58,6 +58,8 @@ object PsychRepository {
 
                 psychologist.profileImageURL = url.toString()
             }
+
+             */
             return psychologist!!
 
         }catch (e : Exception){

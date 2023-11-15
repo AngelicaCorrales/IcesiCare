@@ -57,7 +57,8 @@ class SignUpPsychFragment : Fragment() {
                 binding.fullNameET.text.toString(),
                 genre,
                 binding.emailAddrET.text.toString(),
-                binding.passwordET.text.toString()
+                binding.passwordET.text.toString(),
+                binding.confirmPasswordET.text.toString()
             )
         }
 
