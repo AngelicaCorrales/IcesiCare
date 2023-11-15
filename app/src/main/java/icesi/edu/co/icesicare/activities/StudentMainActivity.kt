@@ -10,6 +10,7 @@ import icesi.edu.co.icesicare.R
 import icesi.edu.co.icesicare.databinding.ActivityStudentMainBinding
 import icesi.edu.co.icesicare.view.fragments.ChatsFragment
 import icesi.edu.co.icesicare.view.fragments.HomeFragmentStud
+import icesi.edu.co.icesicare.view.fragments.PsyProfileFragment
 import icesi.edu.co.icesicare.view.fragments.ScheduleFragment
 import icesi.edu.co.icesicare.view.fragments.StudentProfileFragment
 

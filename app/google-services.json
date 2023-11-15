@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1029916465120",
+    "project_id": "icesicare",
+    "storage_bucket": "icesicare.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1029916465120:android:02d6e998abc49a66f2fd85",
+        "android_client_info": {
+          "package_name": "icesi.edu.co.icesicare"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAn2wKL2vJpsGy5qwn09MNAbpHX59GgYEI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
