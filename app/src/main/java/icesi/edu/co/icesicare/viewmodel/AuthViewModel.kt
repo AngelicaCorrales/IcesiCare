@@ -21,20 +21,22 @@ class AuthViewModel : ViewModel() {
     val authStateLV = MutableLiveData<AuthState>()
     val errorLV = MutableLiveData<ErrorMessage>()
 
-    fun signup(fullname:String,email: String, pass: String) {
+    fun signup(fullname:String,genre:String,email: String, pass: String) {
         viewModelScope.launch(Dispatchers.IO) {
+
             try {
                 val result = Firebase.auth.createUserWithEmailAndPassword(email, pass).await()
                 val user= hashMapOf(
                     "name" to fullname,
+                    "genre" to genre,
                     "email" to email,
                     "id" to Firebase.auth.currentUser?.uid,
                     "description" to "",
-                    "genre" to "",
                     "profileImageId" to "",
                     "role" to "psychologist",
                     "scheduleId" to ""
                 )
+
                 Firebase.firestore.collection("psychologists").document(user["id"]!!).set(user).await()
                 withContext(Dispatchers.Main){ authStateLV.value = AuthState(result.user?.uid, true)}
                 Log.e(">>>", "Registrado")
