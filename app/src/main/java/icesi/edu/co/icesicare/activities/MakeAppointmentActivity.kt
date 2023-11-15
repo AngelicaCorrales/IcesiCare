@@ -27,7 +27,7 @@ class MakeAppointmentActivity : AppCompatActivity() {
 
     fun showFragmentPsychList(){
         changeProgressBarVisibility(true)
-        supportFragmentManager.beginTransaction().replace(R.id.fragmentContainer,makeAppntPsychListFragment).commit()
+        supportFragmentManager.beginTransaction().replace(R.id.progressBarContainer,makeAppntPsychListFragment).commit()
 
         binding.psychTV.visibility = View.VISIBLE
         binding.searchBtn.visibility = View.VISIBLE
@@ -50,7 +50,7 @@ class MakeAppointmentActivity : AppCompatActivity() {
 
     fun showFragmentPsychDetail(psych:Psychologist?){
 
-        supportFragmentManager.beginTransaction().replace(R.id.fragmentContainer,makeAppntPsychDetailFragment).commit()
+        supportFragmentManager.beginTransaction().replace(R.id.progressBarContainer,makeAppntPsychDetailFragment).commit()
 
         makeAppntPsychDetailFragment.psych = psych
         binding.psychTV.visibility = View.GONE
