@@ -2,6 +2,7 @@ package icesi.edu.co.icesicare.view.fragments
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,8 +21,6 @@ class SignInFragment : Fragment() {
 
     lateinit var binding: FragmentSignInBinding
     private val vm: AuthViewModel by activityViewModels()
-
-    private var studentRepository: StudentRepository = StudentRepository()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -52,7 +51,7 @@ class SignInFragment : Fragment() {
     }
 
     private fun sendToCorrectActivity(userId : String){
-
+        Log.e("a", vm.getRoleOfLoggedStudent(userId).toString())
         if (vm.getRoleOfLoggedStudent(userId) is Student){
             startActivity(Intent(requireContext(), StudentMainActivity::class.java))
 

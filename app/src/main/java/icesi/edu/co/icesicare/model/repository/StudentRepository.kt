@@ -1,5 +1,6 @@
 package icesi.edu.co.icesicare.model.repository
 
+import android.util.Log
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
@@ -12,7 +13,7 @@ class StudentRepository {
 
         try {
             val docStudent = Firebase.firestore.collection("students")
-                .document(studentId.replace("\"", "")).get().await()
+                .document(studentId).get().await()
 
             val student = docStudent.toObject(Student::class.java)
 
@@ -25,6 +26,7 @@ class StudentRepository {
 
                 student.profileImageURL = url.toString()
             }
+            Log.e("yya", student.toString())
             return student!!
 
         }catch (e : Exception){

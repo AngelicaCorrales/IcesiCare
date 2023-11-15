@@ -6,6 +6,8 @@ import androidx.fragment.app.Fragment
 import icesi.edu.co.icesicare.databinding.ActivityAuthBinding
 import icesi.edu.co.icesicare.view.fragments.SignInFragment
 import icesi.edu.co.icesicare.view.fragments.SignUpFragment
+import icesi.edu.co.icesicare.view.fragments.SignUpPsychFragment
+import icesi.edu.co.icesicare.view.fragments.SignUpStudFragment
 
 
 class AuthActivity : AppCompatActivity() {
@@ -20,6 +22,14 @@ class AuthActivity : AppCompatActivity() {
 
     val signupFragment by lazy {
         SignUpFragment.newInstance()
+    }
+
+    val signupPsychFragment by lazy {
+        SignUpPsychFragment.newInstance()
+    }
+
+    val signupStudFragment by lazy {
+        SignUpStudFragment.newInstance()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

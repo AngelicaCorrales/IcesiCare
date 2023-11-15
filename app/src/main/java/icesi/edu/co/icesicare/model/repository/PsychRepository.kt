@@ -45,7 +45,7 @@ object PsychRepository {
 
         try {
             val docStudent = Firebase.firestore.collection("psychologists")
-                .document(psychologistId.replace("\"", "")).get().await()
+                .document(psychologistId).get().await()
 
             val psychologist = docStudent.toObject(Psychologist::class.java)
 
