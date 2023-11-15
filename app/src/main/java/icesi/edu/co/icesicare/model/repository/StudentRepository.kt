@@ -22,7 +22,7 @@ class StudentRepository {
                 .child("profileImages")
                 .child(it.profileImageId.toString()).downloadUrl.await()
 
-            student.profileImageUrl = url.toString()
+            student.profileImageURL = url.toString()
         }
 
         return student!!

@@ -9,7 +9,7 @@ data class Student (
     var id : String = "",
     var lastname : String = "",
     var name : String = "",
-    var profileImageId : String = "",
-    var profileImageUrl : String = "",
+    var profileImageId : String? = null,
+    var profileImageURL: String? = null,
     var role: String = ""
 )

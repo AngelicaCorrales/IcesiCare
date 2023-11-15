@@ -9,6 +9,6 @@ data class Psychologist(
     var name : String = "",
     var profileImageId : String? = null,
     var profileImageURL : String? = null,
-    var scheduleId : String = "",
-
+    var role : String = "",
+    var scheduleId : String = ""
 )
