@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity() {
     private val binding by lazy {
         ActivityMainBinding.inflate(layoutInflater)
     }
-    private val home= HomeFragment.newInstance()
+    private val homeStud= HomeFragment.newInstance()
     private val schedule= ScheduleFragment.newInstance()
     private val chats= ChatsFragment.newInstance()
     private val profile= ProfileFragment.newInstance()
@@ -33,14 +33,16 @@ class MainActivity : AppCompatActivity() {
             return
         }
 
+        //if (user.uid)
 
-        showFragment(home)
+
+        showFragment(homeStud)
 
 
         binding.navbar.setOnItemSelectedListener {
             when(it.itemId){
                 R.id.homemenu->{
-                    showFragment(home)
+                    showFragment(homeStud)
                 }
                 R.id.schedulemenu->{
                     showFragment(schedule)
