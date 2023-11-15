@@ -30,48 +30,19 @@ class SignUpFragment : Fragment() {
     ): View? {
         binding = FragmentSignUpBinding.inflate(inflater, container, false)
 
-        var genre=""
-        val genreSpinner= binding.genreSpin
-        val genres= arrayOf("Femenino","Masculino","Otro")
-        val arrayAdp=ArrayAdapter(requireContext(), R.layout.genre_list,genres)
-        arrayAdp.setDropDownViewResource(R.layout.genre_list)
-        genreSpinner.adapter=arrayAdp
-
-
-        genreSpinner?.onItemSelectedListener= object : AdapterView.OnItemSelectedListener{
-            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, position: Int, p3: Long) {
-                genre= genres[position]
-            }
-
-            override fun onNothingSelected(p0: AdapterView<*>?) {
-                genre=""
-            }
-
-        }
-
-
         binding.haveAccountLink.setOnClickListener {
             val authActivity = activity as AuthActivity
             authActivity.loadFragment(authActivity.signinFragment)
         }
-        binding.signupBtn.setOnClickListener {
 
-            vm.signup(
-                binding.fullNameET.text.toString(),
-                genre,
-                binding.emailAddrET.text.toString(),
-                binding.passwordET.text.toString()
-            )
+        binding.signupPsychBtn.setOnClickListener {
+            val authActivity = activity as AuthActivity
+            authActivity.loadFragment(authActivity.signupPsychFragment)
         }
 
-        //Observer
-        vm.authStateLV.observe(viewLifecycleOwner){ state ->
-            if(state.isAuth){
-                startActivity(Intent(requireContext(), MainActivity::class.java))
-            }
-        }
-        vm.errorLV.observe(viewLifecycleOwner){error->
-            Toast.makeText(requireContext(), error.message, Toast.LENGTH_SHORT).show()
+        binding.signupStudBtn.setOnClickListener {
+            val authActivity = activity as AuthActivity
+            authActivity.loadFragment(authActivity.signupStudFragment)
         }
 
         return binding.root
