@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import icesi.edu.co.icesicare.R
 import icesi.edu.co.icesicare.activities.AuthActivity
-import icesi.edu.co.icesicare.activities.MainActivity
+import icesi.edu.co.icesicare.activities.StudentMainActivity
 import icesi.edu.co.icesicare.databinding.FragmentSignUpStudBinding
 import icesi.edu.co.icesicare.viewmodel.AuthViewModel
 
@@ -68,7 +68,7 @@ class SignUpStudFragment : Fragment() {
         //Observer
         vm.authStateLV.observe(viewLifecycleOwner){ state ->
             if(state.isAuth){
-                startActivity(Intent(requireContext(), MainActivity::class.java))
+                startActivity(Intent(requireContext(), StudentMainActivity::class.java))
             }
         }
         vm.errorLV.observe(viewLifecycleOwner){error->

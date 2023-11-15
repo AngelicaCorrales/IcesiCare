@@ -13,16 +13,25 @@
         android:theme="@style/Theme.IcesiCare"
         tools:targetApi="31">
         <activity
+            android:name=".activities.StudentMainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activities.PsychologistMainActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.AuthActivity"
             android:exported="false" />
         <activity
             android:name=".activities.ProfileActivity"
-			android:exported="false" />
-		<activity
-            android:name=".activities.AcceptAppointmentActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.ApproveAppointmentActivity"
+            android:name=".activities.AcceptAppointmentActivity"
             android:exported="false" />
         <activity
             android:name=".activities.MakeAppointmentActivity"
@@ -31,21 +40,11 @@
             android:name=".activities.UserAppointmentInfo"
             android:exported="false" />
         <activity
-            android:name=".activities.MainActivity"
-            android:exported="true" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity
             android:name=".view.fragments.SignInFragment"
             android:exported="false" />
         <activity
             android:name=".view.fragments.SignUpFragment"
-            android:exported="false"/>
-
+            android:exported="false" />
 
         <meta-data
             android:name="preloaded_fonts"

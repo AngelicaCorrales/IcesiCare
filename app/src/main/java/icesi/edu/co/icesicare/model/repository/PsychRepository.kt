@@ -6,6 +6,7 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import icesi.edu.co.icesicare.model.entity.Psychologist
+import icesi.edu.co.icesicare.model.entity.Student
 import kotlinx.coroutines.tasks.await
 
 object PsychRepository {
@@ -38,5 +39,29 @@ object PsychRepository {
             }
         }
         psychsLiveData.postValue(psychs)
+    }
+
+    suspend fun getPsychologist(psychologistId : String) : Psychologist {
+
+        try {
+            val docStudent = Firebase.firestore.collection("psychologists")
+                .document(psychologistId).get().await()
+
+            val psychologist = docStudent.toObject(Psychologist::class.java)
+
+            psychologist?.let {
+
+                val url = Firebase.storage.reference
+                    .child("users")
+                    .child("profileImages")
+                    .child(it.profileImageId.toString()).downloadUrl.await()
+
+                psychologist.profileImageURL = url.toString()
+            }
+            return psychologist!!
+
+        }catch (e : Exception){
+            return Psychologist("-1")
+        }
     }
 }

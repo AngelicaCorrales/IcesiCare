@@ -80,8 +80,9 @@
                 android:id="@+id/nameET"
                 android:layout_width="0dp"
                 android:layout_height="48dp"
-                android:layout_marginStart="20dp"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="4dp"
+                android:layout_marginEnd="32dp"
                 android:background="@drawable/input_bg"
                 android:ems="10"
                 android:hint="Ingresa tu nombre"
@@ -92,6 +93,7 @@
                 android:paddingBottom="10dp"
                 android:textColor="@color/black"
                 android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView21" />
             <TextView
@@ -122,6 +124,7 @@
                 android:paddingBottom="10dp"
                 android:textColor="@color/black"
                 android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="@+id/nameET"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView28" />
 
@@ -153,6 +156,7 @@
                 android:paddingBottom="10dp"
                 android:textColor="@color/black"
                 android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="@+id/lastnameET"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView29" />
 
@@ -184,6 +188,7 @@
                 android:paddingBottom="10dp"
                 android:textColor="@color/black"
                 android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="@+id/careerET"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView30" />
 
@@ -234,7 +239,7 @@
 
             <Spinner
                 android:id="@+id/genreSpin"
-                android:layout_width="200dp"
+                android:layout_width="0dp"
                 android:layout_height="48dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="4dp"
@@ -242,6 +247,7 @@
                 android:forceHasOverlappingRendering="false"
                 android:spinnerMode="dropdown"
                 android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="@+id/codeET"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView27" />
 

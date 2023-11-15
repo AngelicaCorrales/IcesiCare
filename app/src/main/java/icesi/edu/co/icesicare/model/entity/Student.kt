@@ -11,5 +11,6 @@ data class Student (
     var name : String = "",
     var profileImageId : String? = null,
     var profileImageURL: String? = null,
-    var email: String
+    var role: String = "",
+    var email: String = ""
 )
