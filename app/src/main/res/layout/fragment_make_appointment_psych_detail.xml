@@ -41,6 +41,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:text="occupation"
+                    android:textColor="@color/black"
                     app:layout_constraintEnd_toEndOf="@+id/textView2"
                     app:layout_constraintStart_toStartOf="@+id/textView2"
                     app:layout_constraintTop_toBottomOf="@+id/textView2" />
@@ -51,6 +52,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:text="Name"
+                    android:textColor="@color/black"
                     app:layout_constraintEnd_toEndOf="@+id/cardView3"
                     app:layout_constraintStart_toStartOf="@+id/cardView3"
                     app:layout_constraintTop_toBottomOf="@+id/cardView3" />
@@ -61,6 +63,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="32dp"
                     android:text="description"
+                    android:textColor="@color/black"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView" />
@@ -74,10 +77,23 @@
                     android:id="@+id/textView6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="WEEKLY CALENDAR"
+                    android:text="Horario"
+                    android:textColor="@color/black"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/weeklyCalendar"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView6">
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
 
                 <TextView
                     android:id="@+id/textView8"
@@ -86,6 +102,7 @@
                     android:layout_marginStart="24dp"
                     android:layout_marginTop="24dp"
                     android:text="Tarde"
+                    android:textColor="@color/black"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/button6" />
 
@@ -94,10 +111,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
-                    android:layout_marginTop="24dp"
                     android:text="Mañana"
+                    android:textColor="@color/black"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView6" />
+                    app:layout_constraintTop_toBottomOf="@+id/weeklyCalendar" />
 
                 <Button
                     android:id="@+id/button5"
@@ -304,6 +321,7 @@
                     android:layout_marginStart="24dp"
                     android:layout_marginTop="8dp"
                     android:text="Escribe el motivo de la consulta"
+                    android:textColor="@color/black"
                     android:textSize="18sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -319,6 +337,7 @@
                     android:gravity="start|top"
                     android:hint="Escribe el motivo de la consulta"
                     android:inputType="textMultiLine"
+                    android:textColorHint="#6C6767"
                     android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.497"
