@@ -10,4 +10,5 @@
     <color name="neutral_white">#FFFEFF</color>
     <color name="gray">#9A89B4</color>
     <color name="dark_gray">#6C6575</color>
+    <color name="home_white">#FDF5FF</color>
 </resources>

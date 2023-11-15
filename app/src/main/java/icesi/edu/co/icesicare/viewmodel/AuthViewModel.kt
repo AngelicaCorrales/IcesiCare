@@ -67,9 +67,14 @@ class AuthViewModel : ViewModel() {
                     authStateLV.value = AuthState(result.user?.uid, true)
                 }
 
-            } catch (e: FirebaseAuthException) {
+            }catch (e: FirebaseAuthException) {
                 withContext(Dispatchers.Main){
                     errorLV.value = ErrorMessage("Error de autenticación")
+                }
+
+            }catch (e: Exception){
+                withContext(Dispatchers.Main){
+                    errorLV.value = ErrorMessage("Credenciales inválidas")
                 }
             }
         }
