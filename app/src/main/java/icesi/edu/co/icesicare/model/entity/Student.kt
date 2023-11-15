@@ -10,5 +10,6 @@ data class Student (
     var lastname : String = "",
     var name : String = "",
     var profileImageId : String? = null,
-    var profileImageURL: String? = null
+    var profileImageURL: String? = null,
+    var email: String
 )
