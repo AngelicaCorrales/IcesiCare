@@ -1,5 +1,17 @@
 <resources>
     <string name="app_name">Icesi Care</string>
-    <!-- TODO: Remove or change this placeholder text -->
+    <string name="detalles_de_cita">Detalles de cita</string>
+    <string name="nombre_del_estudiante">Nombre del estudiante</string>
+    <string name="informaci_n_del_estudiante">Información del estudiante</string>
+    <string name="carrera_del_estudiante">Carrera del estudiante</string>
+    <string name="fecha_de_la_cita">Fecha de la cita</string>
+    <string name="hora_de_la_cita">Hora de la cita</string>
+    <string name="motivo_de_la_consulta">Motivo de la consulta</string>
+    <string name="comentario_de_la_cita">Comentario de la cita</string>
+    <string name="g_nero_del_estudiante">Género del estudiante</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="perfil">Perfil</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+
 </resources>
