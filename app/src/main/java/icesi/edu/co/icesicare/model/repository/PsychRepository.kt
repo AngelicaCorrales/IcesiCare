@@ -24,7 +24,6 @@ object PsychRepository {
             val psych = document.toObject(Psychologist::class.java)
 
             psych?.let {
-                Log.e("DEV",psych.name)
                 psych.profileImageId?.let { it1 -> Log.e("DEV", it1) }
 
                 if(psych.profileImageId != null && psych.profileImageId != "" ){
@@ -49,17 +48,18 @@ object PsychRepository {
 
             val psychologist = docStudent.toObject(Psychologist::class.java)
 
-            /*psychologist?.let {
+            psychologist?.let {
 
-                val url = Firebase.storage.reference
-                    .child("users")
-                    .child("profileImages")
-                    .child(it.profileImageId.toString()).downloadUrl.await()
+                if (it.profileImageId != ""){
+                    val url = Firebase.storage.reference
+                        .child("users")
+                        .child("profileImages")
+                        .child(it.profileImageId.toString()).downloadUrl.await()
 
-                psychologist.profileImageURL = url.toString()
+                    psychologist.profileImageURL = url.toString()
+                }
             }
 
-             */
             return psychologist!!
 
         }catch (e : Exception){

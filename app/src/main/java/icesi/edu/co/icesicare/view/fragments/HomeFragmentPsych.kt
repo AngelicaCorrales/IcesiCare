@@ -6,9 +6,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import icesi.edu.co.icesicare.R
 import icesi.edu.co.icesicare.activities.AcceptAppointmentActivity
 import icesi.edu.co.icesicare.databinding.FragmentHomePsychBinding
+import icesi.edu.co.icesicare.viewmodel.PsychologistViewModel
 
 class HomeFragmentPsych : Fragment() {
 
