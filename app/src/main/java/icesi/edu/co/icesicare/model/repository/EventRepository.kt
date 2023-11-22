@@ -15,6 +15,17 @@ class EventRepository {
 
         val event = docEvent.toObject(Event::class.java)
 
+        event?.let {
+
+            if (it.imageId != ""){
+                val url = Firebase.storage.reference
+                    .child("events")
+                    .child(it.imageId.toString()).downloadUrl.await()
+
+                event.imageURL = url.toString()
+            }
+        }
+
         return event!!
     }
 }
