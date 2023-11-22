@@ -48,7 +48,7 @@ class PsyProfileFragment  : Fragment() {
 
                     psy.profileImageURL?.let { imageUrl ->
                         if (imageUrl.isNotEmpty()) {
-                            Glide.with(this@PsyProfileFragment).load(imageUrl).into(binding.psyProfileImg)
+                            Glide.with(this@PsyProfileFragment).load(imageUrl).into(binding.profileImage)
                         }
                     }
                 }
@@ -99,8 +99,8 @@ class PsyProfileFragment  : Fragment() {
             binding.psyDescr.text = it.description
 
             it.profileImageURL?.let { imageUrl ->
-                if (imageUrl.isNotEmpty()) {
-                    Glide.with(this@PsyProfileFragment).load(imageUrl).into(binding.psyProfileImg)
+                if (imageUrl != "") {
+                    Glide.with(this@PsyProfileFragment).load(imageUrl).into(binding.profileImage)
                 }
             }
         }

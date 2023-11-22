@@ -40,7 +40,10 @@ class StudentProfileFragment: Fragment() {
             binding.profileName.text = name
             binding.profileAge.text = age
             binding.profileCareer.text = it.career
-            Glide.with(this).load(it.profileImageURL).into(binding.profileImage)
+
+            if(it.profileImageURL != ""){
+                Glide.with(this).load(it.profileImageURL).into(binding.profileImage)
+            }
         }
 
         binding.logoutBtn.setOnClickListener {
