@@ -21,7 +21,7 @@ class PsychologistMainActivity : AppCompatActivity() {
         ActivityPsychologistMainBinding.inflate(layoutInflater)
     }
 
-    private val homeStud= HomeFragmentPsych.newInstance()
+    private val homePsy= HomeFragmentPsych.newInstance()
     private val schedule= ScheduleFragment.newInstance()
     private val chats= ChatsFragment.newInstance()
     private val profile= PsyProfileFragment.newInstance()
@@ -37,12 +37,12 @@ class PsychologistMainActivity : AppCompatActivity() {
             return
         }
 
-        showFragment(homeStud)
+        showFragment(homePsy)
 
         binding.navbar.setOnItemSelectedListener {
             when(it.itemId){
                 R.id.homemenu->{
-                    showFragment(homeStud)
+                    showFragment(homePsy)
                 }
                 R.id.schedulemenu->{
                     showFragment(schedule)

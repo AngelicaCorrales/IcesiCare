@@ -56,7 +56,6 @@
         android:drawableTop="@drawable/ticket"
         android:drawablePadding="10dp"
         android:drawableTint="@color/purple"
-        android:enabled="false"
         android:gravity="center_horizontal"
         android:paddingTop="24dp"
         android:text="Eventos"
