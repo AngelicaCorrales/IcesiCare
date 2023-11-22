@@ -9,17 +9,20 @@ import icesi.edu.co.icesicare.databinding.ChatsFragmentBinding
 
 class ChatsFragment: Fragment() {
 
+    private lateinit var binding: ChatsFragmentBinding
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding: ChatsFragmentBinding=ChatsFragmentBinding.inflate(inflater,container,false)
+        binding = ChatsFragmentBinding.inflate(inflater,container,false)
 
         return binding.root
     }
 
     companion object{
+        @JvmStatic
         fun newInstance():ChatsFragment{
             return ChatsFragment()
         }

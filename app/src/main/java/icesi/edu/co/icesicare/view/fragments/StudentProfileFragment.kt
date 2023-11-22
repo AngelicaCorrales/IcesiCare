@@ -13,19 +13,21 @@ import com.bumptech.glide.Glide
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import icesi.edu.co.icesicare.activities.AuthActivity
+import icesi.edu.co.icesicare.databinding.FragmentHomeStudBinding
 import icesi.edu.co.icesicare.databinding.StudentProfileFragmentBinding
 import icesi.edu.co.icesicare.viewmodel.StudentProfileViewModel
 
 class StudentProfileFragment: Fragment() {
 
     private val viewModel : StudentProfileViewModel by viewModels()
+    private lateinit var binding: StudentProfileFragmentBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val binding: StudentProfileFragmentBinding = StudentProfileFragmentBinding.inflate(inflater,container,false)
+        binding = StudentProfileFragmentBinding.inflate(inflater,container,false)
 
         viewModel.getStudent(Firebase.auth.currentUser?.uid.toString())
         viewModel.studentLV.observe(viewLifecycleOwner){
@@ -58,6 +60,7 @@ class StudentProfileFragment: Fragment() {
     }
 
     companion object{
+        @JvmStatic
         fun newInstance():StudentProfileFragment{
             return StudentProfileFragment()
         }
