@@ -39,7 +39,7 @@
                     android:id="@+id/imageStudentIV"
                     android:layout_width="85dp"
                     android:layout_height="85dp"
-                    app:srcCompat="@drawable/ic_launcher_background" />
+                    app:srcCompat="@drawable/default_profile_img" />
             </androidx.cardview.widget.CardView>
 
             <TextView
@@ -88,7 +88,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
+                android:layout_marginBottom="16dp"
                 android:background="@drawable/reject_button_background"
                 android:capitalize="none"
                 android:fontFamily="@font/roboto_medium"
@@ -108,7 +108,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
-                android:layout_marginBottom="8dp"
+                android:layout_marginBottom="16dp"
                 android:background="@drawable/accept_button_background"
                 android:capitalize="none"
                 android:fontFamily="@font/roboto_medium"
