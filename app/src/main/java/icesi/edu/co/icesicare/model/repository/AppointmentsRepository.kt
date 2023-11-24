@@ -21,21 +21,20 @@ object AppointmentsRepository {
     //This will overwrite psychAppts data
     suspend fun fetchAppointmentsForPsychologist(psychId: String, isAccepted:Boolean, isCanceled:Boolean){
         try {
+            appts.clear()
+            studRelatedAppt.clear()
             val result = Firebase.firestore
                 .collection("appointments")
                 .whereEqualTo("psychologistId",psychId)
                 .whereEqualTo("isAccepted",isAccepted)
                 .whereEqualTo("isCanceled",isCanceled)
                 .get().await()
-            Log.e(">>>","Fetch called")
-            appts.clear()
             result.documents.forEach {document ->
                 val appt = document.toObject(Appointment::class.java)
 
                 appt?.let {
                     appts.add(it)
                     fetchStudentForAppt(appt.studentId)
-                    Log.e(">>>",appt.motive)
                 }
             }
 
@@ -56,13 +55,11 @@ object AppointmentsRepository {
         val student = document.toObject(Student::class.java)
 
         student?.let {
-            Log.e(">>>",student.name)
             if(it.profileImageId != null && it.profileImageId != "" ){
                 val url= Firebase.storage.reference
                     .child("users")
                     .child("profileImages")
                     .child(it.profileImageId!!).downloadUrl.await()
-                Log.e(">>>",url.toString())
                 it.profileImageURL = url.toString()
             }
             studRelatedAppt[studentId] = it
