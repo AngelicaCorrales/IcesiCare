@@ -29,6 +29,7 @@ class AuthViewModel : ViewModel() {
     val authStateLV = MutableLiveData<AuthState>()
     val errorLV = MutableLiveData<ErrorMessage>()
     val user = MutableLiveData<Any?>()
+    val isAdmin = MutableLiveData<Boolean?>()
 
     private var studentRepository: StudentRepository = StudentRepository()
 
@@ -178,36 +179,35 @@ class AuthViewModel : ViewModel() {
     }
 
     private fun validatePasswords(password: String, confirmPass : String) : Boolean{
-
-        var verifyPass = true
-
-        if (password != confirmPass){
-            verifyPass = false
-        }
-
-        return verifyPass
+        return password == confirmPass
     }
 
-    fun getRoleOfLoggedStudent(userId : String) {
-
+    fun getRoleOfLoggedUser(userId : String) {
         viewModelScope.launch(Dispatchers.IO) {
-            var student: Student? = null
-            var psychologist: Psychologist? = null
 
-            student = studentRepository.getStudent(userId)
+            val student: Student? = studentRepository.getStudent(userId)
 
-            if (student.age == -1){
-                psychologist = PsychRepository.getPsychologist(userId)
+            if(student != null){
+                withContext(Dispatchers.Main){
+                    user.value = student
+                }
+            }
+            else{
+                val psychologist: Psychologist? = PsychRepository.getPsychologist(userId)
 
-                if (psychologist.description != "-1"){
+                if (psychologist != null){
                     withContext(Dispatchers.Main){
                         user.value = psychologist
                     }
                 }
-
-            }else{
-                withContext(Dispatchers.Main){
-                    user.value = student
+                else{
+                    authStateLV.value?.isAuth?.let{isAuth ->
+                        if(isAuth){
+                            withContext(Dispatchers.Main){
+                                isAdmin.value = true
+                            }
+                        }
+                    }
                 }
             }
         }

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="event_categories">
+        <item>Taller</item>
+        <item>Concierto</item>
+        <item>Charla</item>
+        <item>Actividad Deportiva</item>
+        <item>Otro</item>
+    </string-array>
+</resources>

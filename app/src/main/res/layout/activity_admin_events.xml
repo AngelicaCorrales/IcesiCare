@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".activities.MakeAppointmentActivity">
+    tools:context=".activities.AdminEventsActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/navbarContainer"
@@ -29,20 +29,6 @@
             android:tint="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/psychTV"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
-            android:text="Psicólogos"
-            android:textColor="@color/black"
-            android:textSize="22sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/backBtn"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageButton
@@ -94,7 +80,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/makeApptFragmentContainer"
+        android:id="@+id/adminEventsFragmentContainer"
         android:layout_width="409dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"

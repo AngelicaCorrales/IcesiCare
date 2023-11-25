@@ -12,12 +12,19 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.IcesiCare"
         tools:targetApi="31">
-        <activity android:name=".activities.PsyProfileActivity">
-        </activity>
+        <activity
+            android:name=".activities.AdminEventsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.AdminPsychologistsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.AdminMainActivity"
+            android:exported="false" />
+        <activity android:name=".activities.PsyProfileActivity" />
         <activity
             android:name=".activities.StudentMainActivity"
-            android:exported="false">
-        </activity>
+            android:exported="false" />
         <activity
             android:name=".activities.PsychologistMainActivity"
             android:exported="false" />
