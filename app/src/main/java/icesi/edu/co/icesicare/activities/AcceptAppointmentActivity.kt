@@ -3,6 +3,7 @@ package icesi.edu.co.icesicare.activities
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import icesi.edu.co.icesicare.R
 import icesi.edu.co.icesicare.databinding.ActivityAcceptAppointmentBinding
 import icesi.edu.co.icesicare.view.fragments.AcceptAppointmentFragment
@@ -25,6 +26,13 @@ class AcceptAppointmentActivity : AppCompatActivity() {
             this.finish()
         }
         showFragment()
+    }
+
+    fun changeProgressBarVisibility(isVisible:Boolean){
+        if(isVisible)
+            binding.acAptProgressBar.visibility = View.VISIBLE
+        else
+            binding.acAptProgressBar.visibility = View.GONE
     }
 
     fun showFragment(){
