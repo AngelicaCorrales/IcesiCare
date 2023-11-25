@@ -1,6 +1,6 @@
-package icesi.edu.co.icesicare.model.dto
+package icesi.edu.co.icesicare.model.dto.out
 
-data class ChatDTO(
+data class ChatOutDTO(
 
     var usrName : String = "",
     var usrImage : String = "",

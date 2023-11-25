@@ -8,6 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import icesi.edu.co.icesicare.databinding.FragmentStudentChatBinding
 import icesi.edu.co.icesicare.view.adapters.ChatAdapter
 import icesi.edu.co.icesicare.viewmodel.StudentChatsViewModel
@@ -26,7 +28,7 @@ class StudentChatFragment : Fragment() {
         binding = FragmentStudentChatBinding.inflate(inflater, container, false)
 
         adapter = ChatAdapter()
-        viewModel.getChats()
+        viewModel.getChats(Firebase.auth.currentUser!!.uid)
 
         viewModel.chatSLV.observe(viewLifecycleOwner){
             adapter.addChat(it)
