@@ -7,7 +7,7 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -16,57 +16,63 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="409dp"
-                android:layout_height="300dp">
+                android:layout_height="wrap_content"
+                android:paddingBottom="16dp">
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cardView3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="32dp"
+                    app:cardBackgroundColor="#D0D2D3"
                     app:cardCornerRadius="12dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
                     <ImageView
-                        android:id="@+id/imageView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_launcher_background" />
+                        android:id="@+id/imagePsycIV"
+                        android:layout_width="96dp"
+                        android:layout_height="96dp"
+                        android:src="@drawable/default_profile_img" />
                 </androidx.cardview.widget.CardView>
 
                 <TextView
-                    android:id="@+id/textView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:text="occupation"
-                    android:textColor="@color/black"
-                    app:layout_constraintEnd_toEndOf="@+id/textView2"
-                    app:layout_constraintStart_toStartOf="@+id/textView2"
-                    app:layout_constraintTop_toBottomOf="@+id/textView2" />
-
-                <TextView
-                    android:id="@+id/textView2"
+                    android:id="@+id/namePsycTV"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:text="Name"
                     android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="@+id/cardView3"
                     app:layout_constraintStart_toStartOf="@+id/cardView3"
                     app:layout_constraintTop_toBottomOf="@+id/cardView3" />
 
                 <TextView
-                    android:id="@+id/textView3"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/descriptionPsycTV"
+                    android:layout_width="300dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="32dp"
+                    android:layout_marginTop="24dp"
+                    android:gravity="center"
                     android:text="description"
                     android:textColor="@color/black"
+                    android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView" />
+                    app:layout_constraintTop_toBottomOf="@+id/rolePsycTV" />
+
+                <TextView
+                    android:id="@+id/rolePsycTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Psicólogo"
+                    android:textColor="#6C6575"
+                    app:layout_constraintEnd_toEndOf="@+id/namePsycTV"
+                    app:layout_constraintStart_toStartOf="@+id/namePsycTV"
+                    app:layout_constraintTop_toBottomOf="@+id/namePsycTV" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -77,9 +83,11 @@
                     android:id="@+id/textView6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
                     android:text="Horario"
                     android:textColor="@color/black"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -103,6 +111,8 @@
                     android:layout_marginTop="24dp"
                     android:text="Tarde"
                     android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/button6" />
 
@@ -113,6 +123,8 @@
                     android:layout_marginStart="24dp"
                     android:text="Mañana"
                     android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/weeklyCalendar" />
 
@@ -312,7 +324,8 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:paddingBottom="24dp">
 
                 <TextView
                     android:id="@+id/textView7"
@@ -323,11 +336,12 @@
                     android:text="Escribe el motivo de la consulta"
                     android:textColor="@color/black"
                     android:textSize="18sp"
+                    android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <EditText
-                    android:id="@+id/editTextTextMultiLine"
+                    android:id="@+id/motiveDescTV"
                     android:layout_width="0dp"
                     android:layout_height="100dp"
                     android:layout_marginStart="24dp"
@@ -345,7 +359,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
                 <Button
-                    android:id="@+id/button"
+                    android:id="@+id/makeAppoBtn"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
@@ -358,7 +372,7 @@
                     android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/editTextTextMultiLine" />
+                    app:layout_constraintTop_toBottomOf="@+id/motiveDescTV" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
