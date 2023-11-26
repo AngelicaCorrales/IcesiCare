@@ -13,5 +13,6 @@ class AdminEventViewHolder(root: View) : ViewHolder(root){
     val eventHoursTV = binding.eventHoursTV
     val deleteEventBtn = binding.deleteEventBtn
     val editEventBtn = binding.editEventBtn
-    val backgroundCL = binding.backgroundCL
+    val eventImgView = binding.eventImgView
+    val topRelLayout = binding.topRelLayout
 }
