@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.google.firebase.firestore.FieldPath
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import icesi.edu.co.icesicare.model.entity.Appointment
 import icesi.edu.co.icesicare.model.entity.Appointments
 import icesi.edu.co.icesicare.model.repository.FirebaseRepository
 import kotlinx.coroutines.Dispatchers
@@ -22,7 +23,7 @@ class AppointmentsListViewModel : ViewModel() {
 //solo el viewModel puede guardar datos.
     private var firebaseRepository = FirebaseRepository()
 
-    val appointmentsListLiveData = MutableLiveData<ArrayList<Appointments>>()
+    val appointmentsListLiveData = MutableLiveData<ArrayList<Appointment>>()
     private var currentMonth = 1;
     private var studentId = "UjZ9bvrXxCexOXvFV2nF"
 
@@ -34,6 +35,7 @@ class AppointmentsListViewModel : ViewModel() {
                 appointmentsListLiveData.value = appointmentsList
             }
         }
+
     }
 
     fun setMonth(month:Int){
@@ -44,8 +46,8 @@ class AppointmentsListViewModel : ViewModel() {
 
 }
 data class AppointmentData(
-    val type:String,
-    val appointments: String
+    val date: Date= Date(),
+    val PsychologistName: String
 )
 
 

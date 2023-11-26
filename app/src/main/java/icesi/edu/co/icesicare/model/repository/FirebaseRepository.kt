@@ -4,6 +4,7 @@ import android.util.Log
 import com.google.firebase.firestore.FieldPath
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import icesi.edu.co.icesicare.model.entity.Appointment
 import icesi.edu.co.icesicare.model.entity.Appointments
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.tasks.await
@@ -14,8 +15,8 @@ import java.util.Date
 
 class FirebaseRepository {
 
-    suspend fun getAppointmentsForStudent(studentId: String, month : Int): ArrayList<Appointments> {
-        val appointmentsList = ArrayList<Appointments>()
+    suspend fun getAppointmentsForStudent(studentId: String, month : Int): ArrayList<Appointment> {
+        val appointmentsList = ArrayList<Appointment>()
 
         try {
 
@@ -31,7 +32,7 @@ class FirebaseRepository {
                     .document(it)
                     .get()
                     .await()
-                val appointment = appointmentsQuery.toObject(Appointments::class.java)
+                val appointment = appointmentsQuery.toObject(Appointment::class.java)
                 appointment?.let { app ->
                     if (getMonthFromDate(appointment.date,month)) {
                         appointmentsList.add(app)
