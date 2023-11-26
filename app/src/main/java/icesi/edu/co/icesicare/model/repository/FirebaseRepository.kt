@@ -5,7 +5,7 @@ import com.google.firebase.firestore.FieldPath
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import icesi.edu.co.icesicare.model.entity.Appointment
-import icesi.edu.co.icesicare.model.entity.Appointments
+import icesi.edu.co.icesicare.model.entity.Psychologist
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
@@ -56,5 +56,14 @@ class FirebaseRepository {
             isValid = true
         }
         return isValid
+    }
+
+    suspend fun gePsychologistAppointment(psychologistId: String): Psychologist {
+        val appointmentsQuery = Firebase.firestore.collection("psychologists")
+            .document(psychologistId)
+            .get()
+            .await()
+        val appointment = appointmentsQuery.toObject(Psychologist::class.java)
+        return appointment!!
     }
 }

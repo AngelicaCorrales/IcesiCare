@@ -7,13 +7,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import icesi.edu.co.icesicare.R
 import icesi.edu.co.icesicare.model.entity.Appointment
-import icesi.edu.co.icesicare.model.entity.Appointments
+import icesi.edu.co.icesicare.viewmodel.AppointmentData
 import icesi.edu.co.icesicare.viewmodel.ElementAppointmentView
 import java.text.SimpleDateFormat
 import java.util.Date
 
 class AppointmentsAdapter : RecyclerView.Adapter<ElementAppointmentView>(){
-    val appointments = ArrayList<Appointment>()
+    val appointments = ArrayList<AppointmentData>()
 
 
     //    Construye los esqueletos de los items de la lista
@@ -35,18 +35,17 @@ class AppointmentsAdapter : RecyclerView.Adapter<ElementAppointmentView>(){
     //    Carga los datos en los esqueletos
     override fun onBindViewHolder(holder: ElementAppointmentView, position: Int) {
         val data = appointments[position]
-        holder.namePsychologist.text = data.psychologistId
-        holder.hourText.text = "12"
-            //formatDay(data.date)
+        holder.namePsychologist.text = data.PsychologistName
+        holder.hourText.text = formatDay(data.date)
 
     }
 
-    fun addItem(appointment: Appointment){
+    fun addItem(appointment: AppointmentData){
         appointments.add(appointment)
         notifyDataSetChanged()
     }
 
-    fun addAppoinmentsList(appointmentList : ArrayList<Appointment>) {
+    fun addAppoinmentsList(appointmentList : ArrayList<AppointmentData>) {
         Log.e(">>>", "adapter add ")
         appointments.clear()
         appointments.addAll(appointmentList)
@@ -55,10 +54,8 @@ class AppointmentsAdapter : RecyclerView.Adapter<ElementAppointmentView>(){
 
     @SuppressLint("SimpleDateFormat")
     fun formatDay(date : Date) : String{
-        date.hours = date.hours - 5
-        val formatDay = SimpleDateFormat("dd/MM/yyyy")
-
-        return formatDay.format(date)
+        val formatHour = SimpleDateFormat("HH:mm")
+        return formatHour.format(date)
     }
 
 
