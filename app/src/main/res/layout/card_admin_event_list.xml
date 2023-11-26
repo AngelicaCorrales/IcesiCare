@@ -21,7 +21,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout"
+            android:id="@+id/backgroundCL"
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:background="@mipmap/ic_launcher">
@@ -36,7 +36,7 @@
                 app:layout_constraintStart_toStartOf="parent">
 
                 <TextView
-                    android:id="@+id/namePsychTV"
+                    android:id="@+id/eventNameTV"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -49,25 +49,25 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/descriptionPsychTV"
+                    android:id="@+id/eventCatLocTV"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/roboto_medium"
                     android:text="Categoria - Ubicacion"
                     android:textColor="@color/dark_gray"
                     android:textSize="15sp"
-                    app:layout_constraintStart_toStartOf="@+id/namePsychTV"
-                    app:layout_constraintTop_toBottomOf="@+id/namePsychTV" />
+                    app:layout_constraintStart_toStartOf="@+id/eventNameTV"
+                    app:layout_constraintTop_toBottomOf="@+id/eventNameTV" />
 
                 <TextView
-                    android:id="@+id/textView20"
+                    android:id="@+id/eventHoursTV"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="4dp"
                     android:text="00:00"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/descriptionPsychTV"
-                    app:layout_constraintTop_toBottomOf="@+id/descriptionPsychTV" />
+                    app:layout_constraintStart_toStartOf="@+id/eventCatLocTV"
+                    app:layout_constraintTop_toBottomOf="@+id/eventCatLocTV" />
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="40dp"
@@ -80,7 +80,7 @@
                     app:layout_constraintEnd_toEndOf="parent">
 
                     <ImageButton
-                        android:id="@+id/imageButton"
+                        android:id="@+id/editEventBtn"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="#00FFFFFF"
@@ -111,27 +111,29 @@
                         android:layout_height="match_parent">
 
                         <TextView
-                            android:id="@+id/textView26"
+                            android:id="@+id/eventDayTV"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
+                            android:layout_marginTop="5dp"
                             android:fontFamily="@font/roboto_medium"
                             android:text="26"
                             android:textStyle="bold"
-                            app:layout_constraintBottom_toTopOf="@+id/textView34"
-                            app:layout_constraintTop_toTopOf="parent"
-                            tools:layout_editor_absoluteX="17dp" />
+                            app:layout_constraintBottom_toTopOf="@+id/eventMonthTV"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
                         <TextView
-                            android:id="@+id/textView34"
+                            android:id="@+id/eventMonthTV"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="4dp"
+                            android:layout_marginBottom="5dp"
                             android:fontFamily="@font/roboto_medium"
                             android:text="Sep"
                             app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/textView26"
-                            tools:layout_editor_absoluteX="13dp" />
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/eventDayTV" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -146,7 +148,7 @@
                     app:layout_constraintTop_toTopOf="parent">
 
                     <ImageButton
-                        android:id="@+id/imageButton2"
+                        android:id="@+id/deleteEventBtn"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="#00FFFFFF"
