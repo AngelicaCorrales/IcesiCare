@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import icesi.edu.co.icesicare.activities.AuthActivity
 import icesi.edu.co.icesicare.activities.PsychologistMainActivity
 import icesi.edu.co.icesicare.activities.StudentMainActivity
@@ -34,6 +36,21 @@ class SignInFragment : Fragment() {
                 binding.emailET.text.toString(),
                 binding.passET.text.toString()
             )
+        }
+
+        binding.recoverPassLink.setOnClickListener {
+            if (binding.emailET.text.toString() == ""){
+                Toast.makeText(requireContext(), "Por favor ingrese su correo para recuperar su contraseña", Toast.LENGTH_SHORT).show()
+
+            }else{
+                Firebase.auth.sendPasswordResetEmail(binding.emailET.text.toString())
+                    .addOnSuccessListener {
+                        Toast.makeText(requireContext(), "Revise su correo: "+binding.emailET.text.toString(), Toast.LENGTH_SHORT).show()
+
+                    }.addOnFailureListener {
+                        Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
+                    }
+            }
         }
 
         //Observer

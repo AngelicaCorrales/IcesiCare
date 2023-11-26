@@ -12,7 +12,22 @@ import kotlinx.coroutines.tasks.await
 object PsychRepository {
 
     private val psychs = arrayListOf<Psychologist>()
+    private val filteredPsychs = arrayListOf<Psychologist>()
     val psychsLiveData = MutableLiveData<ArrayList<Psychologist>>(psychs)
+
+    fun filterPsychsByName(name:String){
+        filteredPsychs.clear()
+        for(p in psychs){
+            if(p.name.contains(name,true))
+                filteredPsychs.add(p)
+        }
+        psychsLiveData.postValue(filteredPsychs)
+    }
+
+    fun clearFilter(){
+        psychsLiveData.postValue(psychs)
+        filteredPsychs.clear()
+    }
 
     suspend fun fetchAllPsychs(){
         psychs.clear()
@@ -24,15 +39,11 @@ object PsychRepository {
             val psych = document.toObject(Psychologist::class.java)
 
             psych?.let {
-                Log.e("DEV",psych.name)
-                psych.profileImageId?.let { it1 -> Log.e("DEV", it1) }
-
                 if(psych.profileImageId != null && psych.profileImageId != "" ){
                     val url= Firebase.storage.reference
                         .child("users")
                         .child("profileImages")
                         .child(psych.profileImageId!!).downloadUrl.await()
-                    Log.e(">>>",url.toString())
                     psych.profileImageURL = url.toString()
                 }
                 psychs.add(psych)
@@ -49,17 +60,18 @@ object PsychRepository {
 
             val psychologist = docStudent.toObject(Psychologist::class.java)
 
-            /*psychologist?.let {
+            psychologist?.let {
 
-                val url = Firebase.storage.reference
-                    .child("users")
-                    .child("profileImages")
-                    .child(it.profileImageId.toString()).downloadUrl.await()
+                if (it.profileImageId != ""){
+                    val url = Firebase.storage.reference
+                        .child("users")
+                        .child("profileImages")
+                        .child(it.profileImageId.toString()).downloadUrl.await()
 
-                psychologist.profileImageURL = url.toString()
+                    psychologist.profileImageURL = url.toString()
+                }
             }
 
-             */
             return psychologist!!
 
         }catch (e : Exception){
@@ -78,14 +90,12 @@ object PsychRepository {
             val psy = documentSnapshot.toObject(Psychologist::class.java)
 
             psy?.let {
-                Log.e("DEV", "Role: ${psy.role}, Name: ${psy.name}, Email: ${psy.email}, Genre: ${psy.genre}, Description: ${psy.description}, ProfileImageId: ${psy.profileImageId}")
 
                 if (psy.profileImageId != null && psy.profileImageId != "") {
                     val url = Firebase.storage.reference
                         .child("users")
                         .child("profileImages")
                         .child(psy.profileImageId!!).downloadUrl.await()
-                    Log.e(">>>", url.toString())
                     psy.profileImageURL = url.toString()
                 }
             }

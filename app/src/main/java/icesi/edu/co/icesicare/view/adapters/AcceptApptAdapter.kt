@@ -5,22 +5,19 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import icesi.edu.co.icesicare.R
-import icesi.edu.co.icesicare.activities.AcceptAppointmentActivity
-import icesi.edu.co.icesicare.activities.MakeAppointmentActivity
-import icesi.edu.co.icesicare.model.entity.Appointment
 import icesi.edu.co.icesicare.model.repository.AppointmentsRepository
-import icesi.edu.co.icesicare.model.repository.PsychRepository
 import icesi.edu.co.icesicare.view.fragments.AcceptAppointmentFragment
 import icesi.edu.co.icesicare.viewholder.AcceptApptViewHolder
-import icesi.edu.co.icesicare.viewholder.PsychViewHolder
+import java.time.LocalDateTime
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
+import java.util.Locale
 
-class AcceptApptAdapter : RecyclerView.Adapter<AcceptApptViewHolder> {
 
-    private lateinit var parentFragment: AcceptAppointmentFragment
+class AcceptApptAdapter(fragment: AcceptAppointmentFragment) :
+    RecyclerView.Adapter<AcceptApptViewHolder>() {
 
-    constructor(fragment:AcceptAppointmentFragment):super(){
-        parentFragment = fragment
-    }
+    private var parentFragment: AcceptAppointmentFragment = fragment
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AcceptApptViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.accept_appt_card, parent, false)
@@ -38,7 +35,13 @@ class AcceptApptAdapter : RecyclerView.Adapter<AcceptApptViewHolder> {
 
             holder.motiveTV.text = apptIt.motive
 
-            holder.dateTV.text = apptIt.date.toString()
+            val dateFormat = DateTimeFormatter.ofPattern("dd \'de\' MMMM yyyy HH:mm",
+                Locale("es", "CO"))
+
+            val date = apptIt.date
+            val dateAsLocalDateTime: LocalDateTime = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime()
+
+            holder.dateTV.text = dateAsLocalDateTime.format(dateFormat).toString()
 
             holder.rejectBtn.setOnClickListener{
                 parentFragment.updateAppointment(apptIt.id,isAccepted = false,isCanceled = true)
@@ -54,7 +57,7 @@ class AcceptApptAdapter : RecyclerView.Adapter<AcceptApptViewHolder> {
                 val fullName:String = it.name + " " + it.lastname
                 holder.nameStudentTV.text = fullName
 
-                if(student.profileImageURL != null){
+                if(student.profileImageURL != null && student.profileImageURL != ""){
                     Glide.with(parentFragment).load(it.profileImageURL).into(holder.imageStudentIV)
                 }
 

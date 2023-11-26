@@ -6,7 +6,7 @@ import icesi.edu.co.icesicare.databinding.FragmentPsyProfileBinding
 
 class PsyProfileViewHolder(root:View) : ViewHolder(root){
     private val binding = FragmentPsyProfileBinding.bind(root)
-    val psyProfileImg = binding.psyProfileImg
+    val psyProfileImg = binding.profileImage
     val psyEmail = binding.psyEmail
     val psyName = binding.psyName
     val psyGenre = binding.psyGenre
