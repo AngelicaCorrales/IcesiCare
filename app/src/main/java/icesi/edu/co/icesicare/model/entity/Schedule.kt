@@ -3,10 +3,10 @@ package icesi.edu.co.icesicare.model.entity
 data class Schedule (
     var psychologistId : String = "",
     var scheduleId : String = "",
-    var schedules: Map<String, DaySchedule> = emptyMap()
+    var schedules: Map<String, Schedule> = emptyMap()
 )
 
-data class DaySchedule(
+data class Schedules(
     var id: String = "",
     var day: String = "",
     var startHour: String = "",

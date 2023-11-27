@@ -102,14 +102,7 @@ class EditPsyScheduleFragment  : Fragment() {
     }
 
     private fun updateTimesForSelectedDay(selectedDay: String) {
-        val daySchedule = schedule?.schedules?.get(selectedDay)
-        if (daySchedule != null) {
-            binding.fromTimeTextView.text = daySchedule.startHour
-            binding.toTimeTextView.text = daySchedule.endHour
-        } else {
-            binding.fromTimeTextView.text = "--:--"
-            binding.toTimeTextView.text = "--:--"
-        }
+
     }
 
     private fun fromOpenTimePicker() {

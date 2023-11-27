@@ -5,6 +5,7 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import icesi.edu.co.icesicare.model.entity.Psychologist
 import icesi.edu.co.icesicare.model.entity.Schedule
+import icesi.edu.co.icesicare.model.entity.Schedules
 import kotlinx.coroutines.tasks.await
 object ScheduleRepository {
 
@@ -14,6 +15,13 @@ object ScheduleRepository {
         val newScheduleRef = firebaseFirestore.collection("schedule").document()
         val newSchedule = Schedule(psychologistId = psychologistId, scheduleId = newScheduleRef.id)
         newScheduleRef.set(newSchedule).await()
+
+        val days = listOf("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday")
+        days.forEach { day ->
+            val daySchedule = Schedules(day = day, startHour = "", endHour = "")
+            newScheduleRef.collection("schedules").document(day).set(daySchedule).await()
+        }
+
         return newScheduleRef.id
     }
 
