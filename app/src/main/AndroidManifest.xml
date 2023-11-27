@@ -12,7 +12,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.IcesiCare"
         tools:targetApi="31">
-        <activity android:name=".activities.PsyProfileActivity">
+        <activity android:name=".activities.PsyProfileActivity"
+            android:theme="@style/Theme.Material3.DayNight.NoActionBar">
         </activity>
         <activity
             android:name=".activities.StudentMainActivity"
