@@ -31,7 +31,7 @@ class EventRepository {
         return event!!
     }
 
-    suspend fun getAllEvents():List<Event>{
+    suspend fun getAllEvents():MutableList<Event>{
         val result = Firebase.firestore.collection("events").get().await()
 
         val events = arrayListOf<Event>()
@@ -51,5 +51,23 @@ class EventRepository {
         }
 
         return events
+    }
+
+    suspend fun deleteEvent(eventId: String) {
+        val docEvent = Firebase.firestore.collection("events")
+            .document(eventId).get().await()
+        val event = docEvent.toObject(Event::class.java)
+
+        event?.let {
+            if(it.imageId != ""){
+                Firebase.storage.reference
+                    .child("events")
+                    .child(it.imageId).delete().await()
+            }
+        }
+
+        //TODO buscar en los usuarios los eventos guardados y eliminar el id de ahi
+
+        docEvent.reference.delete()
     }
 }

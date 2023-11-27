@@ -10,13 +10,15 @@ import com.bumptech.glide.Glide
 import icesi.edu.co.icesicare.R
 import icesi.edu.co.icesicare.activities.AdminEventsActivity
 import icesi.edu.co.icesicare.model.entity.Event
+import icesi.edu.co.icesicare.view.fragments.AdminEventsListFragment
 import icesi.edu.co.icesicare.viewholder.AdminEventViewHolder
 import java.time.ZoneId
 
 
-class AdminEventAdapter(activity:AdminEventsActivity) : RecyclerView.Adapter<AdminEventViewHolder>() {
+class AdminEventAdapter(activity:AdminEventsActivity, fragment: AdminEventsListFragment) : RecyclerView.Adapter<AdminEventViewHolder>() {
 
     private val parentActivity:AdminEventsActivity = activity
+    private val parentFragment:AdminEventsListFragment = fragment
 
     var events : List<Event> = arrayListOf()
         set(value){
@@ -57,19 +59,29 @@ class AdminEventAdapter(activity:AdminEventsActivity) : RecyclerView.Adapter<Adm
 
         holder.eventCatLocTV.text = event.category.plus(" - ").plus(event.space)
 
+        val layoutParams = holder.topRelLayout.layoutParams
+
         if(event.imageURL != ""){
             Glide.with(parentActivity).load(event.imageURL).into(holder.eventImgView)
             holder.eventImgView.visibility = View.VISIBLE
-            val layoutParams = holder.topRelLayout.layoutParams
             layoutParams.height = 363.toPx
-            holder.topRelLayout.layoutParams = layoutParams
         }
         else{
             holder.eventImgView.setImageDrawable(null)
             holder.eventImgView.visibility = View.GONE
-            val layoutParams = holder.topRelLayout.layoutParams
             layoutParams.height = 82.toPx
-            holder.topRelLayout.layoutParams = layoutParams
+        }
+
+        holder.topRelLayout.layoutParams = layoutParams
+
+        // Buttons
+
+        holder.deleteEventBtn.setOnClickListener{
+            parentFragment.promptDeleteConfirmation(event)
+        }
+
+        holder.editEventBtn.setOnClickListener{
+
         }
     }
 

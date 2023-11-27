@@ -1,16 +1,17 @@
 package icesi.edu.co.icesicare.activities
 
+import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.SearchView
 import androidx.fragment.app.Fragment
 import icesi.edu.co.icesicare.R
 import icesi.edu.co.icesicare.databinding.ActivityAdminEventsBinding
-import icesi.edu.co.icesicare.databinding.FragmentAdminEventsListBinding
 import icesi.edu.co.icesicare.view.fragments.AdminEventsAddUpdateFragment
 import icesi.edu.co.icesicare.view.fragments.AdminEventsListFragment
 
@@ -39,11 +40,6 @@ class AdminEventsActivity : AppCompatActivity() {
             imm.showSoftInput(binding.admEvntSearchView, 0)
         }
 
-        //Only works when query is not empty due to null check in the implementation of SearchView
-        binding.admEvntSearchView.setOnSearchClickListener{
-            imm.hideSoftInputFromWindow(binding.admEvntSearchView.windowToken,0)
-        }
-
         binding.admEvntCancelSearchBtn.setOnClickListener{
             binding.admEvntBackBtn.visibility = View.VISIBLE
             binding.admEvntSearchBtn.visibility = View.VISIBLE
@@ -64,6 +60,8 @@ class AdminEventsActivity : AppCompatActivity() {
             }
 
             override fun onQueryTextSubmit(query: String?): Boolean {
+                imm.hideSoftInputFromWindow(binding.admEvntSearchView.windowToken,0)
+                binding.admEvntSearchView.clearFocus()
                 if (query != null) {
                     eventsListFragment.filterEventsByName(query)
                     return true
@@ -82,6 +80,7 @@ class AdminEventsActivity : AppCompatActivity() {
     }
 
     fun showEventsListFragment() {
+
         showFragment(eventsListFragment)
         binding.admEvntBackBtn.setOnClickListener {
             val intent= Intent(this,AdminMainActivity::class.java)
@@ -95,7 +94,5 @@ class AdminEventsActivity : AppCompatActivity() {
             showEventsListFragment()
         }
     }
-
-
 
 }

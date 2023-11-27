@@ -1,5 +1,6 @@
 package icesi.edu.co.icesicare.view.fragments
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import icesi.edu.co.icesicare.R
 import icesi.edu.co.icesicare.activities.AdminEventsActivity
 import icesi.edu.co.icesicare.databinding.FragmentAdminEventsListBinding
+import icesi.edu.co.icesicare.model.entity.Event
 import icesi.edu.co.icesicare.view.adapters.AdminEventAdapter
 import icesi.edu.co.icesicare.viewmodel.EventViewModel
 import kotlinx.coroutines.Dispatchers
@@ -23,10 +25,16 @@ class AdminEventsListFragment : Fragment() {
         fun newInstance() = AdminEventsListFragment()
     }
 
+    private enum class Filter {
+        ALL, ACTIVE, INACTIVE
+    }
+
     private val viewModel: EventViewModel by viewModels()
     private lateinit var binding: FragmentAdminEventsListBinding
     private lateinit var parentActivity: AdminEventsActivity
     private lateinit var eventAdapter: AdminEventAdapter
+    private var colorNeutralWhite : Int = 0
+    private var colorPurple : Int = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,10 +43,14 @@ class AdminEventsListFragment : Fragment() {
 
         binding = FragmentAdminEventsListBinding.inflate(inflater, container, false)
         parentActivity = activity as AdminEventsActivity
-        eventAdapter = AdminEventAdapter(parentActivity)
+        eventAdapter = AdminEventAdapter(parentActivity,this)
+
+        colorNeutralWhite = ContextCompat.getColor(this.requireContext(), R.color.neutral_white)
+        colorPurple = ContextCompat.getColor(this.requireContext(), R.color.purple)
+
 
         viewModel.eventsLD.observe(viewLifecycleOwner){
-            eventAdapter.events = it
+            eventAdapter.events = it.toMutableList()
             binding.progressBarAdmEvent.visibility = View.GONE
         }
 
@@ -51,40 +63,22 @@ class AdminEventsListFragment : Fragment() {
             (activity as AdminEventsActivity).showAddEventFragment()
         }
 
-        val colorNeutralWhite = this.context?.let { it1 -> ContextCompat.getColor(it1, R.color.neutral_white) }
-        val colorPurple = this.context?.let { it1 -> ContextCompat.getColor(it1, R.color.purple) }
-
         binding.filterAllBtn.setOnClickListener{
+            binding.progressBarAdmEvent.visibility = View.VISIBLE
             clearFilter()
-
-            binding.filterAllBtn.setBackgroundResource(R.drawable.btn_bg_selected)
-            binding.filterAllBtn.setTextColor(colorNeutralWhite!!)
-            binding.filterInactiveBtn.setBackgroundResource(R.drawable.btn_bg_unselected)
-            binding.filterInactiveBtn.setTextColor(colorPurple!!)
-            binding.filterActiveBtn.setBackgroundResource(R.drawable.btn_bg_unselected)
-            binding.filterActiveBtn.setTextColor(colorPurple)
+            switchFilterButtonColors(Filter.ALL)
         }
 
         binding.filterActiveBtn.setOnClickListener{
+            binding.progressBarAdmEvent.visibility = View.VISIBLE
             filterEventsByActive(true)
-
-            binding.filterAllBtn.setBackgroundResource(R.drawable.btn_bg_unselected)
-            binding.filterAllBtn.setTextColor(colorPurple!!)
-            binding.filterInactiveBtn.setBackgroundResource(R.drawable.btn_bg_unselected)
-            binding.filterInactiveBtn.setTextColor(colorPurple)
-            binding.filterActiveBtn.setBackgroundResource(R.drawable.btn_bg_selected)
-            binding.filterActiveBtn.setTextColor(colorNeutralWhite!!)
+            switchFilterButtonColors(Filter.ACTIVE)
         }
 
         binding.filterInactiveBtn.setOnClickListener{
+            binding.progressBarAdmEvent.visibility = View.VISIBLE
             filterEventsByActive(false)
-
-            binding.filterAllBtn.setBackgroundResource(R.drawable.btn_bg_unselected)
-            binding.filterAllBtn.setTextColor(colorPurple!!)
-            binding.filterInactiveBtn.setBackgroundResource(R.drawable.btn_bg_selected)
-            binding.filterInactiveBtn.setTextColor(colorNeutralWhite!!)
-            binding.filterActiveBtn.setBackgroundResource(R.drawable.btn_bg_unselected)
-            binding.filterActiveBtn.setTextColor(colorPurple)
+            switchFilterButtonColors(Filter.INACTIVE)
         }
 
         binding.eventsRV.adapter = eventAdapter
@@ -92,12 +86,6 @@ class AdminEventsListFragment : Fragment() {
         binding.eventsRV.setHasFixedSize(true)
 
         return binding.root
-    }
-
-    fun clearFilter() {
-        viewModel.filteredEventsLD.removeObservers(viewLifecycleOwner)
-        eventAdapter.events = viewModel.eventsLD.value ?: arrayListOf() //if null puts arrayListOf el viewModel.eventsLD.value
-        viewModel.clearFilter()
     }
 
     fun filterEventsByName(name: String) {
@@ -112,7 +100,10 @@ class AdminEventsListFragment : Fragment() {
         viewModel.filterEventsByName(name)
     }
 
-    fun filterEventsByActive(isActive:Boolean){
+    /**
+     * Filter events by isActive. An event is active if its date is after current date.
+     */
+    private fun filterEventsByActive(isActive:Boolean){
         viewModel.filteredEventsLD.observe(viewLifecycleOwner){
             if (it != null) {
                 eventAdapter.events = it
@@ -123,5 +114,59 @@ class AdminEventsListFragment : Fragment() {
         binding.progressBarAdmEvent.visibility = View.VISIBLE
         viewModel.filterEventsByActive(isActive)
     }
+
+    fun clearFilter() {
+        viewModel.filteredEventsLD.removeObservers(viewLifecycleOwner)
+        eventAdapter.events = viewModel.eventsLD.value ?: arrayListOf()
+        viewModel.clearFilter()
+    }
+
+    private fun switchFilterButtonColors(filter:Filter){
+
+        binding.filterAllBtn.setBackgroundResource(
+            if (filter == Filter.ALL) R.drawable.btn_bg_selected
+            else R.drawable.btn_bg_unselected)
+        binding.filterAllBtn.setTextColor(
+            if (filter == Filter.ALL) colorNeutralWhite
+            else colorPurple)
+
+        binding.filterInactiveBtn.setBackgroundResource(
+            if (filter == Filter.INACTIVE) R.drawable.btn_bg_selected
+            else R.drawable.btn_bg_unselected)
+        binding.filterInactiveBtn.setTextColor(
+            if (filter == Filter.INACTIVE) colorNeutralWhite
+            else colorPurple)
+
+        binding.filterActiveBtn.setBackgroundResource(
+            if (filter == Filter.ACTIVE) R.drawable.btn_bg_selected
+            else R.drawable.btn_bg_unselected)
+        binding.filterActiveBtn.setTextColor(
+            if (filter == Filter.ACTIVE) colorNeutralWhite
+            else colorPurple)
+    }
+
+    fun promptDeleteConfirmation(event:Event) {
+        val builder: AlertDialog.Builder = AlertDialog.Builder(this.requireContext())
+        builder
+            .setTitle("¿Está seguro que desea eliminar el evento: ${event.name}?")
+            .setPositiveButton("Sí") { dialog, which ->
+                viewModel.deleteEvent(event)
+            }
+            .setNegativeButton("No") { dialog, which ->
+                // Do nothing
+            }
+
+        val dialog: AlertDialog = builder.create()
+        dialog.setOnShowListener {
+            val posButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE)
+            posButton.setTextColor(colorNeutralWhite)
+            posButton.setBackgroundColor(colorPurple)
+            dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(colorPurple)
+        }
+        dialog.show()
+    }
+
+
+
 
 }
