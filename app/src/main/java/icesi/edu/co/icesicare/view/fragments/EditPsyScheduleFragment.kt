@@ -75,15 +75,19 @@ class EditPsyScheduleFragment  : Fragment() {
         return binding.root
     }
 
-    private fun fromOpenTimePicker(){
-        openTimePicker()
-
+    private fun fromOpenTimePicker() {
+        openTimePicker { hour, minute ->
+            binding.fromTimeTextView.text = formatTime(hour, minute)
+        }
     }
-    private fun toOpenTimePicker(){
-        openTimePicker()
 
+    private fun toOpenTimePicker() {
+        openTimePicker { hour, minute ->
+            binding.toTimeTextView.text = formatTime(hour, minute)
+        }
     }
-    private fun openTimePicker(){
+
+    private fun openTimePicker(onTimeSelected: (Int, Int) -> Unit) {
         val isSys24hFormat = is24HourFormat(requireContext())
         val clockFormat = if(isSys24hFormat) TimeFormat.CLOCK_24H else TimeFormat.CLOCK_12H
 
@@ -93,8 +97,18 @@ class EditPsyScheduleFragment  : Fragment() {
             .setMinute(0)
             .setTitleText("Selecciona tu horario")
             .build()
+
+        picker.addOnPositiveButtonClickListener {
+            onTimeSelected(picker.hour, picker.minute)
+        }
+
         picker.show(childFragmentManager, "TAG")
     }
+
+    private fun formatTime(hour: Int, minute: Int): String {
+        return String.format("%02d:%02d", hour, minute)
+    }
+
     private fun saveSchedule(){
 
     }
