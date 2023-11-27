@@ -21,6 +21,7 @@ class ScheduleFragment: Fragment() {
 
     private val nothingFragment = NoAppointmentsFragment.newInstance()
     private val appointmentsFragment = AppointmentspsychologistFragment.newInstance()
+    private val eventsFragment  = EventsFragment.newInstance()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,29 +34,43 @@ class ScheduleFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        viewmodel.downloadAppointments()
+        loadAppointments()
         binding.btnAppointment.isEnabled = false
         binding.btnEvents.setOnClickListener {
             binding.btnAppointment.isEnabled = true
             binding.btnAppointment.setTextColor(Color.parseColor("#7802D4"))
             binding.btnEvents.isEnabled = false
             binding.btnEvents.setTextColor(Color.WHITE)
+            viewmodel.setType(2)
+            viewmodel.downloadEvents()
+            loadEvents()
+
         }
         binding.btnAppointment.setOnClickListener {
             binding.btnEvents.isEnabled = true
             binding.btnEvents.setTextColor(Color.parseColor("#7802D4"))
             binding.btnAppointment.isEnabled = false
             binding.btnAppointment.setTextColor(Color.WHITE)
+            viewmodel.setType(1)
+            viewmodel.downloadAppointments()
+            loadAppointments()
         }
 
         binding.tablayout.tabGravity = TabLayout.GRAVITY_FILL
 
-        viewmodel.downloadAppointments()
+
 
         binding.tablayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 viewmodel.setMonth(tab!!.position + 1)
+                if(viewmodel.getType() == 1){
                 viewmodel.downloadAppointments()
+                    loadAppointments()
+                }else{
+                    viewmodel.downloadEvents()
+                    loadEvents()
+                }
             }
 
             override fun onTabUnselected(tab: TabLayout.Tab?) {}
@@ -63,15 +78,42 @@ class ScheduleFragment: Fragment() {
             override fun onTabReselected(tab: TabLayout.Tab?) {}
         })
 
+    }
+
+
+
+
+
+
+    private fun loadEvents(){
+        viewmodel.eventsListLiveData.observe(viewLifecycleOwner) { eventList ->
+            if (eventList.size > 0) {
+                loadFragment(eventsFragment)
+
+            } else {
+            }
+        }
+    }
+
+    private fun loadAppointments(){
         viewmodel.appointmentsListLiveData.observe(viewLifecycleOwner) { appointmentsList ->
             if (appointmentsList.size > 0) {
-                Log.e(">>>", " cargando el fragment  ")
                 loadFragment(appointmentsFragment)
             } else {
                 loadFragment(nothingFragment)
             }
         }
     }
+
+
+
+
+
+
+
+
+
+
 
     private fun loadFragment(fragment: Fragment) {
         val transaction = childFragmentManager.beginTransaction()

@@ -23,20 +23,13 @@ class AppointmentspsychologistFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        Log.e(">>>", " ass a  ")
         val binding = FragmentAppointmentspsychologistBinding.inflate(inflater, container, false)
         binding.appointmentList.adapter = adapter
         binding.appointmentList.layoutManager = LinearLayoutManager(requireContext())
         binding.appointmentList.setHasFixedSize(true)
-        Log.e(">>>", " ass a 2 ")
-        Log.e(">>>", " AppointmentspsychologistFragment  ${viewmodel.appointmentsListLiveData.value?.size}")
         viewmodel.appointmentsListLiveData.observe(viewLifecycleOwner) { appointmentsList ->
-
-            Log.e(">>>", "funciona el AppointmentspsychologistFragment  ")
             adapter.addAppoinmentsList(appointmentsList)
        }
-       
-        Log.e(">>>", " ass a 3 ")
         return binding.root
     }
 

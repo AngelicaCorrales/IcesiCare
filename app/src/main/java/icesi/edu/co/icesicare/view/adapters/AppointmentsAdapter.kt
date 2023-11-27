@@ -20,11 +20,8 @@ class AppointmentsAdapter : RecyclerView.Adapter<ElementAppointmentView>(){
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ElementAppointmentView {
         val inflater = LayoutInflater.from(parent.context)
         //ahi va el nombre del elemento de layout que se utiliza
-        Log.e(">>>", " ass adapter  ")
         val view = inflater.inflate(R.layout.elementappointment, parent, false)
-        Log.e(">>>", " ass adapter 2  ")
         val itemView = ElementAppointmentView(view)
-        Log.e(">>>", " ass adapter 3  ")
         return itemView
     }
 
@@ -46,7 +43,6 @@ class AppointmentsAdapter : RecyclerView.Adapter<ElementAppointmentView>(){
     }
 
     fun addAppoinmentsList(appointmentList : ArrayList<AppointmentData>) {
-        Log.e(">>>", "adapter add ")
         appointments.clear()
         appointments.addAll(appointmentList)
         notifyDataSetChanged()

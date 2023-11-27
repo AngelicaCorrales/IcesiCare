@@ -9,6 +9,7 @@ import com.google.firebase.firestore.FieldPath
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import icesi.edu.co.icesicare.model.entity.Appointment
+import icesi.edu.co.icesicare.model.entity.Event
 import icesi.edu.co.icesicare.model.entity.Psychologist
 import icesi.edu.co.icesicare.model.repository.FirebaseRepository
 import kotlinx.coroutines.Dispatchers
@@ -24,7 +25,9 @@ class AppointmentsListViewModel : ViewModel() {
     private var firebaseRepository = FirebaseRepository()
 
     val appointmentsListLiveData = MutableLiveData<ArrayList<AppointmentData>>()
+    val eventsListLiveData = MutableLiveData<ArrayList<Event>>()
     private var currentMonth = 1;
+    private var typeConsutl = 1;
     private var studentId = "UjZ9bvrXxCexOXvFV2nF"
 
     @SuppressLint("SuspiciousIndentation")
@@ -57,10 +60,30 @@ class AppointmentsListViewModel : ViewModel() {
 
     }
 
+
+    @SuppressLint("SuspiciousIndentation")
+    fun downloadEvents() {
+        viewModelScope.launch(Dispatchers.IO) {
+            val eventList = firebaseRepository.getEvents(currentMonth)
+            withContext(Dispatchers.Main) {
+                Log.e(">>>" ,eventList.size.toString() +" tamaño en events en viewModel 69" )
+
+                eventsListLiveData.value = eventList
+            }
+        }
+
+    }
     fun setMonth(month:Int){
         this.currentMonth = month
     }
+    fun setType(type:Int){
 
+        this.typeConsutl = type
+
+    }
+    fun getType(): Int {
+        return this.typeConsutl
+    }
 
 
 }
