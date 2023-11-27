@@ -75,7 +75,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:layout_marginBottom="31dp"
-                    app:layout_constraintBottom_toTopOf="@+id/editFromTimeBtn"
+                    app:layout_constraintBottom_toTopOf="@+id/saveScheduleChangesBtn"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView6">
@@ -212,7 +212,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="8dp"
                                     android:layout_weight="0"
-                                    android:text="--:--"
+                                    android:text="XXXX"
                                     android:textSize="16dp" />
 
                                 <Button
@@ -243,7 +243,7 @@
                     android:id="@+id/saveScheduleChangesBtn"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="32dp"
+                    android:layout_marginTop="24dp"
                     android:background="@drawable/appointment_button_background"
                     android:fontFamily="@font/roboto_medium"
                     android:text="Save changes"

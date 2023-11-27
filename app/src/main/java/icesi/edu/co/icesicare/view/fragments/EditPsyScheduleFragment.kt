@@ -3,6 +3,7 @@ package icesi.edu.co.icesicare.view.fragments
 import android.content.Intent
 import android.os.Bundle
 import android.text.format.DateFormat.is24HourFormat
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,9 +14,15 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import icesi.edu.co.icesicare.R
 import icesi.edu.co.icesicare.activities.PsyProfileActivity
 import icesi.edu.co.icesicare.databinding.FragmentEditPsyScheduleBinding
+import icesi.edu.co.icesicare.model.entity.Psychologist
+import icesi.edu.co.icesicare.model.entity.Schedule
+import icesi.edu.co.icesicare.model.repository.PsychRepository
+import icesi.edu.co.icesicare.model.repository.ScheduleRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -24,7 +31,8 @@ class EditPsyScheduleFragment  : Fragment() {
     private lateinit var fragmentActivity: PsyProfileActivity
     private var _binding: FragmentEditPsyScheduleBinding? = null
     private val binding get() = _binding!!
-
+    private var schedule: Schedule? = null
+    private var psy: Psychologist? = null
     private val items = listOf("Lunes", "Martes", "Miércoles", "Jueves", "Viernes")
     override fun onResume() {
         super.onResume()
@@ -32,8 +40,7 @@ class EditPsyScheduleFragment  : Fragment() {
         binding.daysInput.setAdapter(adapter)
         binding.daysInput.setOnItemClickListener { adapterView, _, position, _ ->
             val selectedDay = adapterView.getItemAtPosition(position).toString()
-            binding.fromTimeTextView.text = selectedDay
-            binding.toTimeTextView.text = selectedDay
+            updateTimesForSelectedDay(selectedDay)
         }
     }
     override fun onCreateView(
@@ -54,6 +61,9 @@ class EditPsyScheduleFragment  : Fragment() {
             fragmentActivity.showEditProfileFragment()
         }
 
+        loadSchedule(Firebase.auth.currentUser?.uid.toString())
+
+
         fragmentActivity.showLoading(false)
 
         binding.editFromTimeBtn.setOnClickListener {
@@ -73,6 +83,33 @@ class EditPsyScheduleFragment  : Fragment() {
         }
 
         return binding.root
+    }
+
+    private fun loadSchedule(psychologistId: String) {
+        lifecycleScope.launch(Dispatchers.IO) {
+            psy = PsychRepository.fetchOnePsy(psychologistId)
+
+            if (psy != null && psy?.scheduleId != null) {
+                schedule = ScheduleRepository.getSchedule(psy!!.scheduleId)
+            } else {
+                Log.e("EditPsyScheduleFragment", "Psychologist or Schedule ID is null")
+            }
+
+            withContext(Dispatchers.Main) {
+
+            }
+        }
+    }
+
+    private fun updateTimesForSelectedDay(selectedDay: String) {
+        val daySchedule = schedule?.schedules?.get(selectedDay)
+        if (daySchedule != null) {
+            binding.fromTimeTextView.text = daySchedule.startHour
+            binding.toTimeTextView.text = daySchedule.endHour
+        } else {
+            binding.fromTimeTextView.text = "--:--"
+            binding.toTimeTextView.text = "--:--"
+        }
     }
 
     private fun fromOpenTimePicker() {
