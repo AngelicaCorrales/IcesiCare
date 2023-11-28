@@ -8,6 +8,6 @@ data class Schedule (
 data class Schedules(
     var id: String = "",
     var day: String = "",
-    var startHour: String = "",
-    var endHour: String = ""
+    var startHour: Double? = 0.0,
+    var endHour: Double? = 0.0
 )

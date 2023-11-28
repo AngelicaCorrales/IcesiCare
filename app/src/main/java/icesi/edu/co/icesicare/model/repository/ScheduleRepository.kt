@@ -18,7 +18,7 @@ object ScheduleRepository {
 
         val days = listOf("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday")
         days.forEach { day ->
-            val daySchedule = Schedules(day = day, startHour = "", endHour = "")
+            val daySchedule = Schedules(day = day, startHour = null, endHour = null)
             newScheduleRef.collection("schedules").document(day).set(daySchedule).await()
         }
 
@@ -57,7 +57,7 @@ object ScheduleRepository {
         }
     }
 
-    suspend fun updateScheduleForDay(scheduleId: String, day: String, startHour: String, endHour: String) {
+    suspend fun updateScheduleForDay(scheduleId: String, day: String, startHour: Double, endHour: Double) {
         try {
             val scheduleDayRef = firebaseFirestore
                 .collection("schedule")

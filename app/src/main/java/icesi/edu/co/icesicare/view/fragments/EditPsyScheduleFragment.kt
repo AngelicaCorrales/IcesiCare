@@ -103,11 +103,8 @@ class EditPsyScheduleFragment  : Fragment() {
                     val daySchedule = ScheduleRepository.getScheduleForDay(psy!!.scheduleId, dayInEnglish)
 
                     withContext(Dispatchers.Main) {
-                        val startHourDecimal = daySchedule?.startHour?.toDoubleOrNull()
-                        val endHourDecimal = daySchedule?.endHour?.toDoubleOrNull()
-
-                        val formattedStartHour = convertDecimalToTime(startHourDecimal)
-                        val formattedEndHour = convertDecimalToTime(endHourDecimal)
+                        val formattedStartHour = convertDecimalToTime(daySchedule?.startHour)
+                        val formattedEndHour = convertDecimalToTime(daySchedule?.endHour)
 
                         binding.fromTimeTextView.text = formattedStartHour
                         binding.toTimeTextView.text = formattedEndHour
@@ -187,8 +184,8 @@ class EditPsyScheduleFragment  : Fragment() {
             if (validStartTime != "--:--" && validEndTime != "--:--") {
                 try {
                     val psy = PsychRepository.fetchOnePsy(psyId)
-                    val startTimeDecimal = convertTimeToDecimal(validStartTime).toString()
-                    val endTimeDecimal = convertTimeToDecimal(validEndTime).toString()
+                    val startTimeDecimal = convertTimeToDecimal(validStartTime)
+                    val endTimeDecimal = convertTimeToDecimal(validEndTime)
                     ScheduleRepository.updateScheduleForDay(psy!!.scheduleId, dayInEnglish, startTimeDecimal, endTimeDecimal)
                     Log.i("EditPsyScheduleFragment", "Schedule updated successfully")
                 } catch (e: Exception) {
