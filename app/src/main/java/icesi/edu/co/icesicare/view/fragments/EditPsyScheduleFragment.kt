@@ -34,10 +34,18 @@ class EditPsyScheduleFragment  : Fragment() {
     private var schedule: Schedule? = null
     private var psy: Psychologist? = null
     private val items = listOf("Lunes", "Martes", "Miércoles", "Jueves", "Viernes")
+    private val dayNameMap = mapOf(
+        "Lunes" to "Monday",
+        "Martes" to "Tuesday",
+        "Miércoles" to "Wednesday",
+        "Jueves" to "Thursday",
+        "Viernes" to "Friday"
+    )
     override fun onResume() {
         super.onResume()
         val adapter = ArrayAdapter(requireContext(), R.layout.drop_down_days_item, items)
         binding.daysInput.setAdapter(adapter)
+        binding.daysInput.clearListSelection()
         binding.daysInput.setOnItemClickListener { adapterView, _, position, _ ->
             val selectedDay = adapterView.getItemAtPosition(position).toString()
             updateTimesForSelectedDay(selectedDay)
@@ -61,9 +69,6 @@ class EditPsyScheduleFragment  : Fragment() {
             fragmentActivity.showEditProfileFragment()
         }
 
-        loadSchedule(Firebase.auth.currentUser?.uid.toString())
-
-
         fragmentActivity.showLoading(false)
 
         binding.editFromTimeBtn.setOnClickListener {
@@ -85,24 +90,38 @@ class EditPsyScheduleFragment  : Fragment() {
         return binding.root
     }
 
-    private fun loadSchedule(psychologistId: String) {
+    private fun updateTimesForSelectedDay(selectedDay: String) {
         lifecycleScope.launch(Dispatchers.IO) {
-            psy = PsychRepository.fetchOnePsy(psychologistId)
+            val psyId = Firebase.auth.currentUser?.uid.orEmpty()
+            psy = PsychRepository.fetchOnePsy(psyId)
 
-            if (psy != null && psy?.scheduleId != null) {
-                schedule = ScheduleRepository.getSchedule(psy!!.scheduleId)
+            if (psy?.scheduleId != null) {
+
+                val dayInEnglish = dayNameMap[selectedDay] ?: return@launch
+
+                try {
+                    val daySchedule = ScheduleRepository.getScheduleForDay(psy!!.scheduleId, dayInEnglish)
+
+                    withContext(Dispatchers.Main) {
+                        binding.fromTimeTextView.text = isValidTimeFormat(daySchedule?.startHour)
+                        binding.toTimeTextView.text = isValidTimeFormat(daySchedule?.endHour)
+                    }
+                } catch (e: Exception) {
+                    withContext(Dispatchers.Main) {
+                        Log.e("EditPsyScheduleFragment", "Error fetching schedule", e)
+                        binding.fromTimeTextView.text = "--:--"
+                        binding.toTimeTextView.text = "--:--"
+                    }
+                }
             } else {
                 Log.e("EditPsyScheduleFragment", "Psychologist or Schedule ID is null")
-            }
-
-            withContext(Dispatchers.Main) {
-
             }
         }
     }
 
-    private fun updateTimesForSelectedDay(selectedDay: String) {
-
+    private fun isValidTimeFormat(time: String?): String {
+        val regex = Regex("(\\d{2}:\\d{2})|--:--")
+        return if (time != null && regex.matches(time)) time else "--:--"
     }
 
     private fun fromOpenTimePicker() {

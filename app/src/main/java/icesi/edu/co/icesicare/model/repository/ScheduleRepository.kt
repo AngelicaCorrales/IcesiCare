@@ -40,4 +40,21 @@ object ScheduleRepository {
 
 
     }
+
+    suspend fun getScheduleForDay(scheduleId: String, day: String): Schedules? {
+        try {
+            val dayScheduleSnapshot = firebaseFirestore
+                .collection("schedule")
+                .document(scheduleId)
+                .collection("schedules")
+                .document(day)
+                .get()
+                .await()
+            return dayScheduleSnapshot.toObject(Schedules::class.java)
+        } catch (e: Exception) {
+            Log.e("ScheduleRepository", "Error fetching Schedule for a day", e)
+            return null
+        }
+    }
+
 }
