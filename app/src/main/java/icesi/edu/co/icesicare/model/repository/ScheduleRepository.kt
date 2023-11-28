@@ -57,4 +57,24 @@ object ScheduleRepository {
         }
     }
 
+    suspend fun updateScheduleForDay(scheduleId: String, day: String, startHour: String, endHour: String) {
+        try {
+            val scheduleDayRef = firebaseFirestore
+                .collection("schedule")
+                .document(scheduleId)
+                .collection("schedules")
+                .document(day)
+
+            val updatedDaySchedule = mapOf(
+                "startHour" to startHour,
+                "endHour" to endHour
+            )
+
+            scheduleDayRef.update(updatedDaySchedule).await()
+            Log.i("ScheduleRepository", "Successfully updated schedule for $day")
+        } catch (e: Exception) {
+            Log.e("ScheduleRepository", "Error updating schedule for $day", e)
+        }
+    }
+
 }

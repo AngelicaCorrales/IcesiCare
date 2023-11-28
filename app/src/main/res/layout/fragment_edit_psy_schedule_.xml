@@ -101,12 +101,14 @@
                         android:layout_margin="16sp"
                         app:layout_constraintBottom_toTopOf="@+id/textView8"
                         app:layout_constraintTop_toBottomOf="@+id/textView9"
-                        tools:layout_editor_absoluteX="16dp">
+                        tools:layout_editor_absoluteX="16dp"
+                        android:inputType="none">
 
                         <androidx.appcompat.widget.AppCompatAutoCompleteTextView
                             android:id="@+id/daysInput"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:editable="false"
                             android:inputType="none" />
 
                     </com.google.android.material.textfield.TextInputLayout>
@@ -212,7 +214,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="8dp"
                                     android:layout_weight="0"
-                                    android:text="XXXX"
+                                    android:text="--:--"
                                     android:textSize="16dp" />
 
                                 <Button

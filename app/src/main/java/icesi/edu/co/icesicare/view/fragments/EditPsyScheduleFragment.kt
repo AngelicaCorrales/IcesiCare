@@ -103,8 +103,14 @@ class EditPsyScheduleFragment  : Fragment() {
                     val daySchedule = ScheduleRepository.getScheduleForDay(psy!!.scheduleId, dayInEnglish)
 
                     withContext(Dispatchers.Main) {
-                        binding.fromTimeTextView.text = isValidTimeFormat(daySchedule?.startHour)
-                        binding.toTimeTextView.text = isValidTimeFormat(daySchedule?.endHour)
+                        val startHourDecimal = daySchedule?.startHour?.toDoubleOrNull()
+                        val endHourDecimal = daySchedule?.endHour?.toDoubleOrNull()
+
+                        val formattedStartHour = convertDecimalToTime(startHourDecimal)
+                        val formattedEndHour = convertDecimalToTime(endHourDecimal)
+
+                        binding.fromTimeTextView.text = formattedStartHour
+                        binding.toTimeTextView.text = formattedEndHour
                     }
                 } catch (e: Exception) {
                     withContext(Dispatchers.Main) {
@@ -158,10 +164,63 @@ class EditPsyScheduleFragment  : Fragment() {
         return String.format("%02d:%02d", hour, minute)
     }
 
-    private fun saveSchedule(){
+    private fun saveSchedule() {
+        lifecycleScope.launch(Dispatchers.IO) {
+            val psyId = Firebase.auth.currentUser?.uid.orEmpty()
 
+            val selectedDay = withContext(Dispatchers.Main) {
+                binding.daysInput.text.toString()
+            }
+
+            val dayInEnglish = dayNameMap[selectedDay] ?: return@launch
+
+            val startTime = withContext(Dispatchers.Main) {
+                binding.fromTimeTextView.text.toString()
+            }
+            val endTime = withContext(Dispatchers.Main) {
+                binding.toTimeTextView.text.toString()
+            }
+
+            val validStartTime = isValidTimeFormat(startTime)
+            val validEndTime = isValidTimeFormat(endTime)
+
+            if (validStartTime != "--:--" && validEndTime != "--:--") {
+                try {
+                    val psy = PsychRepository.fetchOnePsy(psyId)
+                    val startTimeDecimal = convertTimeToDecimal(validStartTime).toString()
+                    val endTimeDecimal = convertTimeToDecimal(validEndTime).toString()
+                    ScheduleRepository.updateScheduleForDay(psy!!.scheduleId, dayInEnglish, startTimeDecimal, endTimeDecimal)
+                    Log.i("EditPsyScheduleFragment", "Schedule updated successfully")
+                } catch (e: Exception) {
+                    withContext(Dispatchers.Main) {
+                        Log.e("EditPsyScheduleFragment", "Error updating schedule", e)
+                    }
+                }
+            } else {
+                withContext(Dispatchers.Main) {
+                    Log.e("EditPsyScheduleFragment", "Invalid time format")
+                }
+            }
+        }
     }
 
+    private fun convertTimeToDecimal(time: String): Double {
+        val parts = time.split(":").map { it.toIntOrNull() ?: 0 }
+        val hours = parts[0]
+        val minutes = parts[1]
+
+        val minuteFraction = minutes / 60.0
+        return hours + minuteFraction
+    }
+
+    private fun convertDecimalToTime(decimalTime: Double?): String {
+        if (decimalTime == null) {
+            return "--:--"
+        }
+        val hours = decimalTime.toInt()
+        val minutes = ((decimalTime - hours) * 60).toInt()
+        return String.format("%02d:%02d", hours, minutes)
+    }
     companion object {
         @JvmStatic
         fun newInstance(): EditPsyScheduleFragment {
