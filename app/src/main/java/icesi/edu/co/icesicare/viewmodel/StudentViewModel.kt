@@ -14,13 +14,12 @@ class StudentViewModel : ViewModel() {
 
     val appointmentLV = MutableLiveData<Appointment>()
     val psychologistLV = MutableLiveData<Psychologist>()
-    val appointmentsRepository : AppointmentsRepository = AppointmentsRepository()
 
     fun getStudentAppointment(appointmentId : String){
 
         viewModelScope.launch(Dispatchers.IO) {
 
-            val appointment = appointmentsRepository.getAppointment(appointmentId)
+            val appointment = AppointmentsRepository.getAppointment(appointmentId)
 
             withContext(Dispatchers.Main){
                 appointmentLV.value = appointment
@@ -29,11 +28,11 @@ class StudentViewModel : ViewModel() {
         }
     }
 
-    fun getPsychologistOfAppointment(psychologistId : String){
+    private fun getPsychologistOfAppointment(psychologistId : String){
 
         viewModelScope.launch(Dispatchers.IO) {
 
-            val psychologist = appointmentsRepository.getPsychologistOfAppointment(psychologistId)
+            val psychologist = AppointmentsRepository.getPsychologistOfAppointment(psychologistId)
 
             withContext(Dispatchers.Main){
                 psychologistLV.value = psychologist

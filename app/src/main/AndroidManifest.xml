@@ -12,11 +12,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.IcesiCare"
         tools:targetApi="31">
+        <activity android:name=".activities.PsyProfileActivity">
+        </activity>
         <activity
-            android:name=".activities.StudentAppointmentActivity"
+            android:name=".activities.StudentMainActivity"
+            android:exported="false">
+        </activity>
+        <activity
+            android:name=".activities.PsychologistMainActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.MainActivity"
+            android:name=".activities.AuthActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,10 +30,38 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".activities.ProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.AcceptAppointmentActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.MakeAppointmentActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.UserAppointmentInfo"
+            android:exported="false" />
+        <activity
+            android:name=".view.fragments.SignInFragment"
+            android:exported="false" />
+        <activity
+            android:name=".view.fragments.SignUpFragment"
+            android:exported="false" />
 
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="icesi.edu.co.icesicare"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/paths" />
+        </provider>
     </application>
 
 </manifest>

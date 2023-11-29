@@ -9,12 +9,16 @@ import icesi.edu.co.icesicare.activities.MakeAppointmentActivity
 import icesi.edu.co.icesicare.model.repository.PsychRepository
 import icesi.edu.co.icesicare.viewholder.PsychViewHolder
 
-class PsychAdapter : RecyclerView.Adapter<PsychViewHolder> {
+class PsychAdapter(rvActivity: MakeAppointmentActivity) : RecyclerView.Adapter<PsychViewHolder>() {
 
-    private lateinit var parentActivity:MakeAppointmentActivity
+    private var parentActivity:MakeAppointmentActivity = rvActivity
 
-    constructor(rvActivity:MakeAppointmentActivity):super(){
-        parentActivity = rvActivity
+    fun filterPsychsByName(name:String){
+        PsychRepository.filterPsychsByName(name)
+    }
+
+    fun clearFilter(){
+        PsychRepository.clearFilter()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PsychViewHolder {

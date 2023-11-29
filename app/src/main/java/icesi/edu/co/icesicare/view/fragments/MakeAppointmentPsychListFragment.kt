@@ -21,24 +21,32 @@ class MakeAppointmentPsychListFragment : Fragment() {
 
     private lateinit var adapter:PsychAdapter
     private lateinit var fragmentActivity: MakeAppointmentActivity
+    private lateinit var binding : FragmentMakeAppointmentPsychListBinding
+
+    fun filterPsychsByName(name:String){
+        adapter.filterPsychsByName(name)
+    }
+
+    fun clearFilter(){
+        adapter.clearFilter()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         fragmentActivity = activity as MakeAppointmentActivity
         adapter = PsychAdapter(fragmentActivity)
 
-        val binding = FragmentMakeAppointmentPsychListBinding.inflate(inflater,container,false)
+        binding = FragmentMakeAppointmentPsychListBinding.inflate(inflater,container,false)
         binding.psychListRV.adapter = adapter
         binding.psychListRV.layoutManager = LinearLayoutManager(context)
         binding.psychListRV.setHasFixedSize(true)
 
         PsychRepository.psychsLiveData.observe(viewLifecycleOwner){
             adapter.notifyDataSetChanged()
-            Log.e("dev","adapter notified")
         }
 
         lifecycleScope.launch (Dispatchers.IO){
