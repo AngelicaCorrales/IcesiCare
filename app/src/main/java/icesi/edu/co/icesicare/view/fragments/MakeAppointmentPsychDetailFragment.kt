@@ -43,6 +43,15 @@ class MakeAppointmentPsychDetailFragment : Fragment() {
         childFragmentManager.beginTransaction()
             .replace(binding.weeklyCalendar.id,weeklyCalendarFragment).commit()
     }
+
+    fun setHoursBySchedule(){
+
+    }
+
+
+    fun makeAppointment(){
+
+    }
     companion object {
         fun newInstance():MakeAppointmentPsychDetailFragment{
             return MakeAppointmentPsychDetailFragment()
