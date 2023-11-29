@@ -2,7 +2,6 @@ package icesi.edu.co.icesicare.view.fragments
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -48,7 +47,7 @@ class PsyProfileFragment  : Fragment() {
 
                     psy.profileImageURL?.let { imageUrl ->
                         if (imageUrl.isNotEmpty()) {
-                            Glide.with(this@PsyProfileFragment).load(imageUrl).into(binding.profileImage)
+                            Glide.with(binding.profileImage).load(psy.profileImageURL).into(binding.profileImage)
                         }
                     }
                 }

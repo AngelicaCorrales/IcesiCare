@@ -9,7 +9,8 @@ class EditPsyProfileViewHolder(root:View) : ViewHolder(root){
     val psyProfileImg = binding.psyProfileImg
     val psyImgUrl = binding.psyImgUrl
     val psyRole = binding.psyRole
-    val selectPictureBtn = binding.selectPictureBtn
+    val selectPictureFromGalleryBtn = binding.selectPictureFromGalleryBtn
+    val selectPictureFromCamBtn = binding.selectPictureFromCamBtn
     val psyEmail = binding.psyEmail
     val psyName = binding.psyName
     val psyGenre = binding.psyGenre
