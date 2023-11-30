@@ -109,10 +109,22 @@ object PsychRepository {
 
     suspend fun updatePsy(psyId: String, updatedPsy: Psychologist) {
         try {
+            val currentPsy = getPsychologist(psyId)
+            val oldImageId = currentPsy.profileImageId
+
             Firebase.firestore.collection("psychologists")
                 .document(psyId)
                 .set(updatedPsy)
                 .await()
+
+            if (!oldImageId.isNullOrEmpty() && oldImageId != updatedPsy.profileImageId) {
+                try {
+                    val imageRef = Firebase.storage.reference.child("users").child("profileImages").child(oldImageId)
+                    imageRef.delete().await()
+                } catch (e: Exception) {
+                    Log.e("PsychRepository", "Error deleting old profile image", e)
+                }
+            }
         } catch (e: Exception) {
             Log.e("PsychRepository", "Error saving psychologist changes", e)
         }

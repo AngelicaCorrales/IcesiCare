@@ -39,29 +39,45 @@
                     android:layout_width="85dp"
                     android:layout_height="85dp"
                     android:layout_marginTop="40dp"
+                    android:scaleType="centerCrop"
                     android:src="@drawable/ic_launcher_background"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/ic_launcher_background" />
+                    app:srcCompat="@drawable/default_profile_img" />
 
 
                 <Button
-                    android:id="@+id/selectPictureBtn"
-                    android:layout_width="0dp"
+                    android:id="@+id/selectPictureFromCamBtn"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="16dp"
+                    android:layout_marginTop="8dp"
                     android:background="@drawable/appointment_button_background"
                     android:fontFamily="@font/roboto_medium"
-                    android:text="Editar foto de perfil"
+                    android:text="Cámara"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
-                    android:textSize="16sp"
+                    android:textSize="14sp"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.498"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/psyProfileImg" />
+
+                <Button
+                    android:id="@+id/selectPictureFromGalleryBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/appointment_button_background"
+                    android:fontFamily="@font/roboto_medium"
+                    android:text="Dispositivo"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.498"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/selectPictureFromCamBtn" />
 
                 <TextView
                     android:id="@+id/psyNameLabel"
@@ -73,7 +89,7 @@
                     android:textColor="@color/gray"
                     android:textSize="14sp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/selectPictureBtn" />
+                    app:layout_constraintTop_toBottomOf="@+id/selectPictureFromGalleryBtn" />
 
                 <EditText
                     android:id="@+id/psyName"
@@ -94,10 +110,10 @@
                     android:layout_marginTop="24dp"
                     android:fontFamily="@font/roboto_medium"
                     android:text="Email"
-                    android:textColor="@color/gray"
                     android:textSize="14sp"
+                    android:textColor="@color/gray"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/psyName" />
+                    app:layout_constraintTop_toBottomOf="@+id/psyName"/>
 
                 <EditText
                     android:id="@+id/psyEmail"
@@ -115,20 +131,20 @@
                     android:id="@+id/psyGenreLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
-                    android:fontFamily="@font/roboto_medium"
                     android:text="Género"
                     android:textColor="@color/gray"
                     android:textSize="14sp"
+                    android:layout_marginTop="24dp"
+                    android:fontFamily="@font/roboto_medium"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/psyEmail" />
+                    app:layout_constraintTop_toBottomOf="@+id/psyEmail"/>
 
                 <RadioGroup
                     android:id="@+id/psyGenre"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
                     android:orientation="horizontal"
+                    android:layout_marginTop="8dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/psyGenreLabel">
@@ -138,7 +154,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/roboto_medium"
-                        android:text="F"
+                        android:text="Femenino"
                         android:textColor="@color/gray"
                         android:textSize="20sp" />
 
@@ -147,7 +163,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/roboto_medium"
-                        android:text="M"
+                        android:text="Masculino"
                         android:textColor="@color/gray"
                         android:textSize="20sp" />
 
@@ -156,7 +172,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/roboto_medium"
-                        android:text="O"
+                        android:text="Otro"
                         android:textColor="@color/gray"
                         android:textSize="20sp" />
 
@@ -166,13 +182,13 @@
                     android:id="@+id/psyDescrLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
-                    android:fontFamily="@font/roboto_medium"
                     android:text="Descripción"
                     android:textColor="@color/gray"
                     android:textSize="14sp"
+                    android:fontFamily="@font/roboto_medium"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/psyGenre" />
+                    android:layout_marginTop="24dp"
+                    app:layout_constraintTop_toBottomOf="@+id/psyGenre"/>
 
                 <EditText
                     android:id="@+id/psyDescr"
@@ -196,13 +212,13 @@
                     android:layout_marginEnd="16dp"
                     android:background="@drawable/appointment_button_background"
                     android:fontFamily="@font/roboto_medium"
-                    android:text="Guardar cambios"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
                     android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/psyDescr" />
+                    app:layout_constraintTop_toBottomOf="@+id/psyDescr"
+                    android:text="Guardar cambios" />
 
                 <Button
                     android:id="@+id/editScheduleBtn"
@@ -213,13 +229,13 @@
                     android:layout_marginEnd="16dp"
                     android:background="@drawable/appointment_button_background"
                     android:fontFamily="@font/roboto_medium"
-                    android:text="Guardar cambios y editar horario"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
                     android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/saveChangesBtn" />
+                    app:layout_constraintTop_toBottomOf="@+id/saveChangesBtn"
+                    android:text="Guardar cambios y editar horario" />
 
                 <ImageButton
                     android:id="@+id/backBtn"
