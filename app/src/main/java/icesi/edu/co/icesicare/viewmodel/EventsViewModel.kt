@@ -11,6 +11,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.time.LocalDateTime
 import java.time.ZoneId
+import java.util.Date
 
 class EventViewModel : ViewModel() {
 
@@ -18,7 +19,9 @@ class EventViewModel : ViewModel() {
     val eventsLD = MutableLiveData<MutableList<Event>>()
     private var events : MutableList<Event> = arrayListOf()
     val filteredEventsLD = MutableLiveData<MutableList<Event>>()
+    val eventLD = MutableLiveData<Event?>()
     private var filteredEvents : MutableList<Event> = arrayListOf()
+
 
     private var isFilterActive:Boolean = false
 
@@ -46,13 +49,23 @@ class EventViewModel : ViewModel() {
         }
     }
 
+
+
     fun sortEventsByDateDescending(){
         viewModelScope.launch(Dispatchers.IO) {
             events.sortByDescending {
                 it.date.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime()
             }
+
+            if(isFilterActive)
+                filteredEvents.sortByDescending {
+                    it.date.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime()
+                }
+
             withContext(Dispatchers.Main){
                 eventsLD.value = events
+                if(isFilterActive)
+                    filteredEventsLD.value = filteredEvents
             }
         }
     }
@@ -121,6 +134,56 @@ class EventViewModel : ViewModel() {
                 if(isFilterActive)
                     filteredEvents.remove(event)
                     filteredEventsLD.value = filteredEvents
+            }
+        }
+    }
+
+    fun updateEvent(event:Event, isImageChanged:Boolean){
+        viewModelScope.launch (Dispatchers.IO){
+
+            Log.e("dev","called update event")
+            eventRepository.updateEvent(event,isImageChanged)
+            Log.e("dev","called update event2")
+
+            val updatedEvent = eventRepository.getEvent(event.id)
+
+            withContext(Dispatchers.Main){
+                eventLD.postValue(updatedEvent)
+                /*events.remove(event)
+                events.add(updatedEvent)
+                eventsLD.value = events
+
+                if(isFilterActive)
+                    if(filteredEvents.contains(event)){
+                        filteredEvents.remove(event)
+                        filteredEvents.add(updatedEvent)
+                        filteredEventsLD.value = filteredEvents
+                    }
+                sortEventsByDateDescending()*/
+            }
+        }
+    }
+
+    fun createEvent(category: String, date : Date, name : String, imageUrl:String, space : String){
+        viewModelScope.launch (Dispatchers.IO){
+            val event = Event(category,date,"","",imageUrl,name,space)
+            val newEventId = eventRepository.createEvent(event)
+            val newEvent = eventRepository.getEvent(newEventId)
+
+            withContext(Dispatchers.Main){
+                eventLD.postValue(newEvent)
+                /*
+                events.add(newEvent)
+                eventsLD.value = events
+
+                if(isFilterActive)
+                    if(filteredEvents.contains(event)){
+                        filteredEvents.add(newEvent)
+                        filteredEventsLD.value = filteredEvents
+                    }
+                sortEventsByDateDescending()
+
+                 */
             }
         }
     }

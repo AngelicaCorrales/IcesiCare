@@ -10,6 +10,7 @@ import com.bumptech.glide.Glide
 import icesi.edu.co.icesicare.R
 import icesi.edu.co.icesicare.activities.AdminEventsActivity
 import icesi.edu.co.icesicare.model.entity.Event
+import icesi.edu.co.icesicare.util.CalendarUtils.toLocalDateTime
 import icesi.edu.co.icesicare.view.fragments.AdminEventsListFragment
 import icesi.edu.co.icesicare.viewholder.AdminEventViewHolder
 import java.time.ZoneId
@@ -42,9 +43,7 @@ class AdminEventAdapter(activity:AdminEventsActivity, fragment: AdminEventsListF
 
         holder.eventNameTV.text = event.name
 
-        val eventDateTime = event.date.toInstant()
-            .atZone(ZoneId.systemDefault())
-            .toLocalDateTime();
+        val eventDateTime = event.date.toLocalDateTime
 
         holder.eventDayTV.text = eventDateTime.dayOfMonth.toString()
         holder.eventMonthTV.text = eventDateTime.month.toString().substring(0,3)
@@ -81,7 +80,7 @@ class AdminEventAdapter(activity:AdminEventsActivity, fragment: AdminEventsListF
         }
 
         holder.editEventBtn.setOnClickListener{
-
+            parentFragment.showAddUpdateEventFragment(true,event)
         }
     }
 

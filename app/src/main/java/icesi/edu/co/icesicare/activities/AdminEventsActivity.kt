@@ -1,17 +1,16 @@
 package icesi.edu.co.icesicare.activities
 
-import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.SearchView
 import androidx.fragment.app.Fragment
 import icesi.edu.co.icesicare.R
 import icesi.edu.co.icesicare.databinding.ActivityAdminEventsBinding
+import icesi.edu.co.icesicare.model.entity.Event
 import icesi.edu.co.icesicare.view.fragments.AdminEventsAddUpdateFragment
 import icesi.edu.co.icesicare.view.fragments.AdminEventsListFragment
 
@@ -19,7 +18,7 @@ class AdminEventsActivity : AppCompatActivity() {
 
 
     private val eventsListFragment = AdminEventsListFragment.newInstance()
-    private val addEventFragment = AdminEventsAddUpdateFragment.newInstance(false,"")
+    private val addEventFragment = AdminEventsAddUpdateFragment.newInstance(false,null)
 
     private val binding by lazy{
         ActivityAdminEventsBinding.inflate(layoutInflater)
@@ -88,11 +87,12 @@ class AdminEventsActivity : AppCompatActivity() {
             this.finish()
         }
     }
-    fun showAddEventFragment() {
+    fun showAddUpdateEventFragment(isUpdating:Boolean,event: Event?) {
+        addEventFragment.isUpdating = isUpdating
+        addEventFragment.event = event
         showFragment(addEventFragment)
         binding.admEvntBackBtn.setOnClickListener{
             showEventsListFragment()
         }
     }
-
 }

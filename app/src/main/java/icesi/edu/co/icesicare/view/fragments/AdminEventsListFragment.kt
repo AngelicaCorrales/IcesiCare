@@ -60,7 +60,7 @@ class AdminEventsListFragment : Fragment() {
         }
 
         binding.addEventBtn.setOnClickListener{
-            (activity as AdminEventsActivity).showAddEventFragment()
+            (activity as AdminEventsActivity).showAddUpdateEventFragment(false,null)
         }
 
         binding.filterAllBtn.setOnClickListener{
@@ -166,7 +166,7 @@ class AdminEventsListFragment : Fragment() {
         dialog.show()
     }
 
-
-
-
+    fun showAddUpdateEventFragment(isUpdating:Boolean,event: Event?){
+        parentActivity.showAddUpdateEventFragment(isUpdating, event)
+    }
 }

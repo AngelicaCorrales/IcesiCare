@@ -111,7 +111,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Escoge una fecha y un rango de horas*"
+        android:text="Fecha y hora del evento*"
         android:textColor="@color/black"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/eventLocationET"
@@ -125,8 +125,8 @@
         android:text="Sube una imagen con información del evento"
         android:textColor="@color/black"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@+id/eventStartTimeBtn"
-        tools:layout_editor_absoluteX="16dp" />
+        app:layout_constraintStart_toStartOf="@+id/textView5"
+        app:layout_constraintTop_toBottomOf="@+id/eventTimeBtn" />
 
     <Spinner
         android:id="@+id/eventCategorySpin"
@@ -153,39 +153,15 @@
         app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
     <Button
-        android:id="@+id/eventEndTimeBtn"
+        android:id="@+id/eventTimeBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:background="@drawable/btn_bg_unselected"
-        android:text="Hora Fin"
-        android:textColor="@color/purple"
-        app:layout_constraintBottom_toBottomOf="@+id/eventStartTimeBtn"
-        app:layout_constraintStart_toEndOf="@+id/textView32"
-        app:layout_constraintTop_toTopOf="@+id/eventStartTimeBtn" />
-
-    <Button
-        android:id="@+id/eventStartTimeBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:background="@drawable/btn_bg_unselected"
-        android:text="Hora Inicio"
+        android:text="Hora"
         android:textColor="@color/purple"
         app:layout_constraintStart_toEndOf="@+id/eventDateBtn"
         app:layout_constraintTop_toTopOf="@+id/eventDateBtn" />
-
-    <TextView
-        android:id="@+id/textView32"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:fontFamily="@font/roboto_medium"
-        android:text="-"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@+id/eventStartTimeBtn"
-        app:layout_constraintStart_toEndOf="@+id/eventStartTimeBtn"
-        app:layout_constraintTop_toTopOf="@+id/eventStartTimeBtn" />
 
     <ImageView
         android:id="@+id/eventImageIV"
