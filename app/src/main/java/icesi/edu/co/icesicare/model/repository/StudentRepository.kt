@@ -1,6 +1,5 @@
 package icesi.edu.co.icesicare.model.repository
 
-import android.util.Log
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
@@ -35,5 +34,4 @@ class StudentRepository {
             return Student(-1)
         }
     }
-
 }

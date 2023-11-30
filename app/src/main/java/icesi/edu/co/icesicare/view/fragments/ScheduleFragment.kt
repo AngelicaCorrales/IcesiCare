@@ -28,11 +28,7 @@ class ScheduleFragment: Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = ActivityStudentScheduleBinding.inflate(inflater, container, false)
-        return binding.root
-    }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
         viewmodel.downloadAppointments(Firebase.auth.currentUser!!.uid)
         loadAppointments()
         binding.btnAppointment.isEnabled = false
@@ -62,7 +58,7 @@ class ScheduleFragment: Fragment() {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 viewmodel.setMonth(tab!!.position + 1)
                 if(viewmodel.getType() == 1){
-                viewmodel.downloadAppointments(Firebase.auth.currentUser!!.uid)
+                    viewmodel.downloadAppointments(Firebase.auth.currentUser!!.uid)
                     loadAppointments()
                 }else{
                     viewmodel.downloadEvents()
@@ -75,6 +71,7 @@ class ScheduleFragment: Fragment() {
             override fun onTabReselected(tab: TabLayout.Tab?) {}
         })
 
+        return binding.root
     }
 
     private fun loadEvents(){
@@ -106,6 +103,7 @@ class ScheduleFragment: Fragment() {
     }
 
     companion object {
+        @JvmStatic
         fun newInstance(): ScheduleFragment {
             return ScheduleFragment()
         }

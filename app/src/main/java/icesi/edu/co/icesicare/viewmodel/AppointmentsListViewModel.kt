@@ -12,6 +12,7 @@ import icesi.edu.co.icesicare.model.entity.Appointment
 import icesi.edu.co.icesicare.model.entity.Event
 import icesi.edu.co.icesicare.model.entity.Psychologist
 import icesi.edu.co.icesicare.model.repository.FirebaseRepository
+import icesi.edu.co.icesicare.model.service.GoObjectDetail
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
@@ -19,13 +20,15 @@ import kotlinx.coroutines.withContext
 import java.util.Calendar
 import java.util.Date
 
-class AppointmentsListViewModel : ViewModel() {
+class AppointmentsListViewModel : ViewModel(), GoObjectDetail {
 
 //solo el viewModel puede guardar datos.
     private var firebaseRepository = FirebaseRepository()
 
     val appointmentsListLiveData = MutableLiveData<ArrayList<AppointmentData>>()
     val eventsListLiveData = MutableLiveData<ArrayList<Event>>()
+    val appointmentId = MutableLiveData<String>()
+
     private var currentMonth = 1;
     private var typeConsutl = 1;
 
@@ -43,7 +46,7 @@ class AppointmentsListViewModel : ViewModel() {
                    }
                }
                for (i in appointmentsList.indices) {
-                   val appointmentData = AppointmentData(appointmentsList.get(i).date, psychologist.get(i).name, psychologist.get(1).id )
+                   val appointmentData = AppointmentData(appointmentsList.get(i).date, psychologist.get(i).name, appointmentsList.get(i).id )
                    appointmentDataList.add(appointmentData)
                }
            }
@@ -80,12 +83,20 @@ class AppointmentsListViewModel : ViewModel() {
         return this.typeConsutl
     }
 
+    override fun onItemClick(objectDetail: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            withContext(Dispatchers.Main){
+                appointmentId.value = objectDetail
+            }
+        }
+    }
+
 
 }
 data class AppointmentData(
     val date: Date= Date(),
     val PsychologistName: String,
-    val psychologistId : String
+    val appointmentId : String
 )
 
 
