@@ -153,28 +153,28 @@
                         android:id="@+id/radioFemale"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="F"
-                        android:textSize="20sp"
+                        android:fontFamily="@font/roboto_medium"
+                        android:text="Femenino"
                         android:textColor="@color/gray"
-                        android:fontFamily="@font/roboto_medium"/>
+                        android:textSize="20sp" />
 
                     <RadioButton
                         android:id="@+id/radioMale"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="M"
-                        android:textSize="20sp"
+                        android:fontFamily="@font/roboto_medium"
+                        android:text="Masculino"
                         android:textColor="@color/gray"
-                        android:fontFamily="@font/roboto_medium"/>
+                        android:textSize="20sp" />
 
                     <RadioButton
                         android:id="@+id/radioOther"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="O"
-                        android:textSize="20sp"
+                        android:fontFamily="@font/roboto_medium"
+                        android:text="Otro"
                         android:textColor="@color/gray"
-                        android:fontFamily="@font/roboto_medium"/>
+                        android:textSize="20sp" />
 
                 </RadioGroup>
 
