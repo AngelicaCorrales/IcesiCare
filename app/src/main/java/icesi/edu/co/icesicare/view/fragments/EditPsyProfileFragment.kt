@@ -78,9 +78,9 @@ class EditPsyProfileFragment : Fragment() {
                     binding.psyName.text = psy.name.toEditable()
                     binding.psyDescr.text = psy.description.toEditable()
                     when (psy.genre) {
-                        "F" -> binding.radioFemale.isChecked = true
-                        "M" -> binding.radioMale.isChecked = true
-                        "O" -> binding.radioOther.isChecked = true
+                        "Femenino" -> binding.radioFemale.isChecked = true
+                        "Masculino" -> binding.radioMale.isChecked = true
+                        "Otro" -> binding.radioOther.isChecked = true
                     }
 
                     psy.profileImageURL?.let { imageUrl ->
@@ -188,7 +188,7 @@ class EditPsyProfileFragment : Fragment() {
             role = binding.psyRole.text.toString(),
             email = binding.psyEmail.text.toString(),
             name = binding.psyName.text.toString(),
-            genre = if (binding.radioFemale.isChecked) "F" else if (binding.radioMale.isChecked) "M" else "O",
+            genre = if (binding.radioFemale.isChecked) "Femenino" else if (binding.radioMale.isChecked) "Masculino" else "Otro",
             description = binding.psyDescr.text.toString(),
             profileImageId = newImageURIStr,
             profileImageURL = newImageURIStr,
