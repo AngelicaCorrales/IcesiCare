@@ -23,7 +23,7 @@
             android:exported="false" />
         <activity
             android:name=".activities.AuthActivity"
-            android:theme="@style/SplashTheme"
+            android:theme="@style/Theme.IcesiCare.SplashScreen"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

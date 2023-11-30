@@ -10,8 +10,5 @@
         <item name="fullscreenTextColor">@color/light_blue_A400</item>
     </style>
 
-    <style name="SplashTheme" parent="Theme.IcesiCare">
-        <item name="android:windowBackground">@drawable/splash_screen</item>
-    </style>
 
 </resources>
