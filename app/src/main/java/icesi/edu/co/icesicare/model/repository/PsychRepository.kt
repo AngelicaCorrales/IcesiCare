@@ -110,7 +110,7 @@ object PsychRepository {
     suspend fun updatePsy(psyId: String, updatedPsy: Psychologist) {
         try {
             val currentPsy = getPsychologist(psyId)
-            val oldImageId = currentPsy.profileImageId
+            val oldImageId = currentPsy?.profileImageId
 
             Firebase.firestore.collection("psychologists")
                 .document(psyId)
