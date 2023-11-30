@@ -110,7 +110,7 @@ object PsychRepository {
     suspend fun updatePsy(psyId: String, updatedPsy: Psychologist) {
         try {
             val currentPsy = getPsychologist(psyId)
-            val oldImageId = currentPsy.profileImageId
+            val oldImageId = currentPsy!!.profileImageId
 
             Firebase.firestore.collection("psychologists")
                 .document(psyId)
@@ -128,6 +128,35 @@ object PsychRepository {
         } catch (e: Exception) {
             Log.e("PsychRepository", "Error saving psychologist changes", e)
         }
+    }
+
+    suspend fun getPsychologistsPendingForApproval() : MutableList<Psychologist>{
+        TODO("NOT FINISHED")
+        val result = Firebase.firestore
+            .collection("psychologists")
+            .get().await()
+
+        val psychsList = arrayListOf<Psychologist>()
+
+        result.documents.forEach{document ->
+            val psych = document.toObject(Psychologist::class.java)
+
+            psych?.let {
+                if(psych.profileImageId != null && psych.profileImageId != "" ){
+                    val url= Firebase.storage.reference
+                        .child("users")
+                        .child("profileImages")
+                        .child(psych.profileImageId!!).downloadUrl.await()
+                    psych.profileImageURL = url.toString()
+                }
+                psychs.add(psych)
+            }
+        }
+        return psychsList
+    }
+
+    suspend fun updatePsychStatus(isAccepted: Boolean, psychId: String){
+        TODO("NOT IMPLEMENTED")
     }
 
 }
