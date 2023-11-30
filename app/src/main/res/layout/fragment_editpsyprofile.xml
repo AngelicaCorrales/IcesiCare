@@ -55,24 +55,7 @@
                     android:layout_marginTop="16dp"
                     android:background="@drawable/appointment_button_background"
                     android:fontFamily="@font/roboto_medium"
-                    android:text="Dispositivo"
-                    android:textAllCaps="false"
-                    android:textColor="@color/white"
-                    android:textSize="16sp"
-                    app:layout_constraintEnd_toStartOf="@+id/selectPictureFromCamBtn"
-                    app:layout_constraintHorizontal_bias="0.114"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/psyProfileImg" />
-
-                <Button
-                    android:id="@+id/selectPictureFromCamBtn"
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="40dp"
-                    android:background="@drawable/appointment_button_background"
-                    android:fontFamily="@font/roboto_medium"
-                    android:text="Cámara"
+                    android:text="Editar foto de perfil"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
                     android:textSize="16sp"
@@ -87,20 +70,20 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
                     android:fontFamily="@font/roboto_medium"
-                    android:text="Name"
+                    android:text="Nombre"
                     android:textColor="@color/gray"
-                    android:textSize="18sp"
+                    android:textSize="14sp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/selectPictureFromCamBtn" />
+                    app:layout_constraintTop_toBottomOf="@+id/selectPictureBtn" />
 
                 <EditText
                     android:id="@+id/psyName"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="8dp"
                     android:fontFamily="@font/roboto_medium"
                     android:textColor="@color/black"
-                    android:textSize="20sp"
+                    android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/psyNameLabel" />
@@ -109,22 +92,22 @@
                     android:id="@+id/psyEmailLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Email"
-                    android:textSize="18sp"
-                    android:textColor="@color/gray"
+                    android:layout_marginTop="24dp"
                     android:fontFamily="@font/roboto_medium"
+                    android:text="Email"
+                    android:textColor="@color/gray"
+                    android:textSize="14sp"
                     app:layout_constraintStart_toStartOf="parent"
-                    android:layout_marginTop="16dp"
-                    app:layout_constraintTop_toBottomOf="@+id/psyName"/>
+                    app:layout_constraintTop_toBottomOf="@+id/psyName" />
 
                 <EditText
                     android:id="@+id/psyEmail"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="8dp"
                     android:fontFamily="@font/roboto_medium"
                     android:textColor="@color/dark_gray"
-                    android:textSize="20sp"
+                    android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/psyEmailLabel" />
@@ -133,20 +116,20 @@
                     android:id="@+id/psyGenreLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Genre"
-                    android:textSize="20sp"
-                    android:textColor="@color/gray"
+                    android:layout_marginTop="24dp"
                     android:fontFamily="@font/roboto_medium"
+                    android:text="Género"
+                    android:textColor="@color/gray"
+                    android:textSize="14sp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/psyEmail"
-                    android:layout_marginTop="16dp"/>
+                    app:layout_constraintTop_toBottomOf="@+id/psyEmail" />
 
                 <RadioGroup
                     android:id="@+id/psyGenre"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
                     android:orientation="horizontal"
-                    android:layout_marginTop="16dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/psyGenreLabel">
@@ -155,28 +138,28 @@
                         android:id="@+id/radioFemale"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto_medium"
                         android:text="F"
-                        android:textSize="20sp"
                         android:textColor="@color/gray"
-                        android:fontFamily="@font/roboto_medium"/>
+                        android:textSize="20sp" />
 
                     <RadioButton
                         android:id="@+id/radioMale"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto_medium"
                         android:text="M"
-                        android:textSize="20sp"
                         android:textColor="@color/gray"
-                        android:fontFamily="@font/roboto_medium"/>
+                        android:textSize="20sp" />
 
                     <RadioButton
                         android:id="@+id/radioOther"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto_medium"
                         android:text="O"
-                        android:textSize="20sp"
                         android:textColor="@color/gray"
-                        android:fontFamily="@font/roboto_medium"/>
+                        android:textSize="20sp" />
 
                 </RadioGroup>
 
@@ -184,22 +167,23 @@
                     android:id="@+id/psyDescrLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Description"
-                    android:textSize="18sp"
-                    android:textColor="@color/gray"
+                    android:layout_marginTop="24dp"
                     android:fontFamily="@font/roboto_medium"
+                    android:text="Descripción"
+                    android:textColor="@color/gray"
+                    android:textSize="14sp"
                     app:layout_constraintStart_toStartOf="parent"
-                    android:layout_marginTop="16dp"
-                    app:layout_constraintTop_toBottomOf="@+id/psyGenre"/>
+                    app:layout_constraintTop_toBottomOf="@+id/psyGenre" />
 
                 <EditText
                     android:id="@+id/psyDescr"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="8dp"
                     android:fontFamily="@font/roboto_medium"
-                    android:textColor="@color/dark_gray"
-                    android:textSize="20sp"
+                    android:hint="Agrega una descripción"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/psyDescrLabel" />
@@ -213,13 +197,13 @@
                     android:layout_marginEnd="16dp"
                     android:background="@drawable/appointment_button_background"
                     android:fontFamily="@font/roboto_medium"
+                    android:text="Guardar cambios"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
                     android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/psyDescr"
-                    android:text="Save changes" />
+                    app:layout_constraintTop_toBottomOf="@+id/psyDescr" />
 
                 <Button
                     android:id="@+id/editScheduleBtn"
@@ -230,19 +214,19 @@
                     android:layout_marginEnd="16dp"
                     android:background="@drawable/appointment_button_background"
                     android:fontFamily="@font/roboto_medium"
+                    android:text="Guardar cambios y editar horario"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
                     android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/saveChangesBtn"
-                    android:text="Save changes and Edit Schedule" />
+                    app:layout_constraintTop_toBottomOf="@+id/saveChangesBtn" />
 
                 <ImageButton
                     android:id="@+id/backBtn"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
-                    android:backgroundTint="#7802D3"
+                    android:backgroundTint="@color/neutral_white"
                     android:contentDescription="back"
                     android:src="@drawable/arrow_back_icon"
                     app:layout_constraintStart_toStartOf="parent"

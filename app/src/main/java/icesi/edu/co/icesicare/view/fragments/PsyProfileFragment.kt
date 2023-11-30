@@ -10,6 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import icesi.edu.co.icesicare.activities.AuthActivity
 import icesi.edu.co.icesicare.activities.PsyProfileActivity
 import icesi.edu.co.icesicare.activities.PsychologistMainActivity
 import icesi.edu.co.icesicare.databinding.FragmentPsyProfileBinding
@@ -57,6 +58,14 @@ class PsyProfileFragment  : Fragment() {
         binding.editPsyBtn.setOnClickListener {
             val intent= Intent(activity, PsyProfileActivity::class.java)
             startActivity(intent)
+        }
+
+        binding.leftBtn.setOnClickListener {
+
+            val activity = requireActivity()
+            activity.finish()
+            startActivity(Intent(requireContext(), AuthActivity::class.java))
+            Firebase.auth.signOut()
         }
 
         return binding.root
