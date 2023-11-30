@@ -41,11 +41,6 @@ class MakeAppointmentActivity : AppCompatActivity() {
             imm.showSoftInput(binding.searchView, 0)
         }
 
-        //Only works when query is not empty due to null check in the implementation of SearchView
-        binding.searchView.setOnSearchClickListener{
-            imm.hideSoftInputFromWindow(binding.searchView.windowToken,0)
-        }
-
         binding.cancelSearchBtn.setOnClickListener{
             binding.psychTV.visibility = View.VISIBLE
             binding.backBtn.visibility = View.VISIBLE
@@ -67,6 +62,8 @@ class MakeAppointmentActivity : AppCompatActivity() {
             }
 
             override fun onQueryTextSubmit(query: String?): Boolean {
+                imm.hideSoftInputFromWindow(binding.searchView.windowToken,0)
+                binding.searchView.clearFocus()
                 if (query != null) {
                     makeAppntPsychListFragment.filterPsychsByName(query)
                     return true

@@ -185,7 +185,7 @@
                                     android:layout_width="100dp"
                                     android:layout_height="40dp"
                                     android:layout_marginStart="16dp"
-                                    android:background="@drawable/appointment_button_background"
+                                    android:background="@drawable/btn_bg_selected"
                                     android:fontFamily="@font/roboto_medium"
                                     android:text="Editar"
                                     android:textAllCaps="false"
@@ -229,7 +229,7 @@
                                     android:layout_width="100dp"
                                     android:layout_height="40dp"
                                     android:layout_marginStart="16dp"
-                                    android:background="@drawable/appointment_button_background"
+                                    android:background="@drawable/btn_bg_selected"
                                     android:fontFamily="@font/roboto_medium"
                                     android:text="Editar"
                                     android:textAllCaps="false"
@@ -255,7 +255,7 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="32dp"
                     android:layout_marginEnd="20dp"
-                    android:background="@drawable/appointment_button_background"
+                    android:background="@drawable/btn_bg_selected"
                     android:fontFamily="@font/roboto_medium"
                     android:text="Guardar Cambios"
                     android:textAllCaps="false"
@@ -268,7 +268,6 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.cardview.widget.CardView>
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
