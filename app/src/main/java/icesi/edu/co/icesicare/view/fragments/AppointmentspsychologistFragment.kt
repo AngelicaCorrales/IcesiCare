@@ -1,15 +1,12 @@
 package icesi.edu.co.icesicare.view.fragments
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import icesi.edu.co.icesicare.MainActivity
-import icesi.edu.co.icesicare.R
 import icesi.edu.co.icesicare.databinding.FragmentAppointmentspsychologistBinding
 import icesi.edu.co.icesicare.view.adapters.AppointmentsAdapter
 import icesi.edu.co.icesicare.viewmodel.AppointmentsListViewModel

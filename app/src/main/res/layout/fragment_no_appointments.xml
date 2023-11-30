@@ -51,7 +51,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/searchPsyBtn"
         android:layout_width="191dp"
         android:layout_height="45dp"
         android:layout_marginStart="114dp"

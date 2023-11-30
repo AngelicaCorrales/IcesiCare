@@ -2,21 +2,20 @@ package icesi.edu.co.icesicare.view.fragments
 
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import com.google.android.material.tabs.TabLayout
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import icesi.edu.co.icesicare.R
-import icesi.edu.co.icesicare.databinding.ActivityMainBinding
-import icesi.edu.co.icesicare.databinding.ScheduleFragmentBinding
+import icesi.edu.co.icesicare.databinding.ActivityStudentScheduleBinding
 import icesi.edu.co.icesicare.viewmodel.AppointmentsListViewModel
 
 class ScheduleFragment: Fragment() {
-    private lateinit var binding: ActivityMainBinding
+    private lateinit var binding: ActivityStudentScheduleBinding
     private val viewmodel: AppointmentsListViewModel by activityViewModels()
 
     private val nothingFragment = NoAppointmentsFragment.newInstance()
@@ -28,13 +27,13 @@ class ScheduleFragment: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = ActivityMainBinding.inflate(inflater, container, false)
+        binding = ActivityStudentScheduleBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewmodel.downloadAppointments()
+        viewmodel.downloadAppointments(Firebase.auth.currentUser!!.uid)
         loadAppointments()
         binding.btnAppointment.isEnabled = false
         binding.btnEvents.setOnClickListener {
@@ -53,19 +52,17 @@ class ScheduleFragment: Fragment() {
             binding.btnAppointment.isEnabled = false
             binding.btnAppointment.setTextColor(Color.WHITE)
             viewmodel.setType(1)
-            viewmodel.downloadAppointments()
+            viewmodel.downloadAppointments(Firebase.auth.currentUser!!.uid)
             loadAppointments()
         }
 
         binding.tablayout.tabGravity = TabLayout.GRAVITY_FILL
 
-
-
         binding.tablayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 viewmodel.setMonth(tab!!.position + 1)
                 if(viewmodel.getType() == 1){
-                viewmodel.downloadAppointments()
+                viewmodel.downloadAppointments(Firebase.auth.currentUser!!.uid)
                     loadAppointments()
                 }else{
                     viewmodel.downloadEvents()
@@ -79,11 +76,6 @@ class ScheduleFragment: Fragment() {
         })
 
     }
-
-
-
-
-
 
     private fun loadEvents(){
         viewmodel.eventsListLiveData.observe(viewLifecycleOwner) { eventList ->
@@ -104,16 +96,6 @@ class ScheduleFragment: Fragment() {
             }
         }
     }
-
-
-
-
-
-
-
-
-
-
 
     private fun loadFragment(fragment: Fragment) {
         val transaction = childFragmentManager.beginTransaction()

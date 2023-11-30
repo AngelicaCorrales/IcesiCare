@@ -28,10 +28,8 @@ class AppointmentsListViewModel : ViewModel() {
     val eventsListLiveData = MutableLiveData<ArrayList<Event>>()
     private var currentMonth = 1;
     private var typeConsutl = 1;
-    private var studentId = "UjZ9bvrXxCexOXvFV2nF"
 
-    @SuppressLint("SuspiciousIndentation")
-    fun downloadAppointments() {
+    fun downloadAppointments(studentId : String) {
         viewModelScope.launch(Dispatchers.IO) {
             val appointmentsList = firebaseRepository.getAppointmentsForStudent(studentId, currentMonth)
             val psychologist = ArrayList<Psychologist>()
@@ -40,7 +38,7 @@ class AppointmentsListViewModel : ViewModel() {
                appointmentsList.forEach { appointment ->
                    val result = firebaseRepository.gePsychologistAppointment(appointment.psychologistId)
 
-                   result?.let {
+                   result.let {
                        psychologist.add(result)
                    }
                }
@@ -49,9 +47,6 @@ class AppointmentsListViewModel : ViewModel() {
                    appointmentDataList.add(appointmentData)
                }
            }
-
-
-
 
             withContext(Dispatchers.Main) {
                 appointmentsListLiveData.value = appointmentDataList

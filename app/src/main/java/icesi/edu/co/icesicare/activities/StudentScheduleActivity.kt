@@ -1,22 +1,22 @@
-package icesi.edu.co.icesicare
+package icesi.edu.co.icesicare.activities
 
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.tabs.TabLayout
-import icesi.edu.co.icesicare.databinding.ActivityMainBinding
-import icesi.edu.co.icesicare.view.adapters.AppointmentsAdapter
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
+import icesi.edu.co.icesicare.R
+import icesi.edu.co.icesicare.databinding.ActivityStudentScheduleBinding
 import icesi.edu.co.icesicare.view.fragments.AppointmentspsychologistFragment
 import icesi.edu.co.icesicare.view.fragments.NoAppointmentsFragment
 import icesi.edu.co.icesicare.viewmodel.AppointmentsListViewModel
 
 
-class MainActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityMainBinding
+class StudentScheduleActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityStudentScheduleBinding
     val viewmodel: AppointmentsListViewModel by viewModels()
 
 
@@ -30,7 +30,7 @@ debo poner un valor en el viewmodel para guardar el valor segun el boton
  */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
+        binding = ActivityStudentScheduleBinding.inflate(layoutInflater)
         binding.btnAppointment.isEnabled = false
         binding.btnEvents.setOnClickListener {
             binding.btnAppointment.isEnabled = true
@@ -51,13 +51,13 @@ debo poner un valor en el viewmodel para guardar el valor segun el boton
         binding.tablayout.tabGravity = TabLayout.GRAVITY_FILL
 
 
-        viewmodel.downloadAppointments()
+        viewmodel.downloadAppointments(Firebase.auth.currentUser!!.uid)
 
 
         binding.tablayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 viewmodel.setMonth(tab!!.position+1)
-                viewmodel.downloadAppointments()
+                viewmodel.downloadAppointments(Firebase.auth.currentUser!!.uid)
             }
 
             override fun onTabUnselected(tab: TabLayout.Tab?) {}

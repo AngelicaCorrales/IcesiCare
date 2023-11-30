@@ -8,8 +8,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import icesi.edu.co.icesicare.R
 import icesi.edu.co.icesicare.model.entity.Event
-import icesi.edu.co.icesicare.viewmodel.AppointmentData
-import icesi.edu.co.icesicare.viewmodel.ElementAppointmentView
 import icesi.edu.co.icesicare.viewmodel.ElementEventView
 import java.text.SimpleDateFormat
 import java.util.Date
