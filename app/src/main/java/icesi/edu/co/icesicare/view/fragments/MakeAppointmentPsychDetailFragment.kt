@@ -1,5 +1,6 @@
 package icesi.edu.co.icesicare.view.fragments
 
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -9,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
+import icesi.edu.co.icesicare.R
 import icesi.edu.co.icesicare.databinding.FragmentMakeAppointmentPsychDetailBinding
 import icesi.edu.co.icesicare.model.entity.Psychologist
 import icesi.edu.co.icesicare.util.CalendarUtils
@@ -87,8 +89,64 @@ class MakeAppointmentPsychDetailFragment : Fragment() {
             // Reactualizar el fragmento cuando cambie la fecha seleccionada
             loadScheduleForDay()
         }
-
+        setClicksButtonsHour()
         return binding.root
+    }
+
+    fun onButtonClick(button: Button){
+        button.setBackgroundColor(Color.BLUE)
+       Log.e("<<<<",hoursMap[button].toString())
+    }
+
+    fun setClicksButtonsHour(){
+        binding.btn8.setOnClickListener {
+            onButtonClick(binding.btn8)
+        }
+        binding.btn830.setOnClickListener {
+            onButtonClick(binding.btn830)
+        }
+        binding.btn9.setOnClickListener {
+            onButtonClick(binding.btn9)
+        }
+        binding.btn930.setOnClickListener {
+            onButtonClick(binding.btn930)
+        }
+        binding.btn10.setOnClickListener {
+            onButtonClick(binding.btn10)
+        }
+        binding.btn1030.setOnClickListener {
+            onButtonClick(binding.btn1030)
+        }
+        binding.btn11.setOnClickListener {
+            onButtonClick(binding.btn11)
+        }
+        binding.btn1130.setOnClickListener {
+            onButtonClick(binding.btn1130)
+        }
+        binding.btn2.setOnClickListener {
+            onButtonClick(binding.btn2)
+        }
+        binding.btn230.setOnClickListener {
+            onButtonClick(binding.btn230)
+        }
+        binding.btn3.setOnClickListener {
+            onButtonClick(binding.btn3)
+        }
+        binding.btn330.setOnClickListener {
+            onButtonClick(binding.btn330)
+        }
+        binding.btn4.setOnClickListener {
+            onButtonClick(binding.btn4)
+        }
+        binding.btn430.setOnClickListener {
+            onButtonClick(binding.btn430)
+        }
+        binding.btn5.setOnClickListener {
+            onButtonClick(binding.btn5)
+        }
+        binding.btn530.setOnClickListener {
+            onButtonClick(binding.btn530)
+        }
     }
 
     fun loadScheduleForDay(){
