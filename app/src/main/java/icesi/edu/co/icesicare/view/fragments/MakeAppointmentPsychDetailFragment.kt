@@ -8,6 +8,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.getColor
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import icesi.edu.co.icesicare.R
@@ -28,6 +30,7 @@ class MakeAppointmentPsychDetailFragment : Fragment() {
 
     private var buttonHoursList: List<Button> = listOf()
     private var hoursMap: Map<Button,Double> = mapOf()
+    var selected_hour: Button? =null
     fun initializeVals(){
         buttonHoursList= listOf(
         binding.btn8,
@@ -94,8 +97,14 @@ class MakeAppointmentPsychDetailFragment : Fragment() {
     }
 
     fun onButtonClick(button: Button){
-        button.setBackgroundColor(Color.BLUE)
-       Log.e("<<<<",hoursMap[button].toString())
+
+        selected_hour?.setBackgroundResource(R.drawable.appointment_button_background_not_selected)
+        selected_hour?.setTextColor(getColor(requireContext(),R.color.purple))
+
+        button.setBackgroundResource(R.drawable.appointment_button_background)
+        button.setTextColor(getColor(requireContext(),R.color.neutral_white))
+        selected_hour=button
+       Log.e("<<<<",hoursMap[selected_hour].toString())
     }
 
     fun setClicksButtonsHour(){
