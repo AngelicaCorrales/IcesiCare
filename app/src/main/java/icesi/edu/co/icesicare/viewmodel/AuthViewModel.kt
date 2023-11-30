@@ -17,6 +17,7 @@ import icesi.edu.co.icesicare.model.entity.ErrorMessage
 import icesi.edu.co.icesicare.model.entity.Psychologist
 import icesi.edu.co.icesicare.model.entity.Student
 import icesi.edu.co.icesicare.model.repository.PsychRepository
+import icesi.edu.co.icesicare.model.repository.ScheduleRepository
 import icesi.edu.co.icesicare.model.repository.StudentRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -48,6 +49,12 @@ class AuthViewModel : ViewModel() {
 
                     Firebase.firestore.collection("psychologists").document(psychologistId!!)
                         .set(psychologist).await()
+
+                    // Create and update(psych schedule id) Empty Schedule
+                    val scheduleId = ScheduleRepository.createEmptyScheduleForPsychologist(psychologistId)
+                    psychologist.scheduleId = scheduleId
+                    Firebase.firestore.collection("psychologists").document(psychologistId)
+                        .update("scheduleId", scheduleId).await()
 
                     withContext(Dispatchers.Main){
                         authStateLV.value = AuthState(result.user?.uid, true)

@@ -19,13 +19,14 @@ import icesi.edu.co.icesicare.databinding.FragmentEditpsyprofileBinding
 import icesi.edu.co.icesicare.model.entity.Psychologist
 import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
 import icesi.edu.co.icesicare.model.repository.PsychRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.util.UUID
-import kotlin.concurrent.thread
 
 class EditPsyProfileFragment : Fragment() {
 
@@ -49,7 +50,7 @@ class EditPsyProfileFragment : Fragment() {
             val psy = PsychRepository.fetchOnePsy(Firebase.auth.currentUser?.uid.toString())
             withContext(Dispatchers.Main) {
                 psy?.let {
-                    newImageURIStr = binding.psyImgUrl.text.toString()
+                    newImageURIStr = psy.profileImageId.toString()
                     binding.psyId.text = psy.id
                     binding.psyRole.text = psy.role
                     binding.psyImgId.text = psy.profileImageId
@@ -78,7 +79,8 @@ class EditPsyProfileFragment : Fragment() {
             activity?.finish()
         }
 
-        binding.selectPictureBtn.setOnClickListener {
+        binding.selectPictureFromGalleryBtn.setOnClickListener {
+
             val intent = Intent(Intent.ACTION_GET_CONTENT)
             intent.type = "image/*"
             galleryLauncher.launch(intent)
@@ -86,10 +88,16 @@ class EditPsyProfileFragment : Fragment() {
 
         }
 
+        binding.selectPictureFromCamBtn.setOnClickListener {
+
+
+        }
+
         binding.saveChangesBtn.setOnClickListener {
             saveChanges()
             activity?.finish()
         }
+
         binding.editScheduleBtn.setOnClickListener {
             saveChanges()
             fragmentActivity.showEditPsyScheduleFragment()
@@ -104,6 +112,7 @@ class EditPsyProfileFragment : Fragment() {
             binding.psyProfileImg.setImageURI(uri)
 
             newImageURIStr = UUID.randomUUID().toString()
+            Firebase.storage.reference.child("users").child("profileImages").child(newImageURIStr).putFile(uri!!)
         }
     }
 
@@ -117,7 +126,7 @@ class EditPsyProfileFragment : Fragment() {
             name = binding.psyName.text.toString(),
             genre = if (binding.radioFemale.isChecked) "F" else if (binding.radioMale.isChecked) "M" else "O",
             description = binding.psyDescr.text.toString(),
-            profileImageId = binding.psyImgId.text.toString(),
+            profileImageId = newImageURIStr,
             profileImageURL = newImageURIStr,
             scheduleId = binding.psySchId.text.toString()
 
