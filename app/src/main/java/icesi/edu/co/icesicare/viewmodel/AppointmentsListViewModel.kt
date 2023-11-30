@@ -43,7 +43,7 @@ class AppointmentsListViewModel : ViewModel() {
                    }
                }
                for (i in appointmentsList.indices) {
-                   val appointmentData = AppointmentData(appointmentsList.get(i).date, psychologist.get(i).name )
+                   val appointmentData = AppointmentData(appointmentsList.get(i).date, psychologist.get(i).name, psychologist.get(1).id )
                    appointmentDataList.add(appointmentData)
                }
            }
@@ -84,7 +84,8 @@ class AppointmentsListViewModel : ViewModel() {
 }
 data class AppointmentData(
     val date: Date= Date(),
-    val PsychologistName: String
+    val PsychologistName: String,
+    val psychologistId : String
 )
 
 
