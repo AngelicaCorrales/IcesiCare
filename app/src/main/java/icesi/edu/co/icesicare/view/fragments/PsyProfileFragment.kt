@@ -2,7 +2,6 @@ package icesi.edu.co.icesicare.view.fragments
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import icesi.edu.co.icesicare.activities.AuthActivity
 import icesi.edu.co.icesicare.activities.PsyProfileActivity
 import icesi.edu.co.icesicare.activities.PsychologistMainActivity
 import icesi.edu.co.icesicare.databinding.FragmentPsyProfileBinding
@@ -48,7 +48,7 @@ class PsyProfileFragment  : Fragment() {
 
                     psy.profileImageURL?.let { imageUrl ->
                         if (imageUrl.isNotEmpty()) {
-                            Glide.with(this@PsyProfileFragment).load(imageUrl).into(binding.profileImage)
+                            Glide.with(binding.profileImage).load(psy.profileImageURL).into(binding.profileImage)
                         }
                     }
                 }
@@ -58,6 +58,14 @@ class PsyProfileFragment  : Fragment() {
         binding.editPsyBtn.setOnClickListener {
             val intent= Intent(activity, PsyProfileActivity::class.java)
             startActivity(intent)
+        }
+
+        binding.leftBtn.setOnClickListener {
+
+            val activity = requireActivity()
+            activity.finish()
+            startActivity(Intent(requireContext(), AuthActivity::class.java))
+            Firebase.auth.signOut()
         }
 
         return binding.root
@@ -99,7 +107,7 @@ class PsyProfileFragment  : Fragment() {
             binding.psyDescr.text = it.description
 
             it.profileImageURL?.let { imageUrl ->
-                if (imageUrl != "") {
+                if (imageUrl.isNotEmpty()) {
                     Glide.with(this@PsyProfileFragment).load(imageUrl).into(binding.profileImage)
                 }
             }
