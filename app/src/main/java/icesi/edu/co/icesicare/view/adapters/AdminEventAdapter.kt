@@ -34,7 +34,6 @@ class AdminEventAdapter(activity:AdminEventsActivity, fragment: AdminEventsListF
     }
 
     override fun getItemCount(): Int {
-        Log.e("DEV",events.size.toString())
         return events.size
     }
 

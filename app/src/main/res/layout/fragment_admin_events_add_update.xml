@@ -3,9 +3,25 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/bg">
+    android:layout_height="match_parent">
 
+    <Button
+        android:id="@+id/eventDeleteImageBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/btn_bg_unselected"
+        android:drawableLeft="@drawable/delete_icon_other"
+        android:drawablePadding="5dp"
+        android:drawableTint="@color/purple"
+        android:paddingLeft="5dp"
+        android:paddingRight="10dp"
+        android:text="Borrar Imagen"
+        android:textColor="@color/purple"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/eventImageBtn"
+        app:layout_constraintStart_toEndOf="@+id/eventImageBtn"
+        app:layout_constraintTop_toTopOf="@+id/eventImageBtn" />
 
     <Button
         android:id="@+id/eventImageBtn"
@@ -13,6 +29,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:background="@drawable/btn_bg_unselected"
+        android:drawableLeft="@drawable/image_icon"
+        android:drawablePadding="5dp"
+        android:drawableTint="@color/purple"
+        android:paddingLeft="5dp"
+        android:paddingRight="10dp"
         android:text="Elegir Imagen"
         android:textColor="@color/purple"
         app:layout_constraintStart_toStartOf="@+id/textView33"
@@ -147,6 +168,10 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:background="@drawable/btn_bg_unselected"
+        android:drawableLeft="@drawable/calendar_icon"
+        android:drawableTint="@color/purple"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
         android:text="fecha"
         android:textColor="@color/purple"
         app:layout_constraintStart_toStartOf="@+id/textView5"
@@ -158,6 +183,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:background="@drawable/btn_bg_unselected"
+        android:drawableLeft="@drawable/clock_icon"
+        android:drawableTint="@color/purple"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
         android:text="Hora"
         android:textColor="@color/purple"
         app:layout_constraintStart_toEndOf="@+id/eventDateBtn"
@@ -171,11 +200,11 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
-        android:src="@drawable/ic_launcher_background"
         app:layout_constraintBottom_toTopOf="@+id/addUpdateEventBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/eventImageBtn" />
+        app:layout_constraintTop_toBottomOf="@+id/eventImageBtn"
+        app:srcCompat="@drawable/no_image" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

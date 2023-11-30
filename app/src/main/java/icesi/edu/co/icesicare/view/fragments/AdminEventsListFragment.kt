@@ -29,7 +29,7 @@ class AdminEventsListFragment : Fragment() {
         ALL, ACTIVE, INACTIVE
     }
 
-    private val viewModel: EventViewModel by viewModels()
+    private val viewModel: EventViewModel by viewModels({requireActivity()})
     private lateinit var binding: FragmentAdminEventsListBinding
     private lateinit var parentActivity: AdminEventsActivity
     private lateinit var eventAdapter: AdminEventAdapter
@@ -54,8 +54,13 @@ class AdminEventsListFragment : Fragment() {
             binding.progressBarAdmEvent.visibility = View.GONE
         }
 
+        viewModel.errorLD.observe(viewLifecycleOwner){
+            it.message?.let { it1 -> showAlertDialog(it1) }
+        }
+
         lifecycleScope.launch (Dispatchers.IO){
             binding.progressBarAdmEvent.visibility = View.VISIBLE
+            viewModel.clearFilter()
             viewModel.getAllEvents()
         }
 
@@ -80,6 +85,8 @@ class AdminEventsListFragment : Fragment() {
             filterEventsByActive(false)
             switchFilterButtonColors(Filter.INACTIVE)
         }
+
+
 
         binding.eventsRV.adapter = eventAdapter
         binding.eventsRV.layoutManager = LinearLayoutManager(context)
@@ -159,8 +166,7 @@ class AdminEventsListFragment : Fragment() {
         val dialog: AlertDialog = builder.create()
         dialog.setOnShowListener {
             val posButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE)
-            posButton.setTextColor(colorNeutralWhite)
-            posButton.setBackgroundColor(colorPurple)
+            posButton.setTextColor(colorPurple)
             dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(colorPurple)
         }
         dialog.show()
@@ -168,5 +174,20 @@ class AdminEventsListFragment : Fragment() {
 
     fun showAddUpdateEventFragment(isUpdating:Boolean,event: Event?){
         parentActivity.showAddUpdateEventFragment(isUpdating, event)
+    }
+
+    private fun showAlertDialog(message:String){
+        val builder: AlertDialog.Builder = AlertDialog.Builder(this.requireContext())
+        builder
+            .setTitle(message)
+            .setNeutralButton("OK") { _, _ -> //Do nothing
+            }
+
+        val dialog: AlertDialog = builder.create()
+        dialog.setOnShowListener {
+            val button = dialog.getButton(AlertDialog.BUTTON_NEUTRAL)
+            button.setTextColor(colorPurple)
+        }
+        dialog.show()
     }
 }

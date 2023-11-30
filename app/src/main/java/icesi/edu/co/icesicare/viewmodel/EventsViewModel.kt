@@ -15,17 +15,20 @@ import java.util.Date
 
 class EventViewModel : ViewModel() {
 
-    val eventLV = MutableLiveData<Event>()
+    val eventLV = MutableLiveData<Event?>()
+
     val eventsLD = MutableLiveData<MutableList<Event>>()
     private var events : MutableList<Event> = arrayListOf()
-    val filteredEventsLD = MutableLiveData<MutableList<Event>>()
+
     val eventLD = MutableLiveData<Event?>()
+
+    val filteredEventsLD = MutableLiveData<MutableList<Event>>()
     private var filteredEvents : MutableList<Event> = arrayListOf()
-
-
     private var isFilterActive:Boolean = false
 
     private var eventRepository: EventRepository = EventRepository()
+
+    val errorLD = MutableLiveData<Exception>()
 
     fun getEvent(eventId : String){
         viewModelScope.launch(Dispatchers.IO) {
@@ -39,57 +42,79 @@ class EventViewModel : ViewModel() {
 
     fun getAllEvents(){
         viewModelScope.launch(Dispatchers.IO) {
-            val eventsList = eventRepository.getAllEvents()
+            try {
+                val eventsList = eventRepository.getAllEvents()
 
-            withContext(Dispatchers.Main){
-                events = eventsList
-                eventsLD.value = events
-                sortEventsByDateDescending()
+                withContext(Dispatchers.Main){
+                    events = eventsList
+                    eventsLD.value = events
+                    sortEventsByDateDescending()
+                }
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main){
+                    errorLD.value = e
+                }
             }
         }
     }
 
 
 
-    fun sortEventsByDateDescending(){
+    private fun sortEventsByDateDescending(){
         viewModelScope.launch(Dispatchers.IO) {
-            events.sortByDescending {
-                it.date.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime()
-            }
-
-            if(isFilterActive)
-                filteredEvents.sortByDescending {
+            try {
+                events.sortByDescending {
                     it.date.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime()
                 }
 
-            withContext(Dispatchers.Main){
-                eventsLD.value = events
                 if(isFilterActive)
-                    filteredEventsLD.value = filteredEvents
+                    filteredEvents.sortByDescending {
+                        it.date.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime()
+                    }
+
+                withContext(Dispatchers.Main){
+                    eventsLD.value = events
+                    if(isFilterActive)
+                        filteredEventsLD.value = filteredEvents
+                }
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main){
+                    errorLD.value = e
+                }
             }
         }
     }
 
     fun filterEventsByName(name:String){
         viewModelScope.launch (Dispatchers.IO){
-            val filteredEventsList = arrayListOf<Event>()
-            events.forEach{
-                if(it.name.contains(name,ignoreCase = true)){
-                    filteredEventsList.add(it)
+            try {
+                val filteredEventsList = arrayListOf<Event>()
+                events.forEach{
+                    if(it.name.contains(name,ignoreCase = true)){
+                        filteredEventsList.add(it)
+                    }
+                }
+                withContext(Dispatchers.Main){
+                    filteredEvents = filteredEventsList
+                    filteredEventsLD.value = filteredEvents
+                }
+                isFilterActive = true
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main){
+                    errorLD.value = e
                 }
             }
-            withContext(Dispatchers.Main){
-                filteredEvents = filteredEventsList
-                filteredEventsLD.value = filteredEvents
-            }
-            isFilterActive = true
         }
     }
 
     fun clearFilter(){
-        filteredEvents = arrayListOf<Event>()
-        filteredEventsLD.value = filteredEvents
-        isFilterActive = false
+        viewModelScope.launch (Dispatchers.IO) {
+            filteredEvents = arrayListOf()
+            withContext(Dispatchers.Main) {
+                filteredEventsLD.value = filteredEvents
+            }
+            isFilterActive = false
+        }
     }
 
     /**
@@ -97,43 +122,56 @@ class EventViewModel : ViewModel() {
      */
     fun filterEventsByActive(isActive:Boolean){
         viewModelScope.launch (Dispatchers.IO){
-            val filteredEventsList = arrayListOf<Event>()
+            try {
+                val filteredEventsList = arrayListOf<Event>()
 
-            if(isActive){
-                eventsLD.value?.forEach{
-                    if(it.date.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime().isAfter(LocalDateTime.now())||
-                        it.date.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime().isEqual(LocalDateTime.now())){
-                        filteredEventsList.add(it)
+                if(isActive){
+                    eventsLD.value?.forEach{
+                        if(it.date.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime().isAfter(LocalDateTime.now())||
+                            it.date.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime().isEqual(LocalDateTime.now())){
+                            filteredEventsList.add(it)
+                        }
                     }
                 }
-            }
-            else{
-                eventsLD.value?.forEach{
-                    if(it.date.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime().isBefore(LocalDateTime.now())){
-                        filteredEventsList.add(it)
+                else{
+                    eventsLD.value?.forEach{
+                        if(it.date.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime().isBefore(LocalDateTime.now())){
+                            filteredEventsList.add(it)
+                        }
                     }
                 }
-            }
 
-            withContext(Dispatchers.Main) {
-                filteredEvents = filteredEventsList
-                filteredEventsLD.value = filteredEvents
+                withContext(Dispatchers.Main) {
+                    filteredEvents = filteredEventsList
+                    filteredEventsLD.value = filteredEvents
+                }
+                isFilterActive = true
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main){
+                    errorLD.value = e
+                }
             }
-            isFilterActive = true
         }
     }
 
     fun deleteEvent(event: Event) {
         viewModelScope.launch (Dispatchers.IO){
-            eventRepository.deleteEvent(event.id)
+            try {
+                eventRepository.deleteEvent(event.id)
 
-            withContext(Dispatchers.Main){
-                events.remove(event)
-                eventsLD.value = events
+                withContext(Dispatchers.Main){
+                    events.remove(event)
+                    eventsLD.value = events
 
-                if(isFilterActive)
-                    filteredEvents.remove(event)
-                    filteredEventsLD.value = filteredEvents
+                    if(isFilterActive){
+                        filteredEvents.remove(event)
+                        filteredEventsLD.value = filteredEvents
+                    }
+                }
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main){
+                    errorLD.value = e
+                }
             }
         }
     }
@@ -141,49 +179,36 @@ class EventViewModel : ViewModel() {
     fun updateEvent(event:Event, isImageChanged:Boolean){
         viewModelScope.launch (Dispatchers.IO){
 
-            Log.e("dev","called update event")
-            eventRepository.updateEvent(event,isImageChanged)
-            Log.e("dev","called update event2")
+            try {
+                eventRepository.updateEvent(event,isImageChanged)
 
-            val updatedEvent = eventRepository.getEvent(event.id)
+                val updatedEvent = eventRepository.getEvent(event.id)
 
-            withContext(Dispatchers.Main){
-                eventLD.postValue(updatedEvent)
-                /*events.remove(event)
-                events.add(updatedEvent)
-                eventsLD.value = events
-
-                if(isFilterActive)
-                    if(filteredEvents.contains(event)){
-                        filteredEvents.remove(event)
-                        filteredEvents.add(updatedEvent)
-                        filteredEventsLD.value = filteredEvents
-                    }
-                sortEventsByDateDescending()*/
+                withContext(Dispatchers.Main){
+                    eventLD.postValue(updatedEvent)
+                }
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main){
+                    errorLD.value = e
+                }
             }
         }
     }
 
     fun createEvent(category: String, date : Date, name : String, imageUrl:String, space : String){
         viewModelScope.launch (Dispatchers.IO){
-            val event = Event(category,date,"","",imageUrl,name,space)
-            val newEventId = eventRepository.createEvent(event)
-            val newEvent = eventRepository.getEvent(newEventId)
+            try {
+                val event = Event(category,date,"","",imageUrl,name,space)
+                val newEventId = eventRepository.createEvent(event)
+                val newEvent = eventRepository.getEvent(newEventId)
 
-            withContext(Dispatchers.Main){
-                eventLD.postValue(newEvent)
-                /*
-                events.add(newEvent)
-                eventsLD.value = events
-
-                if(isFilterActive)
-                    if(filteredEvents.contains(event)){
-                        filteredEvents.add(newEvent)
-                        filteredEventsLD.value = filteredEvents
-                    }
-                sortEventsByDateDescending()
-
-                 */
+                withContext(Dispatchers.Main){
+                    eventLD.postValue(newEvent)
+                }
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main){
+                    errorLD.value = e
+                }
             }
         }
     }

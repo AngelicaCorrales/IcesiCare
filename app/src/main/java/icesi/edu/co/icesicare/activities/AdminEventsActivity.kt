@@ -79,6 +79,11 @@ class AdminEventsActivity : AppCompatActivity() {
     }
 
     fun showEventsListFragment() {
+        binding.actionNameTV.visibility = View.GONE
+        binding.admEvntSearchBtn.visibility = View.VISIBLE
+        binding.admEvntSearchView.visibility = View.GONE
+        binding.admEvntCancelSearchBtn.visibility = View.GONE
+        binding.admEvntBackBtn.visibility = View.VISIBLE
 
         showFragment(eventsListFragment)
         binding.admEvntBackBtn.setOnClickListener {
@@ -88,8 +93,24 @@ class AdminEventsActivity : AppCompatActivity() {
         }
     }
     fun showAddUpdateEventFragment(isUpdating:Boolean,event: Event?) {
+        binding.actionNameTV.visibility = View.VISIBLE
+        binding.admEvntSearchBtn.visibility = View.GONE
+        binding.admEvntSearchView.visibility = View.GONE
+        binding.admEvntCancelSearchBtn.visibility = View.GONE
+        binding.admEvntBackBtn.visibility = View.VISIBLE
+
+
+
+        if(isUpdating){
+            binding.actionNameTV.text = "Editar Evento"
+        }
+        else{
+            binding.actionNameTV.text = "Añadir Evento"
+        }
+        addEventFragment.resetFields()
         addEventFragment.isUpdating = isUpdating
         addEventFragment.event = event
+
         showFragment(addEventFragment)
         binding.admEvntBackBtn.setOnClickListener{
             showEventsListFragment()

@@ -5,7 +5,6 @@ import android.app.DatePickerDialog
 import android.app.Dialog
 import android.app.TimePickerDialog
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.text.format.DateFormat
 import android.util.Log
@@ -15,11 +14,12 @@ import android.view.ViewGroup
 import android.widget.DatePicker
 import android.widget.Spinner
 import android.widget.TimePicker
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.activity.result.contract.ActivityResultContracts
 import com.bumptech.glide.Glide
 import icesi.edu.co.icesicare.R
 import icesi.edu.co.icesicare.activities.AdminEventsActivity
@@ -34,10 +34,7 @@ import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 import java.util.Calendar
 import java.util.Date
-
-
-private const val IS_UPDATING_KEY = "isUpdating"
-private const val EVENT_ID_KEY = "event"
+import java.util.Locale
 
 /**
  * A simple [Fragment] subclass.
@@ -48,27 +45,39 @@ class AdminEventsAddUpdateFragment (var isUpdating: Boolean, var event: Event?) 
 
     private lateinit var binding: FragmentAdminEventsAddUpdateBinding
     private lateinit var parentActivity: AdminEventsActivity
-    private val eventsViewModel : EventViewModel by viewModels()
+    private val eventsViewModel : EventViewModel by viewModels({requireActivity()})
     private var colorNeutralWhite : Int = 0
     private var colorPurple : Int = 0
+    private var waitingForImageResult = false
 
-    private val launcher= registerForActivityResult(
-        ActivityResultContracts.StartActivityForResult(),
-        ::onGalleryResult)
+    private lateinit var launcher: ActivityResultLauncher<Intent>
 
     private fun onGalleryResult(result:androidx.activity.result.ActivityResult) {
         val uri=result.data?.data
         Glide.with(this).load(uri).into(binding.eventImageIV)
         imageURL = uri.toString()
+        isImageChanged = true
+        binding.eventDeleteImageBtn.visibility = View.VISIBLE
     }
+
+    private var eventName:String = ""
+    private var eventCatPosition:Int = 0
+    private var eventLocation: String = ""
 
     private var isImageChanged:Boolean = false
     private var imageURL :String = ""
     private var date: LocalDate? = null
     private var time: LocalTime? = null
 
+    private val dateFormatter = DateTimeFormatter.ofPattern("dd-MMM-yyyy", Locale("es", "ES"))
+    private val timeFormatter = DateTimeFormatter.ofPattern("HH:mm", Locale("es", "ES"))
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
+
+        launcher = registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult(),
+            ::onGalleryResult)
 
         binding = FragmentAdminEventsAddUpdateBinding.inflate(inflater, container, false)
         parentActivity = activity as AdminEventsActivity
@@ -84,10 +93,33 @@ class AdminEventsAddUpdateFragment (var isUpdating: Boolean, var event: Event?) 
             TimePickerFragment().show(childFragmentManager, "timePicker")
         }
 
-        binding.eventImageBtn.setOnClickListener(){
+        binding.eventImageBtn.setOnClickListener{
             val intent = Intent(Intent.ACTION_GET_CONTENT)
             intent.type="image/*"
             launcher.launch(intent)
+            waitingForImageResult = true
+        }
+
+        binding.eventDeleteImageBtn.setOnClickListener{
+            isImageChanged = true
+            imageURL = ""
+            Glide.with(parentActivity).load(R.drawable.no_image).into(binding.eventImageIV)
+            binding.eventDeleteImageBtn.visibility = View.GONE
+        }
+
+        eventsViewModel.errorLD.observe(viewLifecycleOwner){
+            it.message?.let { it1 -> showAlertDialog(it1) }
+        }
+
+        return binding.root
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        if(!waitingForImageResult){
+            resetFields()
+            waitingForImageResult = false
         }
 
         if(isUpdating){
@@ -99,13 +131,13 @@ class AdminEventsAddUpdateFragment (var isUpdating: Boolean, var event: Event?) 
         else{
             onCreateAddView()
         }
-
-        return binding.root
     }
 
     private fun onCreateUpdateView(){
-
         imageURL = event!!.imageURL
+        if(imageURL != ""){
+            binding.eventDeleteImageBtn.visibility = View.VISIBLE
+        }
 
         val dateTime = event!!.date.toLocalDateTime
 
@@ -113,18 +145,16 @@ class AdminEventsAddUpdateFragment (var isUpdating: Boolean, var event: Event?) 
         time = dateTime.toLocalTime()
 
         binding.eventNameET.setText(event!!.name)
-        binding.eventCategorySpin
         binding.eventCategorySpin.setSelection(
             findIndexOfSpinnerOption(binding.eventCategorySpin,event!!.category))
         binding.eventLocationET.setText(event!!.space)
 
-        val dateFormatter = DateTimeFormatter.ofPattern("dd-MMM-yyyy")
+
         binding.eventDateBtn.text = date!!.format(dateFormatter)
 
-        val timeFormatter = DateTimeFormatter.ofPattern("hh:mm")
         binding.eventTimeBtn.text = time!!.format(timeFormatter)
 
-        Glide.with(parentActivity).load(event!!.imageURL).into(binding.eventImageIV)
+        if (event!!.imageURL != "") Glide.with(parentActivity).load(event!!.imageURL).into(binding.eventImageIV)
 
         binding.addUpdateEventBtn.text = "Guardar Cambios"
         binding.addUpdateEventBtn.setOnClickListener{
@@ -148,14 +178,15 @@ class AdminEventsAddUpdateFragment (var isUpdating: Boolean, var event: Event?) 
                 event?.date  = LocalDateTime.of(date,time).toDate
                 event!!.name = name
                 event!!.space = space
+
                 if(isImageChanged) event?.imageURL = imageURL
 
-                eventsViewModel.eventLD.value = event
+                eventsViewModel.eventLD.value = null
 
                 eventsViewModel.eventLD.observe(viewLifecycleOwner){
                     if (it != null){
-                        parentActivity.showEventsListFragment()
                         eventsViewModel.eventLD.removeObservers(viewLifecycleOwner)
+                        parentActivity.showEventsListFragment()
                     }
                 }
 
@@ -165,13 +196,17 @@ class AdminEventsAddUpdateFragment (var isUpdating: Boolean, var event: Event?) 
     }
 
     private fun onCreateAddView(){
+
+        binding.eventDeleteImageBtn.visibility = View.GONE
+
         binding.addUpdateEventBtn.text = "+ Añadir Evento"
+
         binding.addUpdateEventBtn.setOnClickListener{
             var isOkToCreate = true
 
             val category = binding.eventCategorySpin.selectedItem.toString()
 
-            var finalDate:Date = Date()
+            var finalDate = Date()
 
             if(date == null || time == null){
                 showAlertDialog("Es obligatorio especificar la fecha y hora del evento.")
@@ -195,12 +230,12 @@ class AdminEventsAddUpdateFragment (var isUpdating: Boolean, var event: Event?) 
 
             if(isOkToCreate) {
 
-                eventsViewModel.eventLD.value = event
+                eventsViewModel.eventLD.value = null
 
                 eventsViewModel.eventLD.observe(viewLifecycleOwner) {
                     if (it != null){
-                        parentActivity.showEventsListFragment()
                         eventsViewModel.eventLD.removeObservers(viewLifecycleOwner)
+                        parentActivity.showEventsListFragment()
                     }
                 }
 
@@ -214,16 +249,28 @@ class AdminEventsAddUpdateFragment (var isUpdating: Boolean, var event: Event?) 
         val builder: AlertDialog.Builder = AlertDialog.Builder(this.requireContext())
         builder
             .setTitle(message)
-            .setNeutralButton("OK") { dialog, which -> //Do nothing
+            .setNeutralButton("OK") { _, _ -> //Do nothing
             }
 
         val dialog: AlertDialog = builder.create()
         dialog.setOnShowListener {
             val button = dialog.getButton(AlertDialog.BUTTON_NEUTRAL)
-            button.setTextColor(colorNeutralWhite)
-            button.setBackgroundColor(colorPurple)
+            button.setTextColor(colorPurple)
         }
         dialog.show()
+    }
+
+    fun resetFields(){
+        if(this::binding.isInitialized) {
+            imageURL = ""
+            date = null
+            time = null
+            isImageChanged = false
+
+            binding.eventNameET.setText("")
+            binding.eventCategorySpin.setSelection(0)
+            binding.eventLocationET.setText("")
+        }
     }
 
     /**
@@ -244,12 +291,12 @@ class AdminEventsAddUpdateFragment (var isUpdating: Boolean, var event: Event?) 
 
     fun setTime(localTime: LocalTime?) {
         time = localTime
-        binding.eventTimeBtn.text = time.toString()
+        binding.eventTimeBtn.text = time?.format(timeFormatter)
     }
 
     fun setDate(localDate: LocalDate?) {
         date = localDate
-        binding.eventDateBtn.text = date.toString()
+        binding.eventDateBtn.text = date?.format(dateFormatter)
     }
 
     companion object {
@@ -258,7 +305,7 @@ class AdminEventsAddUpdateFragment (var isUpdating: Boolean, var event: Event?) 
          * this fragment using the provided parameters.
          *
          * @param isUpdating If an event is being updated
-         * @param eventId id of the event being updated,should be null
+         * @param event the event being updated, can be null
          * if this fragment is used for creating an event.
          * @return A new instance of fragment AdminEventsAddUpdateFragment.
          */
@@ -292,6 +339,6 @@ class DatePickerFragment : DialogFragment(), DatePickerDialog.OnDateSetListener 
         return DatePickerDialog(requireContext(), this, year, month, day)
     }
     override fun onDateSet(view: DatePicker, year: Int, month: Int, day: Int) {
-        (parentFragment as AdminEventsAddUpdateFragment).setDate(LocalDate.of(year,month,day))
+        (parentFragment as AdminEventsAddUpdateFragment).setDate(LocalDate.of(year,month+1,day))
     }
 }

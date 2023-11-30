@@ -4,14 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@drawable/bg"
     tools:context=".activities.AdminEventsActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/navbarContainer"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@color/neutral_white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -23,7 +22,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
-            android:backgroundTint="@color/neutral_white"
+            android:backgroundTint="#00FFFEFF"
             android:contentDescription="back"
             android:src="@drawable/arrow_back_icon"
             android:tint="@color/black"
@@ -78,6 +77,18 @@
             app:layout_constraintBottom_toBottomOf="@+id/admEvntSearchView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/admEvntSearchView" />
+
+        <TextView
+            android:id="@+id/actionNameTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:fontFamily="@font/roboto_medium"
+            android:text="Añadir Evento"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="@+id/admEvntBackBtn"
+            app:layout_constraintStart_toEndOf="@+id/admEvntBackBtn"
+            app:layout_constraintTop_toTopOf="@+id/admEvntBackBtn" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
