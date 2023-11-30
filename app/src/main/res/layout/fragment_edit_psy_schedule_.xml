@@ -14,9 +14,9 @@
             android:id="@+id/contentLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginEnd="20dp"
             android:layout_marginBottom="8dp"
             app:cardBackgroundColor="@color/neutral_white"
             app:cardCornerRadius="10dp"
@@ -27,58 +27,65 @@
             app:contentPaddingTop="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.338">
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/contentHolder"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="@color/neutral_white">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/constraintLayout4"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:id="@+id/navbarContainer"
+                    android:layout_width="0dp"
+                    android:layout_height="74dp"
+                    android:background="@color/neutral_white"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
                     <ImageButton
                         android:id="@+id/backBtn"
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
-                        android:backgroundTint="#7802D3"
+                        android:layout_width="18dp"
+                        android:layout_height="19dp"
+                        android:layout_marginStart="20dp"
+                        android:backgroundTint="#00FFFFFF"
                         android:contentDescription="back"
                         android:src="@drawable/arrow_back_icon"
-                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintBottom_toBottomOf="@+id/textView6"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="@+id/textView6" />
+
+                    <TextView
+                        android:id="@+id/textView6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginBottom="24dp"
+                        android:fontFamily="@font/roboto"
+                        android:text="Personaliza tu horario"
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/backBtn" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <TextView
-                    android:id="@+id/textView6"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginBottom="20dp"
-                    android:fontFamily="@font/roboto_medium"
-                    android:text="Personaliza tu horario"
-                    android:textColor="@color/black"
-                    android:textSize="25sp"
-                    app:layout_constraintBottom_toTopOf="@+id/scheduleContainer"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.494"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout4" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/scheduleContainer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="14dp"
                     android:layout_marginBottom="31dp"
+                    app:cardBackgroundColor="@color/neutral_white"
                     app:layout_constraintBottom_toTopOf="@+id/saveScheduleChangesBtn"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView6">
+                    app:layout_constraintTop_toBottomOf="@+id/navbarContainer">
 
                     <TextView
                         android:id="@+id/textView9"
@@ -99,10 +106,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:layout_margin="16sp"
+                        android:inputType="none"
                         app:layout_constraintBottom_toTopOf="@+id/textView8"
                         app:layout_constraintTop_toBottomOf="@+id/textView9"
-                        tools:layout_editor_absoluteX="16dp"
-                        android:inputType="none">
+                        tools:layout_editor_absoluteX="16dp">
 
                         <androidx.appcompat.widget.AppCompatAutoCompleteTextView
                             android:id="@+id/daysInput"
@@ -138,7 +145,7 @@
                         app:layout_constraintTop_toBottomOf="@+id/textView8">
 
                         <LinearLayout
-                            android:layout_width="match_parent"
+                            android:layout_width="329dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="16dp"
                             android:layout_marginTop="16dp"
@@ -175,7 +182,7 @@
 
                                 <Button
                                     android:id="@+id/editFromTimeBtn"
-                                    android:layout_width="80dp"
+                                    android:layout_width="100dp"
                                     android:layout_height="40dp"
                                     android:layout_marginStart="16dp"
                                     android:background="@drawable/appointment_button_background"
@@ -219,7 +226,7 @@
 
                                 <Button
                                     android:id="@+id/editToTimeBtn"
-                                    android:layout_width="80dp"
+                                    android:layout_width="100dp"
                                     android:layout_height="40dp"
                                     android:layout_marginStart="16dp"
                                     android:background="@drawable/appointment_button_background"
@@ -244,20 +251,19 @@
                 <Button
                     android:id="@+id/saveScheduleChangesBtn"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginEnd="20dp"
                     android:background="@drawable/appointment_button_background"
                     android:fontFamily="@font/roboto_medium"
-                    android:text="Save changes"
+                    android:text="Guardar Cambios"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
                     android:textSize="16sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/scheduleContainer"
-                    app:layout_constraintVertical_bias="1.0" />
+                    app:layout_constraintTop_toBottomOf="@+id/scheduleContainer"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -60,4 +60,5 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.7.3")
     implementation("com.github.bumptech.glide:glide:4.16.0")
     implementation("com.pnikosis:materialish-progress:1.7")
+    implementation("androidx.core:core-splashscreen:1.0.0")
 }
