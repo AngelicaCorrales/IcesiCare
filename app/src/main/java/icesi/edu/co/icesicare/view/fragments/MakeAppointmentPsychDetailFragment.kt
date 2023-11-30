@@ -1,19 +1,24 @@
 package icesi.edu.co.icesicare.view.fragments
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import icesi.edu.co.icesicare.databinding.FragmentMakeAppointmentPsychDetailBinding
 import icesi.edu.co.icesicare.model.entity.Psychologist
+import icesi.edu.co.icesicare.util.CalendarUtils
+import icesi.edu.co.icesicare.viewmodel.ScheduleViewModel
 
 class MakeAppointmentPsychDetailFragment : Fragment() {
 
     var psych:Psychologist? = null
     lateinit var binding:FragmentMakeAppointmentPsychDetailBinding
+    private val viewModel : ScheduleViewModel by viewModels()
 
     val weeklyCalendarFragment by lazy{
         WeeklyCalendarFragment.newInstance()
@@ -71,8 +76,25 @@ class MakeAppointmentPsychDetailFragment : Fragment() {
         initializeVals()
         loadPsychDetail()
         loadWeeklyCalendar()
-        enableHoursBySchedule()
+
+        loadScheduleForDay()
+
+        viewModel.scheduleLV.observe(viewLifecycleOwner){sch->
+            enableHoursBySchedule(sch?.startHour,sch?.endHour)
+        }
+
+        CalendarUtils.selectedDate.observe(viewLifecycleOwner) { newSelectedDate ->
+            // Reactualizar el fragmento cuando cambie la fecha seleccionada
+            loadScheduleForDay()
+        }
+
         return binding.root
+    }
+
+    fun loadScheduleForDay(){
+        psych?.scheduleId?.let {
+            viewModel.getScheduleForDay(it,CalendarUtils.selectedDate.value?.dayOfWeek.toString().lowercase().replaceFirstChar {it.uppercase()})
+        }
     }
 
     fun loadPsychDetail(){
@@ -90,13 +112,19 @@ class MakeAppointmentPsychDetailFragment : Fragment() {
             .replace(binding.weeklyCalendar.id,weeklyCalendarFragment).commit()
     }
 
-    fun enableHoursBySchedule(){
+    fun enableHoursBySchedule(startHour:Double?,endHour:Double?){
+        if(startHour ==null && endHour==null){
+            for (button in buttonHoursList) {
+              button.isEnabled = false
+            }
+        }else{
+            for (button in buttonHoursList) {
+                val buttonValue = hoursMap[button] ?: 0.0
 
-        for (button in buttonHoursList) {
-            val buttonValue = hoursMap[button] ?: 0.0
-
-            button.isEnabled = buttonValue in 7.0..20.0
+                button.isEnabled = buttonValue in startHour!!.. endHour!!-0.1
+            }
         }
+
     }
 
 

@@ -1,11 +1,14 @@
 package icesi.edu.co.icesicare.util
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 object CalendarUtils {
-    var selectedDate: LocalDate? = null
+
+     val selectedDate = MutableLiveData<LocalDate?>()
 
 
     fun monthYearFromDate(date: LocalDate): String {
