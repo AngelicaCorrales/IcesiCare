@@ -2,14 +2,14 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/psychologistAppointment"
+    android:id="@+id/ver_citas_p"
     android:background="@color/white"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.PsychologistAppointmentActivity">
+    tools:context=".activities.StudentAppointmentActivity">
 
     <View
-        android:id="@+id/rectangle"
+        android:id="@+id/rectangle_6"
         android:layout_width="0dp"
         android:layout_height="344dp"
         android:background="@color/neutral_white"
@@ -19,29 +19,30 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
         android:layout_marginTop="48dp"
-        app:cardCornerRadius="16dp"
+        app:cardCornerRadius="60dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/eventeImage"
+            android:id="@+id/psychologistProfileImg"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:scaleType="centerCrop"
             android:src="@drawable/ic_launcher_background"
-            app:srcCompat="@drawable/ic_launcher_background" />
+            app:srcCompat="@drawable/default_profile_img" />
     </androidx.cardview.widget.CardView>
 
     <TextView
-        android:id="@+id/studentName"
+        android:id="@+id/psychologistName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:fontFamily="sans-serif"
-        android:text="@string/nombre_del_estudiante"
+        android:text="@string/nombre_de_psic_loga_o"
         android:textColor="@color/black"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -49,15 +50,15 @@
         app:layout_constraintTop_toBottomOf="@+id/cardView" />
 
     <TextView
-        android:id="@+id/studentInfo"
+        android:id="@+id/psychologistDescription"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="72dp"
         android:layout_marginEnd="16dp"
-        android:text="@string/informaci_n_del_estudiante"
+        android:text="@string/descripci_n_del_psic_logo"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="16sp"
@@ -66,11 +67,11 @@
         app:layout_constraintTop_toBottomOf="@+id/cardView" />
 
     <TextView
-        android:id="@+id/studentGenre"
+        android:id="@+id/psychologistCarrer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="48dp"
-        android:text="@string/g_nero_del_estudiante"
+        android:text="@string/psic_logo_a"
         android:textColor="@color/black"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -81,10 +82,10 @@
         android:id="@+id/imageView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="48dp"
+        android:layout_marginStart="64dp"
         android:layout_marginTop="32dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rectangle"
+        app:layout_constraintTop_toBottomOf="@+id/rectangle_6"
         app:srcCompat="@drawable/schedule_icon" />
 
     <ImageView
@@ -159,5 +160,50 @@
             android:layout_marginEnd="10sp"
             android:layout_marginTop="10sp"/>
     </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="-2dp"
+        android:layout_marginTop="-2dp"
+        android:layout_marginEnd="-2dp"
+        android:layout_marginBottom="-2dp"
+        android:background="@color/purple"
+        app:cardBackgroundColor="@color/purple"
+        app:cardCornerRadius="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/cancelAppointment"
+        app:layout_constraintEnd_toEndOf="@+id/cancelAppointment"
+        app:layout_constraintStart_toStartOf="@+id/cancelAppointment"
+        app:layout_constraintTop_toTopOf="@+id/cancelAppointment">
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="      " />
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cancelAppointment"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="24dp"
+        app:cardCornerRadius="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/cardView2">
+
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="8dp"
+            android:text="@string/cancelar_cita"
+            android:textAlignment="center"
+            android:textColor="@color/purple"
+            android:textSize="19sp" />
+    </androidx.cardview.widget.CardView>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
