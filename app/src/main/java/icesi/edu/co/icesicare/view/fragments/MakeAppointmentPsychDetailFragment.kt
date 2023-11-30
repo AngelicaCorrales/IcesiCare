@@ -1,5 +1,6 @@
 package icesi.edu.co.icesicare.view.fragments
 
+import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
@@ -31,6 +32,7 @@ class MakeAppointmentPsychDetailFragment : Fragment() {
     private var buttonHoursList: List<Button> = listOf()
     private var hoursMap: Map<Button,Double> = mapOf()
     var selected_hour: Button? =null
+    var textButtonColor: ColorStateList? =null
     fun initializeVals(){
         buttonHoursList= listOf(
         binding.btn8,
@@ -69,6 +71,7 @@ class MakeAppointmentPsychDetailFragment : Fragment() {
         binding.btn5 to 17.0,
         binding.btn530 to 17.5,
         )
+         textButtonColor = ContextCompat.getColorStateList(requireContext(), R.color.text_button_color)
     }
 
 
@@ -98,8 +101,10 @@ class MakeAppointmentPsychDetailFragment : Fragment() {
 
     fun onButtonClick(button: Button){
 
+
+
         selected_hour?.setBackgroundResource(R.drawable.appointment_button_background_not_selected)
-        selected_hour?.setTextColor(getColor(requireContext(),R.color.purple))
+        selected_hour?.setTextColor(textButtonColor)
 
         button.setBackgroundResource(R.drawable.appointment_button_background)
         button.setTextColor(getColor(requireContext(),R.color.neutral_white))
@@ -180,15 +185,24 @@ class MakeAppointmentPsychDetailFragment : Fragment() {
     }
 
     fun enableHoursBySchedule(startHour:Double?,endHour:Double?){
+
+
+
         if(startHour ==null && endHour==null){
             for (button in buttonHoursList) {
-              button.isEnabled = false
+
+                button.isEnabled = false
+                button.setBackgroundResource(R.drawable.appointment_button_background_not_selected)
+                button.setTextColor(textButtonColor)
+
             }
         }else{
             for (button in buttonHoursList) {
                 val buttonValue = hoursMap[button] ?: 0.0
-
                 button.isEnabled = buttonValue in startHour!!.. endHour!!-0.1
+                button.setBackgroundResource(R.drawable.appointment_button_background_not_selected)
+                button.setTextColor(textButtonColor)
+
             }
         }
 
