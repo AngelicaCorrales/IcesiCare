@@ -97,8 +97,8 @@ class PsyProfileFragment  : Fragment() {
             binding.psyGenre.text = it.genre
             binding.psyDescr.text = it.description
 
-            it.profileImageURL?.let { imageUrl ->
-                if (imageUrl != "") {
+            it.profileImageId?.let { imageUrl ->
+                if (imageUrl.isNotEmpty()) {
                     Glide.with(this@PsyProfileFragment).load(imageUrl).into(binding.profileImage)
                 }
             }

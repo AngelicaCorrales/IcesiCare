@@ -160,7 +160,10 @@ class EditPsyProfileFragment : Fragment() {
         cameraLauncher = registerForActivityResult(ActivityResultContracts.TakePicture()) { success ->
             if (success) {
                 newImageURIStr = UUID.randomUUID().toString()
-                Firebase.storage.reference.child("users").child("profileImages").child(newImageURIStr).putFile(imgUrl)
+                val storageRef = Firebase.storage.reference.child("users").child("profileImages").child(newImageURIStr)
+                storageRef.putFile(imgUrl).addOnSuccessListener {
+                    Glide.with(this@EditPsyProfileFragment).load(imgUrl).into(binding.psyProfileImg)
+                }
             }
         }
     }
