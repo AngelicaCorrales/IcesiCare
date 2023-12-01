@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import icesi.edu.co.icesicare.activities.AcceptAppointmentActivity
+import icesi.edu.co.icesicare.activities.MakeEventsActivity
 import icesi.edu.co.icesicare.databinding.FragmentHomePsychBinding
 import icesi.edu.co.icesicare.viewmodel.PsychologistViewModel
 
@@ -40,6 +41,10 @@ class HomeFragmentPsych : Fragment() {
 
         binding.acceptApptBtn.setOnClickListener {
             val intent= Intent(activity, AcceptAppointmentActivity::class.java)
+            startActivity(intent) //if handling result needed, change to launch
+        }
+        binding.eventsBtn.setOnClickListener {
+            val intent= Intent(activity, MakeEventsActivity::class.java)
             startActivity(intent) //if handling result needed, change to launch
         }
 

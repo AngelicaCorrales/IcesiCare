@@ -6,6 +6,24 @@
     android:layout_height="match_parent"
     android:background="@color/white">
 
+    <Button
+        android:id="@+id/eventsBtn"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:layout_marginStart="204dp"
+        android:layout_marginTop="236dp"
+        android:background="@drawable/home_menu_buttons_background"
+        android:drawableTop="@drawable/ticket"
+        android:drawablePadding="10dp"
+        android:drawableTint="@color/purple"
+        android:gravity="center_horizontal"
+        android:paddingTop="24dp"
+        android:text="Aceptar citas"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/welcomeTV" />
+
     <TextView
         android:id="@+id/hello_tv"
         android:layout_width="wrap_content"
@@ -50,25 +68,6 @@
         app:layout_constraintTop_toBottomOf="@+id/welcomeTV" />
 
     <Button
-        android:id="@+id/eventsBtn"
-        android:layout_width="96dp"
-        android:layout_height="96dp"
-        android:background="@drawable/home_menu_buttons_background"
-        android:drawableTop="@drawable/ticket"
-        android:drawablePadding="10dp"
-        android:drawableTint="@color/purple"
-        android:enabled="false"
-        android:gravity="center_horizontal"
-        android:paddingTop="24dp"
-        android:text="Eventos"
-        android:textAllCaps="false"
-        android:textColor="@color/black"
-        app:layout_constraintBottom_toBottomOf="@+id/acceptApptBtn"
-        app:layout_constraintEnd_toStartOf="@+id/activitiesBtn"
-        app:layout_constraintStart_toEndOf="@+id/acceptApptBtn"
-        app:layout_constraintTop_toTopOf="@+id/acceptApptBtn" />
-
-    <Button
         android:id="@+id/activitiesBtn"
         android:layout_width="96dp"
         android:layout_height="96dp"
@@ -84,9 +83,8 @@
         android:textAllCaps="false"
         android:textColor="@color/black"
         android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="@+id/eventsBtn"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/eventsBtn" />
+        tools:layout_editor_absoluteY="231dp" />
 
     <ImageButton
         android:id="@+id/noti_img_btn"

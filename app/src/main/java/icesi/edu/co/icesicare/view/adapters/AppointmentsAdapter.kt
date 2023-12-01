@@ -18,10 +18,8 @@ import java.util.Date
 class AppointmentsAdapter(private val goDetail: GoObjectDetail) : RecyclerView.Adapter<ElementAppointmentHolder>(){
     val appointments = ArrayList<AppointmentData>()
 
-    //    Construye los esqueletos de los items de la lista
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ElementAppointmentHolder {
         val inflater = LayoutInflater.from(parent.context)
-        //ahi va el nombre del elemento de layout que se utiliza
         val view = inflater.inflate(R.layout.elementappointment, parent, false)
         val itemView = ElementAppointmentHolder(view)
         return itemView
@@ -31,7 +29,6 @@ class AppointmentsAdapter(private val goDetail: GoObjectDetail) : RecyclerView.A
         return appointments.size
     }
 
-    //    Carga los datos en los esqueletos
     override fun onBindViewHolder(holder: ElementAppointmentHolder, position: Int) {
         val data = appointments[position]
         holder.namePsychologist.text = data.PsychologistName

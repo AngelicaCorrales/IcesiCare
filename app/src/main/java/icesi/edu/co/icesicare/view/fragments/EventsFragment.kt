@@ -27,10 +27,7 @@ class EventsFragment : Fragment() {
         binding.eventList.adapter = adapter
         binding.eventList.layoutManager = LinearLayoutManager(requireContext())
         binding.eventList.setHasFixedSize(true)
-
         viewmodel.eventsListLiveData.observe(viewLifecycleOwner) { eventList ->
-            Log.e(">>>" ,eventList.size.toString() +" tamaño en events frament" )
-
             adapter.addEventsList(eventList)
         }
         return binding.root

@@ -29,7 +29,9 @@ class ScheduleFragment: Fragment() {
     ): View? {
         binding = ActivityStudentScheduleBinding.inflate(inflater, container, false)
 
-        viewmodel.downloadAppointments(Firebase.auth.currentUser!!.uid)
+        val id = Firebase.auth.currentUser!!.uid
+
+        viewmodel.downloadAppointments(id)
         loadAppointments()
         binding.btnAppointment.isEnabled = false
         binding.btnEvents.setOnClickListener {
@@ -48,7 +50,7 @@ class ScheduleFragment: Fragment() {
             binding.btnAppointment.isEnabled = false
             binding.btnAppointment.setTextColor(Color.WHITE)
             viewmodel.setType(1)
-            viewmodel.downloadAppointments(Firebase.auth.currentUser!!.uid)
+            viewmodel.downloadAppointments(id)
             loadAppointments()
         }
 
@@ -58,7 +60,7 @@ class ScheduleFragment: Fragment() {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 viewmodel.setMonth(tab!!.position + 1)
                 if(viewmodel.getType() == 1){
-                    viewmodel.downloadAppointments(Firebase.auth.currentUser!!.uid)
+                    viewmodel.downloadAppointments(id)
                     loadAppointments()
                 }else{
                     viewmodel.downloadEvents()
