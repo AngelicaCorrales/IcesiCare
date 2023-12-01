@@ -7,6 +7,10 @@
         <item name="android:timePickerDialogTheme">@style/MyPickerTheme</item>
         <item name="android:alertDialogTheme">@style/MyAlertDialogStyle</item>
     </style>
+    <style name="TabItemText">
+        <item name="android:fontFamily">@font/roboto_regular</item>
+        <item name="android:textSize">34sp</item>
+    </style>
 
     <style name="Theme.IcesiCare" parent="Base.Theme.IcesiCare" />
 

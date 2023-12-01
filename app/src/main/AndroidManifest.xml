@@ -53,13 +53,14 @@
             android:name=".activities.MakeAppointmentActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.UserAppointmentInfo"
-            android:exported="false" />
-        <activity
             android:name=".view.fragments.SignInFragment"
             android:exported="false" />
         <activity
             android:name=".view.fragments.SignUpFragment"
+            android:exported="false" />
+
+        <activity
+            android:name=".activities.StudentAppointmentActivity"
             android:exported="false" />
 
         <meta-data

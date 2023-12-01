@@ -42,7 +42,7 @@ class AdminEventAdapter(activity:AdminEventsActivity, fragment: AdminEventsListF
 
         holder.eventNameTV.text = event.name
 
-        val eventDateTime = event.date.toLocalDateTime
+        val eventDateTime = event.date
 
         holder.eventDayTV.text = eventDateTime.dayOfMonth.toString()
         holder.eventMonthTV.text = eventDateTime.month.toString().substring(0,3)

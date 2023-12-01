@@ -12,6 +12,7 @@ data class Psychologist(
     var profileImageId : String? = null,
     var profileImageURL : String? = null,
     var role : String = "",
+
     var scheduleId : String = "",
     var pendingApproval : Boolean = true,
     var approved : Boolean = false
