@@ -53,6 +53,7 @@
         android:id="@+id/activitiesBtn"
         android:layout_width="96dp"
         android:layout_height="96dp"
+        android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
         android:background="@drawable/home_menu_buttons_background"
         android:drawableTop="@drawable/basketball"
@@ -66,7 +67,8 @@
         android:textColor="@color/black"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:layout_editor_absoluteY="231dp" />
+        app:layout_constraintStart_toEndOf="@+id/eventsBtn"
+        app:layout_constraintTop_toTopOf="@+id/eventsBtn" />
 
     <ImageButton
         android:id="@+id/noti_img_btn"
@@ -83,15 +85,16 @@
         android:id="@+id/eventsBtn"
         android:layout_width="96dp"
         android:layout_height="96dp"
+        android:layout_marginStart="32dp"
         android:background="@drawable/home_menu_buttons_background"
         android:drawableTop="@drawable/ticket"
         android:drawablePadding="10dp"
+        android:drawableTint="@color/purple"
         android:gravity="center_horizontal"
         android:paddingTop="24dp"
         android:text="Eventos"
+        android:textAllCaps="false"
         android:textColor="@color/black"
-        app:layout_constraintBottom_toBottomOf="@+id/makeAppmBtn"
-        app:layout_constraintEnd_toStartOf="@+id/activitiesBtn"
         app:layout_constraintStart_toEndOf="@+id/makeAppmBtn"
         app:layout_constraintTop_toTopOf="@+id/makeAppmBtn" />
 
