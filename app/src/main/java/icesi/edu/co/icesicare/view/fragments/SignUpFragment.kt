@@ -32,6 +32,12 @@ class SignUpFragment : Fragment() {
             val authActivity = activity as AuthActivity
             authActivity.loadFragment(authActivity.signupStudFragment)
         }
+
+        binding.backBtnSignUp.setOnClickListener {
+            val authActivity = activity as AuthActivity
+            authActivity.loadFragment(authActivity.firstscreenFragment)
+        }
+
         return binding.root
     }
 
