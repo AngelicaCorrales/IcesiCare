@@ -11,21 +11,22 @@ import com.google.firebase.firestore.ListenerRegistration
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import icesi.edu.co.icesicare.R
-import icesi.edu.co.icesicare.databinding.ActivityStudentChatBinding
+import icesi.edu.co.icesicare.databinding.ActivityPsychologistChatBinding
 import icesi.edu.co.icesicare.model.entity.Message
-import icesi.edu.co.icesicare.view.fragments.StudentChatFragment
-import icesi.edu.co.icesicare.viewmodel.StudentChatViewModel
+import icesi.edu.co.icesicare.view.fragments.PsychologistChatFragment
+import icesi.edu.co.icesicare.viewmodel.PsychologistChatViewModel
+import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.util.Date
+import java.util.TimeZone
 
-class StudentChatActivity : AppCompatActivity() {
-
-    private val viewModel : StudentChatViewModel by viewModels()
+class PsychologistChatActivity : AppCompatActivity() {
+    private val viewModel : PsychologistChatViewModel by viewModels()
     private lateinit var listener: ListenerRegistration
 
     private val binding by lazy {
-        ActivityStudentChatBinding.inflate(layoutInflater)
+        ActivityPsychologistChatBinding.inflate(layoutInflater)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,8 +39,9 @@ class StudentChatActivity : AppCompatActivity() {
         viewModel.chatLV.observe(this){
 
         }
-        viewModel.psychologist.observe(this){
-            binding.contactName.text = it.name
+        viewModel.studentLV.observe(this){
+            val name = it.name+" "+it.lastname
+            binding.contactName.text = name
 
             if(it.profileImageURL != ""){
                 Glide.with(this).load(it.profileImageURL).into(binding.contactImage)
@@ -47,7 +49,7 @@ class StudentChatActivity : AppCompatActivity() {
         }
 
         listener = Firebase.firestore.collection("chats").document(chatId).collection("messages").orderBy("date")
-            .limitToLast(10)//No tiene sentido que sea una corutina
+            .limitToLast(10)
             .addSnapshotListener{data, error ->
 
                 for (doc in data!!.documentChanges){
@@ -66,13 +68,13 @@ class StudentChatActivity : AppCompatActivity() {
 
         binding.sendBtn.setOnClickListener {
             val message = binding.typeMess.text.toString()
-            val messageToDb = Message(Firebase.auth.currentUser!!.uid, convertToDate(), "", message)
+            val messageToDb = Message(Firebase.auth.currentUser!!.uid, convertToDate(LocalDate.now()), "", message)
             viewModel.sendMessage(chatId, messageToDb)
             binding.typeMess.text.clear()
         }
     }
 
-    private fun convertToDate(): Date {
+    private fun convertToDate(localDate: LocalDate): Date {
         val localDateTime = LocalDateTime.now()
         val zonaId = ZoneId.systemDefault()
         val date = localDateTime.atZone(zonaId).toInstant()

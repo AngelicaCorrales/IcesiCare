@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/home_white"
-    tools:context=".activities.StudentChatActivity">
+    tools:context=".activities.PsychologistChatActivity">
 
     <View
         android:id="@+id/view"

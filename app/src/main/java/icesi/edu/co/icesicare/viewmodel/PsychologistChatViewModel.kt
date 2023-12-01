@@ -7,25 +7,25 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import icesi.edu.co.icesicare.model.entity.Chat
 import icesi.edu.co.icesicare.model.entity.Message
-import icesi.edu.co.icesicare.model.entity.Psychologist
-import icesi.edu.co.icesicare.model.repository.StudentChatRepository
+import icesi.edu.co.icesicare.model.entity.Student
+import icesi.edu.co.icesicare.model.repository.PsychologistChatRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class StudentChatViewModel : ViewModel() {
+class PsychologistChatViewModel : ViewModel() {
 
     val chatLV = MutableLiveData<Chat>()
-    private var studentChatRepository = StudentChatRepository()
-    val psychologist = MutableLiveData<Psychologist>()
+    private var psychologistChatRepository = PsychologistChatRepository()
+    val studentLV = MutableLiveData<Student>()
 
     fun getChat(chatId : String){
 
         viewModelScope.launch(Dispatchers.IO) {
-            val chatOfDb = studentChatRepository.getChat(chatId)
+            val chatOfDb = psychologistChatRepository.getChat(chatId)
 
             withContext(Dispatchers.Main){
-                psychologist.value = studentChatRepository.getContact(chatId, Firebase.auth.currentUser!!.uid)
+                studentLV.value = psychologistChatRepository.getContact(chatId, Firebase.auth.currentUser!!.uid)
             }
             withContext(Dispatchers.Main){
                 chatLV.value = chatOfDb
@@ -35,7 +35,7 @@ class StudentChatViewModel : ViewModel() {
 
     fun sendMessage(chatId: String, message : Message){
         viewModelScope.launch(Dispatchers.IO) {
-            studentChatRepository.sendMessage(chatId, message)
+            psychologistChatRepository.sendMessage(chatId, message)
         }
     }
 }

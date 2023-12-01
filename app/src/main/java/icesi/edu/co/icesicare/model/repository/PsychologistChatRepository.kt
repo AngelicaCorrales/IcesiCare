@@ -1,21 +1,23 @@
 package icesi.edu.co.icesicare.model.repository
 
 import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.firestore.toObject
 import com.google.firebase.ktx.Firebase
 import icesi.edu.co.icesicare.model.dto.`in`.ChatInDTO
 import icesi.edu.co.icesicare.model.entity.Chat
 import icesi.edu.co.icesicare.model.entity.Message
-import icesi.edu.co.icesicare.model.entity.Psychologist
+import icesi.edu.co.icesicare.model.entity.Student
 import kotlinx.coroutines.tasks.await
+import java.util.UUID
 
-class ChatRepository {
+class PsychologistChatRepository {
 
-    suspend fun getChatsFromStudent(studentId : String) : ArrayList<ChatInDTO> {
+    private val studentRepository = StudentRepository()
+
+    suspend fun getChatsFromPsychologist(psychologistId : String) : ArrayList<ChatInDTO> {
 
         val chats = ArrayList<ChatInDTO>()
 
-        val document = Firebase.firestore.collection("students").document(studentId)
+        val document = Firebase.firestore.collection("psychologists").document(psychologistId)
             .collection("chats").get().await()
 
         for(docChat in document.documents){
@@ -28,7 +30,7 @@ class ChatRepository {
         return chats
     }
 
-    suspend fun getChat(chatId : String) : Chat{
+    suspend fun getChat(chatId : String) : Chat {
         val docChat = Firebase.firestore.collection("chats").document(chatId).get().await()
         val chat = docChat.toObject(Chat::class.java)
         chat!!.messages = getMessages(chatId)
@@ -43,16 +45,16 @@ class ChatRepository {
         return docMessages.toObjects(Message::class.java)
     }
 
-    suspend fun getContact(chatId: String, studentId: String) : Psychologist{
-        val docChat = Firebase.firestore.collection("students").document(studentId).collection("chats")
+    suspend fun getContact(chatId: String, psychologistId: String) : Student {
+        val docChat = Firebase.firestore.collection("psychologists").document(psychologistId).collection("chats")
             .document(chatId).get().await()
 
         val chat = docChat.toObject(ChatInDTO::class.java)
 
-        return PsychRepository.getPsychologist(chat!!.contactId)
+        return studentRepository.getStudent(chat!!.contactId)
     }
 
-    suspend fun getLastMessageFromChat(chatId : String) : Message{
+    suspend fun getLastMessageFromChat(chatId : String) : Message {
 
         var message = Message(null, null, null, "Empiece una conversación")
 
@@ -64,5 +66,14 @@ class ChatRepository {
         }
 
         return message
+    }
+
+    suspend fun sendMessage(chatId: String, message: Message){
+
+        val messageId = UUID.randomUUID()
+        message.id = messageId.toString()
+
+        Firebase.firestore.collection("chats")
+            .document(chatId).collection("messages").document(messageId.toString()).set(message).await()
     }
 }
