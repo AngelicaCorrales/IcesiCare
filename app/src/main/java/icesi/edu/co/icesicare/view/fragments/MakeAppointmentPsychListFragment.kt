@@ -50,7 +50,7 @@ class MakeAppointmentPsychListFragment : Fragment() {
         }
 
         lifecycleScope.launch (Dispatchers.IO){
-            PsychRepository.fetchAllPsychs()
+            PsychRepository.fetchAllApprovedPsychs()
             withContext(Dispatchers.Main){
                 fragmentActivity.changeProgressBarVisibility(false)
             }
