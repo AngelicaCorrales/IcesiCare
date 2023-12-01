@@ -219,4 +219,11 @@ class AuthViewModel : ViewModel() {
             }
         }
     }
+
+    fun signOut(){
+        viewModelScope.launch(Dispatchers.IO) {
+            Firebase.auth.signOut()
+        }
+    }
+
 }

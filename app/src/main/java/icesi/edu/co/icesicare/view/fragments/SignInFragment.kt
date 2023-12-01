@@ -1,5 +1,6 @@
 package icesi.edu.co.icesicare.view.fragments
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -74,7 +75,14 @@ class SignInFragment : Fragment() {
                 is Student
                     -> startActivity(Intent(requireContext(), StudentMainActivity::class.java))
                 is Psychologist
-                    -> startActivity(Intent(requireContext(), PsychologistMainActivity::class.java))
+                    -> {
+                    if (it.approved && !it.pendingApproval)
+                        startActivity(Intent(requireContext(), PsychologistMainActivity::class.java))
+                    else{
+                        showAlertDialog("Su solicitud de registro como psicólogo ha sido negada.")
+                        vm.signOut()
+                    }
+                }
             }
         }
         vm.isAdmin.observe(viewLifecycleOwner){
@@ -84,6 +92,11 @@ class SignInFragment : Fragment() {
             }
         }
         vm.getRoleOfLoggedUser(userId)
+    }
+
+    private fun showAlertDialog(message:String){
+        val builder = AlertDialog.Builder(requireContext()).setTitle(message).setNeutralButton("OK",null)
+        builder.create().show()
     }
 
     companion object {
