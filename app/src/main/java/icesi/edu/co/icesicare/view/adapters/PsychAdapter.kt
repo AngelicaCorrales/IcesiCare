@@ -22,7 +22,7 @@ class PsychAdapter(rvActivity: MakeAppointmentActivity) : RecyclerView.Adapter<P
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PsychViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.make_appointment_psych_general, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.card_make_appointment_psych_general, parent, false)
         return PsychViewHolder(view)
     }
 

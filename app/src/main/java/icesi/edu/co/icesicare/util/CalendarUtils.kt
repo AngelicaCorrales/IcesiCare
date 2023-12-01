@@ -1,13 +1,22 @@
 package icesi.edu.co.icesicare.util
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import java.time.DayOfWeek
 import java.time.LocalDate
+
+import java.time.LocalDateTime
 import java.time.LocalTime
 import java.time.YearMonth
+import java.time.ZoneId
+import java.time.ZonedDateTime
+
 import java.time.format.DateTimeFormatter
+import java.util.Date
 
 object CalendarUtils {
-    var selectedDate: LocalDate? = null
+
+     val selectedDate = MutableLiveData<LocalDate?>()
 
 
     fun monthYearFromDate(date: LocalDate): String {
@@ -36,4 +45,10 @@ object CalendarUtils {
         }
         return null
     }
+
+    val LocalDateTime.toDate: Date
+        get() = Date.from(this.atZone(ZoneId.systemDefault()).toInstant())
+
+    val Date.toLocalDateTime: LocalDateTime
+        get() = this.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
 }

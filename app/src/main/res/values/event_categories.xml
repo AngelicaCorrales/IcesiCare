@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="event_categories">
+        <item>Otro</item>
+        <item>Concierto</item>
+        <item>Charla</item>
+        <item>Actividad Deportiva</item>
+        <item>Taller</item>
+        <item>Musical</item>
+        <item>Salud mental</item>
+    </string-array>
+</resources>
