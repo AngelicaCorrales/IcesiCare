@@ -34,7 +34,7 @@ object AppointmentsRepository {
             val result = Firebase.firestore
                 .collection("appointments")
                 .whereEqualTo("psychologistId",psychId)
-                .whereEqualTo("accepted",isAccepted)
+                .whereEqualTo("approved",isAccepted)
                 .whereEqualTo("canceled",isCanceled)
                 .get().await()
             result.documents.forEach {document ->
@@ -81,7 +81,7 @@ object AppointmentsRepository {
         try {
             Firebase.firestore
                 .collection("appointments")
-                .document(apptId).update("accepted",isAccepted).await()
+                .document(apptId).update("approved",isAccepted).await()
 
             Firebase.firestore
                 .collection("appointments")

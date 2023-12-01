@@ -79,10 +79,16 @@ object PsychRepository {
     suspend fun getPsychologist(psychologistId : String) : Psychologist? {
 
         try {
+            Log.e("DEV",psychologistId)
+
             val docStudent = Firebase.firestore.collection("psychologists")
                 .document(psychologistId).get().await()
 
+            Log.e("DEV","CHECK 2")
+
             val psychologist = docStudent.toObject(Psychologist::class.java)
+
+            Log.e("DEV","CHECK 2")
 
             psychologist?.let {
                 if (it.profileImageId != ""){
@@ -93,6 +99,7 @@ object PsychRepository {
 
                     it.profileImageURL = url.toString()
                 }
+                Log.e("DEV","CHECK 2")
                 return it
             }
             return null
