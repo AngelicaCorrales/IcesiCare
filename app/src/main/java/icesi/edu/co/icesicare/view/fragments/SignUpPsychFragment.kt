@@ -62,6 +62,11 @@ class SignUpPsychFragment : Fragment() {
             )
         }
 
+        binding.backBtnSignUpPsy.setOnClickListener {
+            val authActivity = activity as AuthActivity
+            authActivity.loadFragment(authActivity.signupFragment)
+        }
+
         //Observer
         vm.authStateLV.observe(viewLifecycleOwner){ state ->
             if(state.isAuth){

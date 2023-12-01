@@ -42,6 +42,11 @@ class SignInFragment : Fragment() {
             vm.signIn(email,password)
         }
 
+        binding.backBtnSignIn.setOnClickListener {
+            val authActivity = activity as AuthActivity
+            authActivity.loadFragment(authActivity.firstscreenFragment)
+        }
+
         binding.recoverPassLink.setOnClickListener {
             if (binding.emailET.text.toString() == ""){
                 Toast.makeText(requireContext(), "Por favor ingrese su correo para recuperar su contraseña", Toast.LENGTH_SHORT).show()
