@@ -17,6 +17,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
+import java.time.LocalDateTime
 import java.util.Calendar
 import java.util.Date
 
@@ -94,7 +95,7 @@ class AppointmentsListViewModel : ViewModel(), GoObjectDetail {
 
 }
 data class AppointmentData(
-    val date: Date= Date(),
+    val date: LocalDateTime = LocalDateTime.now(),
     val PsychologistName: String,
     val appointmentId : String
 )

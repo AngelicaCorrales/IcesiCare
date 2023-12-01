@@ -10,6 +10,8 @@ import icesi.edu.co.icesicare.model.entity.Psychologist
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
+import java.time.LocalDate
+import java.time.LocalDateTime
 import java.util.Calendar
 import java.util.Date
 
@@ -48,12 +50,10 @@ class FirebaseRepository {
         return appointmentsList
 
     }
-    fun getMonthFromDate(date: Date, valueMonth : Int): Boolean {
+    fun getMonthFromDate(date: LocalDateTime, valueMonth : Int): Boolean {
         var  isValid :Boolean = false
-        val calendar = Calendar.getInstance()
-        calendar.time = date
-        val month = calendar.get(Calendar.MONTH) + 1
-        if(month.toString().equals(valueMonth.toString())){
+
+        if(date.monthValue.toString().equals(valueMonth.toString())){
             isValid = true
         }
         return isValid

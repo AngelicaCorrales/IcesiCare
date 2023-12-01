@@ -8,8 +8,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import icesi.edu.co.icesicare.R
 import icesi.edu.co.icesicare.model.entity.Event
+import icesi.edu.co.icesicare.util.DataDateUtils
 import icesi.edu.co.icesicare.viewmodel.ElementEventView
 import java.text.SimpleDateFormat
+import java.time.LocalDateTime
 import java.util.Date
 
 class EventsAdapter : RecyclerView.Adapter<ElementEventView>(){
@@ -31,7 +33,7 @@ class EventsAdapter : RecyclerView.Adapter<ElementEventView>(){
         holder.nameEventText.text = data.name
         holder.typeText.text = data.category
         Glide.with(holder.img).load(events[position].imageId).into(holder.img)
-        holder.hourText.text = formatDay(data.date)
+        holder.hourText.text = DataDateUtils.formatHour(data.date)
 
 
     }
@@ -44,10 +46,7 @@ class EventsAdapter : RecyclerView.Adapter<ElementEventView>(){
     override fun getItemCount(): Int {
         return  events.size
     }
-    @SuppressLint("SimpleDateFormat")
-    fun formatDay(date : Date) : String{
-        val formatHour = SimpleDateFormat("HH:mm")
-        return formatHour.format(date)
-    }
+
+
 
 }

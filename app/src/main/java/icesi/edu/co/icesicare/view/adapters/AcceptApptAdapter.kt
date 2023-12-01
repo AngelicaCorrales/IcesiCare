@@ -35,13 +35,12 @@ class AcceptApptAdapter(fragment: AcceptAppointmentFragment) :
 
             holder.motiveTV.text = apptIt.motive
 
-            val dateFormat = DateTimeFormatter.ofPattern("dd \'de\' MMMM yyyy HH:mm",
-                Locale("es", "CO"))
 
             val date = apptIt.date
-            val dateAsLocalDateTime: LocalDateTime = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime()
 
-            holder.dateTV.text = dateAsLocalDateTime.format(dateFormat).toString()
+            val formatterDate = DateTimeFormatter.ofPattern("dd 'de' MMMM yyyy HH:mm", Locale("es", "CO"))
+            val formattedDate = date.format(formatterDate)
+            holder.dateTV.text = formattedDate
 
             holder.rejectBtn.setOnClickListener{
                 parentFragment.updateAppointment(apptIt.id,isAccepted = false,isCanceled = true)

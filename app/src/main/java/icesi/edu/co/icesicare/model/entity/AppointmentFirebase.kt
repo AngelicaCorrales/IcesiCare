@@ -1,11 +1,11 @@
 package icesi.edu.co.icesicare.model.entity
 
-import java.time.LocalDateTime
+import java.sql.Timestamp
 
-data class Appointment (
+data class AppointmentFirebase (
 
     var id : String = "",
-    var date : LocalDateTime = LocalDateTime.now(),
+    var date : Timestamp = Timestamp(System.currentTimeMillis()),
     var canceled : Boolean = false,
     var approved: Boolean = false,
     var motive : String = "",

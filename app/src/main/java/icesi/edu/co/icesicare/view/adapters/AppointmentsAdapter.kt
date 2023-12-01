@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import icesi.edu.co.icesicare.R
 import icesi.edu.co.icesicare.activities.MakeAppointmentActivity
 import icesi.edu.co.icesicare.model.service.GoObjectDetail
+import icesi.edu.co.icesicare.util.DataDateUtils
 import icesi.edu.co.icesicare.viewholder.ElementAppointmentHolder
 import icesi.edu.co.icesicare.viewmodel.AppointmentData
 import java.text.SimpleDateFormat
@@ -34,7 +35,7 @@ class AppointmentsAdapter(private val goDetail: GoObjectDetail) : RecyclerView.A
     override fun onBindViewHolder(holder: ElementAppointmentHolder, position: Int) {
         val data = appointments[position]
         holder.namePsychologist.text = data.PsychologistName
-        holder.hourText.text = formatDay(data.date)
+        holder.hourText.text = DataDateUtils.formatHour(data.date)
         holder.viewDetailsBtn.setOnClickListener {
             goDetail.onItemClick(data.appointmentId)
         }
@@ -51,11 +52,6 @@ class AppointmentsAdapter(private val goDetail: GoObjectDetail) : RecyclerView.A
         notifyDataSetChanged()
     }
 
-    @SuppressLint("SimpleDateFormat")
-    fun formatDay(date : Date) : String{
-        val formatHour = SimpleDateFormat("HH:mm")
-        return formatHour.format(date)
-    }
 
 
 }

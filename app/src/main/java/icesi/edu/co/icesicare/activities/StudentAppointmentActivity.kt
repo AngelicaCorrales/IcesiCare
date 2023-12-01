@@ -7,7 +7,10 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import com.bumptech.glide.Glide
 import icesi.edu.co.icesicare.databinding.ActivityStudentAppointmentInfoBinding
+import icesi.edu.co.icesicare.util.DataDateUtils
 import icesi.edu.co.icesicare.viewmodel.StudentViewModel
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import java.util.Date
 
 class StudentAppointmentActivity : AppCompatActivity() {
@@ -36,8 +39,9 @@ class StudentAppointmentActivity : AppCompatActivity() {
         }
 
         viewModelAppointment.appointmentLV.observe(this){
-            binding.appointmentDay.text = formatDay(it.date)
-            binding.appointmentHour.text = formatHour(it.date)
+
+            binding.appointmentDay.text = DataDateUtils.formatDay(it.date)
+            binding.appointmentHour.text = DataDateUtils.formatHour(it.date)
             binding.appointmentComment.text = it.motive
         }
     }
@@ -51,19 +55,7 @@ class StudentAppointmentActivity : AppCompatActivity() {
         return psychologistGenre
     }
 
-    @SuppressLint("SimpleDateFormat")
-    fun formatHour(date : Date) : String{
-        val formatHour = SimpleDateFormat("HH:mm:ss")
 
-        return formatHour.format(date)
-    }
 
-    @SuppressLint("SimpleDateFormat")
-    fun formatDay(date : Date) : String{
-        date.hours = date.hours - 5
-        val formatDay = SimpleDateFormat("dd/MM/yyyy")
-
-        return formatDay.format(date)
-    }
 
 }

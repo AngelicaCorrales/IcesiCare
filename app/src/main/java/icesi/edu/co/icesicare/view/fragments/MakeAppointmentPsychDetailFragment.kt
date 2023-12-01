@@ -1,7 +1,6 @@
 package icesi.edu.co.icesicare.view.fragments
 
 import android.content.res.ColorStateList
-import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -9,21 +8,26 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.getColor
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import icesi.edu.co.icesicare.R
 import icesi.edu.co.icesicare.databinding.FragmentMakeAppointmentPsychDetailBinding
 import icesi.edu.co.icesicare.model.entity.Psychologist
 import icesi.edu.co.icesicare.util.CalendarUtils
+import icesi.edu.co.icesicare.viewmodel.AppointmentViewModel
 import icesi.edu.co.icesicare.viewmodel.ScheduleViewModel
 
 class MakeAppointmentPsychDetailFragment : Fragment() {
 
     var psych:Psychologist? = null
     lateinit var binding:FragmentMakeAppointmentPsychDetailBinding
-    private val viewModel : ScheduleViewModel by viewModels()
+    private val scheduleViewModel : ScheduleViewModel by viewModels()
+    private val appoinmentViewModel : AppointmentViewModel by viewModels()
 
     val weeklyCalendarFragment by lazy{
         WeeklyCalendarFragment.newInstance()
@@ -87,7 +91,9 @@ class MakeAppointmentPsychDetailFragment : Fragment() {
 
         loadScheduleForDay()
 
-        viewModel.scheduleLV.observe(viewLifecycleOwner){sch->
+        makeAppointment()
+
+        scheduleViewModel.scheduleLV.observe(viewLifecycleOwner){ sch->
             enableHoursBySchedule(sch?.startHour,sch?.endHour)
         }
 
@@ -96,6 +102,15 @@ class MakeAppointmentPsychDetailFragment : Fragment() {
             loadScheduleForDay()
         }
         setClicksButtonsHour()
+
+        appoinmentViewModel.appointmentLV.observe(viewLifecycleOwner){
+
+        }
+
+        appoinmentViewModel.errorLV.observe(viewLifecycleOwner){error->
+            Toast.makeText(requireContext(), error.message, Toast.LENGTH_SHORT).show()
+        }
+
         return binding.root
     }
 
@@ -165,7 +180,7 @@ class MakeAppointmentPsychDetailFragment : Fragment() {
 
     fun loadScheduleForDay(){
         psych?.scheduleId?.let {
-            viewModel.getScheduleForDay(it,CalendarUtils.selectedDate.value?.dayOfWeek.toString().lowercase().replaceFirstChar {it.uppercase()})
+            scheduleViewModel.getScheduleForDay(it,CalendarUtils.selectedDate.value?.dayOfWeek.toString().lowercase().replaceFirstChar {it.uppercase()})
         }
     }
 
@@ -210,6 +225,16 @@ class MakeAppointmentPsychDetailFragment : Fragment() {
 
 
     fun makeAppointment(){
+        binding.makeAppoBtn.setOnClickListener {
+            hoursMap[selected_hour]?.let {
+                appoinmentViewModel.saveAppointment(
+                    CalendarUtils.selectedDate.value!!,
+                    it,
+                    binding.motiveDescTV.text.toString(),
+                    psych!!.id,
+                )
+            }
+        }
 
     }
     companion object {
