@@ -57,6 +57,10 @@
         <activity
             android:name=".activities.MakeAppointmentActivity"
             android:exported="false" />
+
+        <activity
+            android:name=".activities.MakeEventsActivity"
+            android:exported="false" />
         <activity
             android:name=".view.fragments.SignInFragment"
             android:exported="false" />

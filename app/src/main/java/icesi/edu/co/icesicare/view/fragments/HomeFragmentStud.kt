@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import icesi.edu.co.icesicare.activities.MakeAppointmentActivity
+import icesi.edu.co.icesicare.activities.MakeEventsActivity
 import icesi.edu.co.icesicare.databinding.FragmentHomeStudBinding
 import icesi.edu.co.icesicare.viewmodel.StudentProfileViewModel
 
@@ -40,6 +41,10 @@ class HomeFragmentStud : Fragment() {
 
         binding.makeAppmBtn.setOnClickListener {
             val intent= Intent(activity, MakeAppointmentActivity::class.java)
+            startActivity(intent) //if handling result needed, change to launch
+        }
+        binding.eventsBtn.setOnClickListener {
+            val intent= Intent(activity, MakeEventsActivity::class.java)
             startActivity(intent) //if handling result needed, change to launch
         }
         return binding.root
