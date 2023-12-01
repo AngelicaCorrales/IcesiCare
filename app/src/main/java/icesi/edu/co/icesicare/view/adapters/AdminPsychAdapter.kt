@@ -1,6 +1,7 @@
 package icesi.edu.co.icesicare.view.adapters
 
 import android.annotation.SuppressLint
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -37,11 +38,11 @@ class AdminPsychAdapter (private val parentActivity: AdminPsychologistsActivity)
             Glide.with(parentActivity).load(psych.profileImageURL).into(holder.admPsychImgV)
 
         holder.admPsychRejectBtn.setOnClickListener{
-            parentActivity.updatePsychStatus(true,psych.id)
+            parentActivity.promptConfirmation(false,psych.name, psych.id)
         }
 
         holder.admPsychAcceptBtn.setOnClickListener{
-            parentActivity.updatePsychStatus(false,psych.id)
+            parentActivity.promptConfirmation(true,psych.name, psych.id)
         }
 
     }

@@ -31,6 +31,7 @@ class PsychologistViewModel:ViewModel() {
         viewModelScope.launch (Dispatchers.IO) {
             try {
                 PsychRepository.updatePsychStatus(isAccepted,psychId)
+                getPsychologistsPendingForApproval()
             } catch (e: Exception) {
                 withContext(Dispatchers.Main){
                     errorLD.value = e

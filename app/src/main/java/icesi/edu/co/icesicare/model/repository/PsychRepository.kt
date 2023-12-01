@@ -132,10 +132,9 @@ object PsychRepository {
     }
 
     suspend fun getPsychologistsPendingForApproval() : MutableList<Psychologist>{
-        TODO("NOT FINISHED")
         val result = Firebase.firestore
             .collection("psychologists")
-            .get().await()
+            .whereEqualTo("pendingApproval",true).get().await()
 
         val psychsList = arrayListOf<Psychologist>()
 
@@ -150,14 +149,20 @@ object PsychRepository {
                         .child(psych.profileImageId!!).downloadUrl.await()
                     psych.profileImageURL = url.toString()
                 }
-                psychs.add(psych)
+                psychsList.add(psych)
             }
         }
         return psychsList
     }
 
     suspend fun updatePsychStatus(isAccepted: Boolean, psychId: String){
-        TODO("NOT IMPLEMENTED")
-    }
+        val psych = getPsychologist(psychId)
 
+        psych?.let {
+            psych.pendingApproval = false
+            psych.approved = isAccepted
+
+            updatePsy(psychId,psych)
+        }
+    }
 }
