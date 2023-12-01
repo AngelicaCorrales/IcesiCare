@@ -47,6 +47,7 @@
         android:text="Psicólogos"
         android:textAllCaps="false"
         android:textColor="@color/black"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/welcomeTV" />
@@ -68,9 +69,33 @@
         android:text="Eventos"
         android:textAllCaps="false"
         android:textColor="@color/black"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/adminPsychsBtn" />
+
+    <Button
+        android:id="@+id/adminLogoutBtn"
+        android:layout_width="0dp"
+        android:layout_height="96dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
+        android:background="@drawable/home_menu_buttons_background"
+        android:drawableTop="@drawable/exit"
+        android:drawablePadding="10dp"
+        android:drawableTint="@color/red"
+        android:enabled="true"
+        android:gravity="center_horizontal"
+        android:paddingTop="24dp"
+        android:text="Cerrar sesión"
+        android:textAllCaps="false"
+        android:textColor="@color/red"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/adminEventsBtn" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
