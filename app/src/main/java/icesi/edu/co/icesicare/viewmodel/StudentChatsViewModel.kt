@@ -1,6 +1,7 @@
 package icesi.edu.co.icesicare.viewmodel
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -31,7 +32,7 @@ class StudentChatsViewModel : ViewModel(), GoObjectDetail{
             for (chat in chatsOfDb){
                 val contact = PsychRepository.getPsychologist(chat.contactId)
                 val lastMessage = studentChatRepository.getLastMessageFromChat(chat.id)
-
+                Log.e("asd", lastMessage.toString())
                 val newChat = ChatOutDTO(contact!!.name, contact.profileImageURL!!,
                     lastMessage.message, formatHour(lastMessage.date!!), chat.id)
 

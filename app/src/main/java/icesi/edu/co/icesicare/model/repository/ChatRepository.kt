@@ -1,10 +1,15 @@
 package icesi.edu.co.icesicare.model.repository
 
+import android.util.Log
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import icesi.edu.co.icesicare.model.entity.ChatData
 import icesi.edu.co.icesicare.model.entity.ChatID
+import icesi.edu.co.icesicare.model.entity.Message
 import kotlinx.coroutines.tasks.await
+import java.time.LocalDateTime
+import java.time.ZoneId
+import java.util.Date
 import java.util.UUID
 
 class ChatRepository {
@@ -32,6 +37,7 @@ class ChatRepository {
         if (!result2.isEmpty) return
 
         val chatId = UUID.randomUUID().toString()
+        val messageId = UUID.randomUUID().toString()
 
         Firebase.firestore.collection("chats")
             .document(chatId).set(ChatID(id=chatId)).await()
@@ -49,5 +55,15 @@ class ChatRepository {
             .document(chatId)
             .set(ChatData(chatId,studId))
             .await()
+
+        val message = Message(studId, convertToDate(), messageId, "Ya puedes chatear")
+        Firebase.firestore.collection("chats").document(chatId).collection("messages").document(messageId).set(message).await()
+    }
+
+    private fun convertToDate(): Date {
+        val localDateTime = LocalDateTime.now()
+        val zonaId = ZoneId.systemDefault()
+        val date = localDateTime.atZone(zonaId).toInstant()
+        return Date.from(date)
     }
 }
