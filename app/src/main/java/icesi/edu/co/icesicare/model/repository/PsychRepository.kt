@@ -29,6 +29,29 @@ object PsychRepository {
         filteredPsychs.clear()
     }
 
+    suspend fun fetchAllApprovedPsychs(){
+        psychs.clear()
+        val result = Firebase.firestore
+            .collection("psychologists")
+            .whereEqualTo("approved",true).whereEqualTo("pendingApproval",false).get().await()
+
+        result.documents.forEach{document ->
+            val psych = document.toObject(Psychologist::class.java)
+
+            psych?.let {
+                if(psych.profileImageId != null && psych.profileImageId != "" ){
+                    val url= Firebase.storage.reference
+                        .child("users")
+                        .child("profileImages")
+                        .child(psych.profileImageId!!).downloadUrl.await()
+                    psych.profileImageURL = url.toString()
+                }
+                psychs.add(psych)
+            }
+        }
+        psychsLiveData.postValue(psychs)
+    }
+
     suspend fun fetchAllPsychs(){
         psychs.clear()
         val result = Firebase.firestore
