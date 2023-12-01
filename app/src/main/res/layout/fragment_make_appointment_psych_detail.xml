@@ -1,0 +1,463 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="409dp"
+                android:layout_height="wrap_content"
+                android:paddingBottom="16dp">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="32dp"
+                    app:cardBackgroundColor="#D0D2D3"
+                    app:cardCornerRadius="12dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:id="@+id/imagePsycIV"
+                        android:layout_width="96dp"
+                        android:layout_height="96dp"
+                        android:src="@drawable/default_profile_img" />
+                </androidx.cardview.widget.CardView>
+
+                <TextView
+                    android:id="@+id/namePsycTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="Name"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="@+id/cardView3"
+                    app:layout_constraintStart_toStartOf="@+id/cardView3"
+                    app:layout_constraintTop_toBottomOf="@+id/cardView3" />
+
+                <TextView
+                    android:id="@+id/descriptionPsycTV"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:gravity="center"
+                    android:text="description"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/rolePsycTV" />
+
+                <TextView
+                    android:id="@+id/rolePsycTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Psicólogo"
+                    android:textColor="#6C6575"
+                    app:layout_constraintEnd_toEndOf="@+id/namePsycTV"
+                    app:layout_constraintStart_toStartOf="@+id/namePsycTV"
+                    app:layout_constraintTop_toBottomOf="@+id/namePsycTV" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/textView6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:text="Horario"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/weeklyCalendar"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView6">
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                <TextView
+                    android:id="@+id/textView8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="24dp"
+                    android:text="Tarde"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/btn10" />
+
+                <TextView
+                    android:id="@+id/textView9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:text="Mañana"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/weeklyCalendar" />
+
+                <Button
+
+                    android:id="@+id/btn8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:enabled="false"
+                    android:background="@drawable/appointment_button_background_not_selected"
+                    android:fontFamily="@font/roboto_medium"
+                    android:textColor="@color/text_button_color"
+                    android:textSize="14sp"
+                    android:text="8:00 am"
+                    android:textAllCaps="false"
+                    app:layout_constraintEnd_toStartOf="@+id/btn830"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView9" />
+
+                <Button
+                    android:id="@+id/btn830"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:enabled="false"
+                    android:background="@drawable/appointment_button_background_not_selected"
+                    android:fontFamily="@font/roboto_medium"
+                    android:textColor="@color/text_button_color"
+                    android:textSize="14sp"
+                    android:text="8:30 am"
+                    android:textAllCaps="false"
+                    app:layout_constraintBottom_toBottomOf="@+id/btn8"
+                    app:layout_constraintEnd_toStartOf="@+id/btn9"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/btn8"
+                    app:layout_constraintTop_toTopOf="@+id/btn8" />
+
+                <Button
+                    android:id="@+id/btn9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:enabled="false"
+                    android:background="@drawable/appointment_button_background_not_selected"
+                    android:fontFamily="@font/roboto_medium"
+                    android:textColor="@color/text_button_color"
+                    android:textSize="14sp"
+                    android:text="9:00 am"
+                    android:textAllCaps="false"
+                    app:layout_constraintBottom_toBottomOf="@+id/btn830"
+                    app:layout_constraintEnd_toStartOf="@+id/btn930"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/btn830"
+                    app:layout_constraintTop_toTopOf="@+id/btn830" />
+
+                <Button
+                    android:id="@+id/btn930"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:enabled="false"
+                    android:background="@drawable/appointment_button_background_not_selected"
+                    android:fontFamily="@font/roboto_medium"
+                    android:textColor="@color/text_button_color"
+                    android:textSize="14sp"
+                    android:text="9:30 am"
+                    android:textAllCaps="false"
+                    app:layout_constraintBottom_toBottomOf="@+id/btn9"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/btn9"
+                    app:layout_constraintTop_toTopOf="@+id/btn9" />
+
+                <Button
+                    android:id="@+id/btn1030"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:enabled="false"
+                    android:background="@drawable/appointment_button_background_not_selected"
+                    android:fontFamily="@font/roboto_medium"
+                    android:textColor="@color/text_button_color"
+                    android:textSize="14sp"
+                    android:text="10:30 am"
+                    android:textAllCaps="false"
+                    app:layout_constraintBottom_toBottomOf="@+id/btn10"
+                    app:layout_constraintEnd_toStartOf="@+id/btn11"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/btn10"
+                    app:layout_constraintTop_toTopOf="@+id/btn10" />
+
+                <Button
+                    android:id="@+id/btn10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:enabled="false"
+                    android:background="@drawable/appointment_button_background_not_selected"
+                    android:fontFamily="@font/roboto_medium"
+                    android:textColor="@color/text_button_color"
+                    android:textSize="14sp"
+                    android:text="10:00 am"
+                    android:textAllCaps="false"
+                    app:layout_constraintEnd_toStartOf="@+id/btn1030"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/btn8" />
+
+                <Button
+                    android:id="@+id/btn1130"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:enabled="false"
+                    android:background="@drawable/appointment_button_background_not_selected"
+                    android:fontFamily="@font/roboto_medium"
+                    android:textColor="@color/text_button_color"
+                    android:textSize="14sp"
+                    android:text="11:30 am"
+                    android:textAllCaps="false"
+                    app:layout_constraintBottom_toBottomOf="@+id/btn11"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/btn11"
+                    app:layout_constraintTop_toTopOf="@+id/btn11" />
+
+                <Button
+                    android:id="@+id/btn11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:enabled="false"
+                    android:background="@drawable/appointment_button_background_not_selected"
+                    android:fontFamily="@font/roboto_medium"
+                    android:textColor="@color/text_button_color"
+                    android:textSize="14sp"
+                    android:text="11:00 am"
+                    android:textAllCaps="false"
+                    app:layout_constraintBottom_toBottomOf="@+id/btn1030"
+                    app:layout_constraintEnd_toStartOf="@+id/btn1130"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/btn1030"
+                    app:layout_constraintTop_toTopOf="@+id/btn1030" />
+
+                <Button
+                    android:id="@+id/btn2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:enabled="false"
+                    android:background="@drawable/appointment_button_background_not_selected"
+                    android:fontFamily="@font/roboto_medium"
+                    android:textColor="@color/text_button_color"
+                    android:textSize="14sp"
+                    android:text="2:00 pm"
+                    android:textAllCaps="false"
+                    app:layout_constraintEnd_toStartOf="@+id/btn230"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView8" />
+
+                <Button
+                    android:id="@+id/btn230"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:enabled="false"
+                    android:background="@drawable/appointment_button_background_not_selected"
+                    android:fontFamily="@font/roboto_medium"
+                    android:textColor="@color/text_button_color"
+                    android:textSize="14sp"
+                    android:text="2:30 pm"
+                    android:textAllCaps="false"
+                    app:layout_constraintBottom_toBottomOf="@+id/btn2"
+                    app:layout_constraintEnd_toStartOf="@+id/btn3"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/btn2"
+                    app:layout_constraintTop_toTopOf="@+id/btn2" />
+
+                <Button
+                    android:id="@+id/btn3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:enabled="false"
+                    android:background="@drawable/appointment_button_background_not_selected"
+                    android:fontFamily="@font/roboto_medium"
+                    android:textColor="@color/text_button_color"
+                    android:textSize="14sp"
+                    android:text="3:00 pm"
+                    android:textAllCaps="false"
+                    app:layout_constraintBottom_toBottomOf="@+id/btn230"
+                    app:layout_constraintEnd_toStartOf="@+id/btn330"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/btn230"
+                    app:layout_constraintTop_toTopOf="@+id/btn230" />
+
+                <Button
+                    android:id="@+id/btn330"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:enabled="false"
+                    android:background="@drawable/appointment_button_background_not_selected"
+                    android:fontFamily="@font/roboto_medium"
+                    android:textColor="@color/text_button_color"
+                    android:textSize="14sp"
+                    android:text="3:30 pm"
+                    android:textAllCaps="false"
+                    app:layout_constraintBottom_toBottomOf="@+id/btn3"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/btn3"
+                    app:layout_constraintTop_toTopOf="@+id/btn3" />
+
+                <Button
+                    android:id="@+id/btn4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:enabled="false"
+                    android:background="@drawable/appointment_button_background_not_selected"
+                    android:fontFamily="@font/roboto_medium"
+                    android:textColor="@color/text_button_color"
+                    android:textSize="14sp"
+                    android:text="4:00 pm"
+                    android:textAllCaps="false"
+                    app:layout_constraintEnd_toStartOf="@+id/btn430"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/btn2" />
+
+                <Button
+                    android:id="@+id/btn430"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:enabled="false"
+                    android:background="@drawable/appointment_button_background_not_selected"
+                    android:fontFamily="@font/roboto_medium"
+                    android:textColor="@color/text_button_color"
+                    android:textSize="14sp"
+                    android:text="4:30 pm"
+                    android:textAllCaps="false"
+                    app:layout_constraintBottom_toBottomOf="@+id/btn4"
+                    app:layout_constraintEnd_toStartOf="@+id/btn5"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/btn4"
+                    app:layout_constraintTop_toTopOf="@+id/btn4" />
+
+                <Button
+                    android:id="@+id/btn5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:enabled="false"
+                    android:background="@drawable/appointment_button_background_not_selected"
+                    android:fontFamily="@font/roboto_medium"
+                    android:textColor="@color/text_button_color"
+                    android:textSize="14sp"
+                    android:text="5:00 pm"
+                    android:textAllCaps="false"
+                    app:layout_constraintBottom_toBottomOf="@+id/btn430"
+                    app:layout_constraintEnd_toStartOf="@+id/btn530"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/btn430"
+                    app:layout_constraintTop_toTopOf="@+id/btn430" />
+
+                <Button
+                    android:id="@+id/btn530"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:enabled="false"
+                    android:background="@drawable/appointment_button_background_not_selected"
+                    android:fontFamily="@font/roboto_medium"
+                    android:textColor="@color/text_button_color"
+                    android:textSize="14sp"
+                    android:text="5:30 pm"
+                    android:textAllCaps="false"
+                    app:layout_constraintBottom_toBottomOf="@+id/btn5"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/btn5"
+                    app:layout_constraintTop_toTopOf="@+id/btn5" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingBottom="24dp">
+
+                <TextView
+                    android:id="@+id/textView7"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="8dp"
+                    android:text="Escribe el motivo de la consulta"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <EditText
+                    android:id="@+id/motiveDescTV"
+                    android:layout_width="0dp"
+                    android:layout_height="100dp"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="24dp"
+                    android:ems="10"
+                    android:gravity="start|top"
+                    android:hint="Escribe el motivo de la consulta"
+                    android:inputType="textMultiLine"
+                    android:textColorHint="#6C6767"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.497"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView7" />
+
+                <Button
+                    android:id="@+id/makeAppoBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginEnd="24dp"
+                    android:background="@color/purple"
+                    android:text="Solicitar cita"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/motiveDescTV" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

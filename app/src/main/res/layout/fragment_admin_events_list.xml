@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.fragments.AdminEventsListFragment">
+
+    <Button
+        android:id="@+id/addEventBtn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="24dp"
+        android:background="@drawable/btn_bg_selected"
+        android:fontFamily="@font/roboto_medium"
+        android:text="@string/admin_add_event_btn_txt"
+        android:textColor="@color/neutral_white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/eventsTV" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/filterActiveBtn">
+
+        <ProgressBar
+            android:id="@+id/progressBarAdmEvent"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:indeterminateTint="@color/purple"
+            android:theme="@style/progressBarTheme"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/eventsRV"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/eventsTV"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:fontFamily="@font/roboto_medium"
+        android:text="@string/admin_events_title_txt"
+        android:textColor="@color/black"
+        android:textSize="45sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/filterTV"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:fontFamily="@font/roboto_medium"
+        android:gravity="center"
+        android:text="@string/admin_events_filter_txt"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/filterAllBtn"
+        app:layout_constraintStart_toStartOf="@+id/addEventBtn"
+        app:layout_constraintTop_toTopOf="@+id/filterAllBtn" />
+
+    <Button
+        android:id="@+id/filterAllBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/btn_bg_selected"
+        android:fontFamily="@font/roboto_medium"
+        android:text="@string/admin_events_filter_all_txt"
+        android:textColor="@color/neutral_white"
+        app:layout_constraintEnd_toStartOf="@+id/filterActiveBtn"
+        app:layout_constraintTop_toBottomOf="@+id/addEventBtn" />
+
+    <Button
+        android:id="@+id/filterActiveBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/btn_bg_unselected"
+        android:fontFamily="@font/roboto_medium"
+        android:text="@string/admin_events_filter_active_txt"
+        android:textColor="@color/purple"
+        app:layout_constraintEnd_toStartOf="@+id/filterInactiveBtn"
+        app:layout_constraintTop_toTopOf="@+id/filterAllBtn" />
+
+    <Button
+        android:id="@+id/filterInactiveBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:background="@drawable/btn_bg_unselected"
+        android:fontFamily="@font/roboto_medium"
+        android:text="@string/admin_events_filter_inactive_btn"
+        android:textColor="@color/purple"
+        app:layout_constraintEnd_toEndOf="@+id/addEventBtn"
+        app:layout_constraintTop_toTopOf="@+id/filterActiveBtn" />
+</androidx.constraintlayout.widget.ConstraintLayout>

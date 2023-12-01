@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="progressBarTheme">
+        <item name="android:color">@color/purple</item>
+    </style>
+    <style name="Widget.Theme.IcesiCare.ButtonBar.Fullscreen" parent="">
+        <item name="android:background">@color/black_overlay</item>
+        <item name="android:buttonBarStyle">?android:attr/buttonBarStyle</item>
+    </style>
+    <style name="MyPickerTheme" parent="Theme.AppCompat.DayNight.Dialog">
+        <item name="android:colorAccent">@color/purple</item>
+        <item name="android:textColorPrimaryInverse">@color/neutral_white</item>
+        <item name="android:colorControlActivated">@color/purple</item>
+    </style>
+    <style name="MyAlertDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="colorAccent">@color/purple</item>
+    </style>
+</resources>
