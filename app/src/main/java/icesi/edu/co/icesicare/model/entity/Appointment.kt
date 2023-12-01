@@ -1,6 +1,8 @@
 package icesi.edu.co.icesicare.model.entity
 
+import java.time.Instant
 import java.time.LocalDateTime
+import java.time.ZoneId
 
 data class Appointment (
 
@@ -11,4 +13,7 @@ data class Appointment (
     var motive : String = "",
     var psychologistId : String = "",
     var studentId : String = ""
+
+
 )
+

@@ -40,7 +40,7 @@ class StudentAppointmentActivity : AppCompatActivity() {
 
         viewModelAppointment.appointmentLV.observe(this){
 
-            binding.appointmentDay.text = DataDateUtils.formatDay(it.date)
+           binding.appointmentDay.text = DataDateUtils.formatDay(it.date)
             binding.appointmentHour.text = DataDateUtils.formatHour(it.date)
             binding.appointmentComment.text = it.motive
         }

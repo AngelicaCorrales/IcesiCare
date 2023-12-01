@@ -65,8 +65,6 @@ class AppointmentsListViewModel : ViewModel(), GoObjectDetail {
         viewModelScope.launch(Dispatchers.IO) {
             val eventList = firebaseRepository.getEvents(currentMonth)
             withContext(Dispatchers.Main) {
-                Log.e(">>>" ,eventList.size.toString() +" tamaño en events en viewModel 69" )
-
                 eventsListLiveData.value = eventList
             }
         }

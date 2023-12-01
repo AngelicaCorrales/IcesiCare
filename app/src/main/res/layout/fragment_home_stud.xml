@@ -50,25 +50,6 @@
         app:layout_constraintTop_toBottomOf="@+id/welcomeTV" />
 
     <Button
-        android:id="@+id/eventsBtn"
-        android:layout_width="96dp"
-        android:layout_height="96dp"
-        android:background="@drawable/home_menu_buttons_background"
-        android:drawableTop="@drawable/ticket"
-        android:drawablePadding="10dp"
-        android:drawableTint="@color/purple"
-        android:enabled="false"
-        android:gravity="center_horizontal"
-        android:paddingTop="24dp"
-        android:text="Eventos"
-        android:textAllCaps="false"
-        android:textColor="@color/black"
-        app:layout_constraintBottom_toBottomOf="@+id/makeAppmBtn"
-        app:layout_constraintEnd_toStartOf="@+id/activitiesBtn"
-        app:layout_constraintStart_toEndOf="@+id/makeAppmBtn"
-        app:layout_constraintTop_toTopOf="@+id/makeAppmBtn" />
-
-    <Button
         android:id="@+id/activitiesBtn"
         android:layout_width="96dp"
         android:layout_height="96dp"
@@ -84,9 +65,8 @@
         android:textAllCaps="false"
         android:textColor="@color/black"
         android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="@+id/eventsBtn"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/eventsBtn" />
+        tools:layout_editor_absoluteY="231dp" />
 
     <ImageButton
         android:id="@+id/noti_img_btn"
@@ -98,5 +78,21 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/noti_icon_xml" />
+
+    <Button
+        android:id="@+id/eventsBtn"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:background="@drawable/home_menu_buttons_background"
+        android:drawableTop="@drawable/ticket"
+        android:drawablePadding="10dp"
+        android:gravity="center_horizontal"
+        android:paddingTop="24dp"
+        android:text="Eventos"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="@+id/makeAppmBtn"
+        app:layout_constraintEnd_toStartOf="@+id/activitiesBtn"
+        app:layout_constraintStart_toEndOf="@+id/makeAppmBtn"
+        app:layout_constraintTop_toTopOf="@+id/makeAppmBtn" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
