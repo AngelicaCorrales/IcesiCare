@@ -4,6 +4,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import icesi.edu.co.icesicare.R
 import icesi.edu.co.icesicare.model.repository.AppointmentsRepository
 import icesi.edu.co.icesicare.view.fragments.AcceptAppointmentFragment
@@ -35,20 +37,13 @@ class AcceptApptAdapter(fragment: AcceptAppointmentFragment) :
 
             holder.motiveTV.text = apptIt.motive
 
-
             val date = apptIt.date
 
             val formatterDate = DateTimeFormatter.ofPattern("dd 'de' MMMM yyyy HH:mm", Locale("es", "CO"))
             val formattedDate = date.format(formatterDate)
             holder.dateTV.text = formattedDate
 
-            holder.rejectBtn.setOnClickListener{
-                parentFragment.updateAppointment(apptIt.id,isAccepted = false,isCanceled = true)
-            }
 
-            holder.acceptBtn.setOnClickListener{
-                parentFragment.updateAppointment(apptIt.id,isAccepted = true,isCanceled = false)
-            }
 
             val student = AppointmentsRepository.studRelatedApptLiveData.value?.get(appt.studentId)
 
@@ -58,6 +53,16 @@ class AcceptApptAdapter(fragment: AcceptAppointmentFragment) :
 
                 if(student.profileImageURL != null && student.profileImageURL != ""){
                     Glide.with(parentFragment).load(it.profileImageURL).into(holder.imageStudentIV)
+                }
+
+                holder.rejectBtn.setOnClickListener{
+                    parentFragment.updateAppointment(apptIt.id,isAccepted = false,isCanceled = true)
+                }
+
+                holder.acceptBtn.setOnClickListener{
+                    parentFragment.updateAppointment(apptIt.id,isAccepted = true,isCanceled = false)
+                    //Logged user here is psychologist
+                    parentFragment.initializeChat(student.id, Firebase.auth.currentUser?.uid.toString())
                 }
 
             }

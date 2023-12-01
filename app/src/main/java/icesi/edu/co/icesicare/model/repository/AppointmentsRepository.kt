@@ -8,6 +8,7 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import icesi.edu.co.icesicare.model.entity.Appointment
 import icesi.edu.co.icesicare.model.entity.AppointmentFirebase
+import icesi.edu.co.icesicare.model.entity.AppointmentHelper
 import icesi.edu.co.icesicare.model.entity.Psychologist
 import icesi.edu.co.icesicare.model.entity.Student
 import kotlinx.coroutines.tasks.await
@@ -25,7 +26,7 @@ object AppointmentsRepository {
     private val studRelatedAppt = HashMap<String,Student>()
     val studRelatedApptLiveData = MutableLiveData<HashMap<String,Student>> (studRelatedAppt)
 
-    //This will overwrite psychAppts data
+
     suspend fun fetchAppointmentsForPsychologist(psychId: String, isAccepted:Boolean, isCanceled:Boolean){
         try {
             appts.clear()
@@ -33,11 +34,13 @@ object AppointmentsRepository {
             val result = Firebase.firestore
                 .collection("appointments")
                 .whereEqualTo("psychologistId",psychId)
-                .whereEqualTo("isAccepted",isAccepted)
-                .whereEqualTo("isCanceled",isCanceled)
+                .whereEqualTo("accepted",isAccepted)
+                .whereEqualTo("canceled",isCanceled)
                 .get().await()
             result.documents.forEach {document ->
-                val appt = document.toObject(Appointment::class.java)
+                val apptF = document.toObject(AppointmentFirebase::class.java)
+
+                val appt = apptF?.let { AppointmentHelper.appointmentFirebaseToAppointment(it) }
 
                 appt?.let {
                     appts.add(it)
@@ -78,11 +81,11 @@ object AppointmentsRepository {
         try {
             Firebase.firestore
                 .collection("appointments")
-                .document(apptId).update("isAccepted",isAccepted).await()
+                .document(apptId).update("accepted",isAccepted).await()
 
             Firebase.firestore
                 .collection("appointments")
-                .document(apptId).update("isCanceled",isCanceled).await()
+                .document(apptId).update("canceled",isCanceled).await()
         }
         catch (e: Exception) {
             e.printStackTrace()
