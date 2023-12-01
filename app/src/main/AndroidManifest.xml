@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-feature android:name="android.hardware.camera" android:required="false"/>
 
     <application
         android:allowBackup="true"
@@ -18,7 +21,17 @@
         <activity
             android:name=".activities.StudentChatActivity"
             android:exported="false" />
-        <activity android:name=".activities.PsyProfileActivity" />
+        <activity android:name=".activities.AdminEventsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.AdminPsychologistsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.AdminMainActivity"
+            android:exported="false" />
+        <activity android:name=".activities.PsyProfileActivity"
+            android:theme="@style/Theme.Material3.DayNight.NoActionBar">
+        </activity>
         <activity
             android:name=".activities.StudentMainActivity"
             android:exported="false" />
@@ -45,13 +58,14 @@
             android:name=".activities.MakeAppointmentActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.UserAppointmentInfo"
-            android:exported="false" />
-        <activity
             android:name=".view.fragments.SignInFragment"
             android:exported="false" />
         <activity
             android:name=".view.fragments.SignUpFragment"
+            android:exported="false" />
+
+        <activity
+            android:name=".activities.StudentAppointmentActivity"
             android:exported="false" />
 
         <meta-data

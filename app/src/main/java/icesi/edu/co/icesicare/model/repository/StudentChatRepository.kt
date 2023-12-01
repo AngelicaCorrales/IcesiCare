@@ -49,7 +49,7 @@ class StudentChatRepository {
 
         val chat = docChat.toObject(ChatInDTO::class.java)
 
-        return PsychRepository.getPsychologist(chat!!.contactId)
+        return PsychRepository.getPsychologist(chat!!.contactId)!!
     }
 
     suspend fun getLastMessageFromChat(chatId : String) : Message{

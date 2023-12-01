@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/eventDeleteImageBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/btn_bg_unselected"
+        android:drawableLeft="@drawable/delete_icon_other"
+        android:drawablePadding="5dp"
+        android:drawableTint="@color/purple"
+        android:paddingLeft="5dp"
+        android:paddingRight="10dp"
+        android:text="Borrar Imagen"
+        android:textColor="@color/purple"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/eventImageBtn"
+        app:layout_constraintStart_toEndOf="@+id/eventImageBtn"
+        app:layout_constraintTop_toTopOf="@+id/eventImageBtn" />
+
+    <Button
+        android:id="@+id/eventImageBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/btn_bg_unselected"
+        android:drawableLeft="@drawable/image_icon"
+        android:drawablePadding="5dp"
+        android:drawableTint="@color/purple"
+        android:paddingLeft="5dp"
+        android:paddingRight="10dp"
+        android:text="Elegir Imagen"
+        android:textColor="@color/purple"
+        app:layout_constraintStart_toStartOf="@+id/textView33"
+        app:layout_constraintTop_toBottomOf="@+id/textView33" />
+
+    <EditText
+        android:id="@+id/eventLocationET"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/input_bg"
+        android:ems="10"
+        android:hint="¿Donde será el evento?"
+        android:inputType="text"
+        android:paddingLeft="20dp"
+        android:paddingTop="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="10dp"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/eventNameET"
+        app:layout_constraintStart_toStartOf="@+id/textView22"
+        app:layout_constraintTop_toBottomOf="@+id/textView22" />
+
+    <TextView
+        android:id="@+id/textView22"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Ubicación*"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/eventCategorySpin"
+        app:layout_constraintTop_toBottomOf="@+id/eventCategorySpin" />
+
+    <Button
+        android:id="@+id/addUpdateEventBtn"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/btn_bg"
+        android:text="Añadir Evento"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView21"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="Nombre*"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/eventNameET"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/input_bg"
+        android:ems="10"
+        android:hint="Nombre del evento"
+        android:inputType="text"
+        android:paddingLeft="20dp"
+        android:paddingTop="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="10dp"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/textView21"
+        app:layout_constraintTop_toBottomOf="@+id/textView21" />
+
+    <TextView
+        android:id="@+id/textView27"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Categoría*"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/eventNameET"
+        app:layout_constraintTop_toBottomOf="@+id/eventNameET" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Fecha y hora del evento*"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/eventLocationET"
+        app:layout_constraintTop_toBottomOf="@+id/eventLocationET" />
+
+    <TextView
+        android:id="@+id/textView33"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Sube una imagen con información del evento"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/textView5"
+        app:layout_constraintTop_toBottomOf="@+id/eventTimeBtn" />
+
+    <Spinner
+        android:id="@+id/eventCategorySpin"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="4dp"
+        android:backgroundTint="@color/black"
+        android:entries="@array/event_categories"
+        android:forceHasOverlappingRendering="false"
+        android:spinnerMode="dropdown"
+        android:visibility="visible"
+        app:layout_constraintStart_toStartOf="@+id/textView27"
+        app:layout_constraintTop_toBottomOf="@+id/textView27" />
+
+    <Button
+        android:id="@+id/eventDateBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/btn_bg_unselected"
+        android:drawableLeft="@drawable/calendar_icon"
+        android:drawableTint="@color/purple"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:text="fecha"
+        android:textColor="@color/purple"
+        app:layout_constraintStart_toStartOf="@+id/textView5"
+        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+    <Button
+        android:id="@+id/eventTimeBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/btn_bg_unselected"
+        android:drawableLeft="@drawable/clock_icon"
+        android:drawableTint="@color/purple"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:text="Hora"
+        android:textColor="@color/purple"
+        app:layout_constraintStart_toEndOf="@+id/eventDateBtn"
+        app:layout_constraintTop_toTopOf="@+id/eventDateBtn" />
+
+    <ImageView
+        android:id="@+id/eventImageIV"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/addUpdateEventBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/eventImageBtn"
+        app:srcCompat="@drawable/no_image" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+

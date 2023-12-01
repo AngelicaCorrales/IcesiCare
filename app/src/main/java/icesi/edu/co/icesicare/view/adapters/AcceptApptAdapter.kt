@@ -20,7 +20,7 @@ class AcceptApptAdapter(fragment: AcceptAppointmentFragment) :
     private var parentFragment: AcceptAppointmentFragment = fragment
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AcceptApptViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.accept_appt_card, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.card_accept_appt, parent, false)
         return AcceptApptViewHolder(view)
     }
 
@@ -35,13 +35,12 @@ class AcceptApptAdapter(fragment: AcceptAppointmentFragment) :
 
             holder.motiveTV.text = apptIt.motive
 
-            val dateFormat = DateTimeFormatter.ofPattern("dd \'de\' MMMM yyyy HH:mm",
-                Locale("es", "CO"))
 
             val date = apptIt.date
-            val dateAsLocalDateTime: LocalDateTime = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime()
 
-            holder.dateTV.text = dateAsLocalDateTime.format(dateFormat).toString()
+            val formatterDate = DateTimeFormatter.ofPattern("dd 'de' MMMM yyyy HH:mm", Locale("es", "CO"))
+            val formattedDate = date.format(formatterDate)
+            holder.dateTV.text = formattedDate
 
             holder.rejectBtn.setOnClickListener{
                 parentFragment.updateAppointment(apptIt.id,isAccepted = false,isCanceled = true)

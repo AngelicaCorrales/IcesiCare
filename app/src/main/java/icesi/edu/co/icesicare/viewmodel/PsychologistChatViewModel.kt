@@ -45,7 +45,7 @@ class PsychologistChatViewModel : ViewModel() {
 
                 }else{
                     val psychologist = studentRepository.getStudent(message.authorId!!)
-                    messages.add(MessageOutDTO(psychologist.name, formatHour(message.date!!), message.message, psychologist.id))
+                    messages.add(MessageOutDTO(psychologist!!.name, formatHour(message.date!!), message.message, psychologist.id))
                 }
             }
 
@@ -74,7 +74,7 @@ class PsychologistChatViewModel : ViewModel() {
 
             }else{
                 val psychologist = PsychRepository.getPsychologist(messageSend.authorId!!)
-                messages.add(MessageOutDTO(psychologist.name, formatHour(messageSend.date!!), messageSend.message, psychologist.id))
+                messages.add(MessageOutDTO(psychologist!!.name, formatHour(messageSend.date!!), messageSend.message, psychologist.id))
             }
             withContext(Dispatchers.Main){
                 messagesLV.value = messages

@@ -51,7 +51,7 @@ class PsychologistChatRepository {
 
         val chat = docChat.toObject(ChatInDTO::class.java)
 
-        return studentRepository.getStudent(chat!!.contactId)
+        return studentRepository.getStudent(chat!!.contactId)!!
     }
 
     suspend fun getLastMessageFromChat(chatId : String) : Message {

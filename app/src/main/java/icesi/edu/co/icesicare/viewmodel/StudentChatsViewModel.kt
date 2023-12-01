@@ -32,7 +32,7 @@ class StudentChatsViewModel : ViewModel(), GoObjectDetail{
                 val contact = PsychRepository.getPsychologist(chat.contactId)
                 val lastMessage = studentChatRepository.getLastMessageFromChat(chat.id)
 
-                val newChat = ChatOutDTO(contact.name, contact.profileImageURL!!,
+                val newChat = ChatOutDTO(contact!!.name, contact.profileImageURL!!,
                     lastMessage.message, formatHour(lastMessage.date!!), chat.id)
 
                 chats.add(newChat)

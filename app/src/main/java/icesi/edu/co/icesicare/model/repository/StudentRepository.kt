@@ -1,5 +1,6 @@
 package icesi.edu.co.icesicare.model.repository
 
+import android.util.Log
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
@@ -8,7 +9,7 @@ import kotlinx.coroutines.tasks.await
 
 class StudentRepository {
 
-    suspend fun getStudent(studentId : String) : Student {
+    suspend fun getStudent(studentId: String): Student? {
 
         try {
             val docStudent = Firebase.firestore.collection("students")
@@ -18,21 +19,20 @@ class StudentRepository {
 
             student?.let {
 
-                if (it.profileImageId != ""){
+                if (it.profileImageId != "") {
                     val url = Firebase.storage.reference
                         .child("users")
                         .child("profileImages")
                         .child(it.profileImageId.toString()).downloadUrl.await()
 
-                    student.profileImageURL = url.toString()
+                    it.profileImageURL = url.toString()
                 }
+                return it
             }
-
-            return student!!
-
-        }catch (e : Exception){
-            return Student(-1)
+            return null
+        } catch (e: Exception) {
+            Log.e("StudentRepository","Error while fetching student.")
+            return null
         }
     }
-
 }
