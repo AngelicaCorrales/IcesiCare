@@ -14,6 +14,7 @@ object PsychRepository {
     private val psychs = arrayListOf<Psychologist>()
     private val filteredPsychs = arrayListOf<Psychologist>()
     val psychsLiveData = MutableLiveData<ArrayList<Psychologist>>(psychs)
+    val singlePsychLiveData = MutableLiveData<Psychologist?>()
 
     fun filterPsychsByName(name:String){
         filteredPsychs.clear()
@@ -123,6 +124,7 @@ object PsychRepository {
                 }
             }
 
+            singlePsychLiveData.postValue(psy)
             return psy
         } catch (e: Exception) {
             Log.e("PsychRepository", "Error fetching psychologist", e)
@@ -149,6 +151,7 @@ object PsychRepository {
                     Log.e("PsychRepository", "Error deleting old profile image", e)
                 }
             }
+
         } catch (e: Exception) {
             Log.e("PsychRepository", "Error saving psychologist changes", e)
         }

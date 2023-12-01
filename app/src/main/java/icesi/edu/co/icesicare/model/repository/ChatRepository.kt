@@ -1,10 +1,9 @@
 package icesi.edu.co.icesicare.model.repository
 
-import android.util.Log
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import icesi.edu.co.icesicare.model.entity.Chat
 import icesi.edu.co.icesicare.model.entity.ChatData
+import icesi.edu.co.icesicare.model.entity.ChatID
 import kotlinx.coroutines.tasks.await
 import java.util.UUID
 
@@ -35,7 +34,7 @@ class ChatRepository {
         val chatId = UUID.randomUUID().toString()
 
         Firebase.firestore.collection("chats")
-            .document(chatId).set(Chat(id=chatId)).await()
+            .document(chatId).set(ChatID(id=chatId)).await()
 
         Firebase.firestore.collection("students")
             .document(studId)

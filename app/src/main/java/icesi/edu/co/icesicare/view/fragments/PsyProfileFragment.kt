@@ -2,10 +2,12 @@ package icesi.edu.co.icesicare.view.fragments
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.ktx.auth
@@ -55,6 +57,12 @@ class PsyProfileFragment  : Fragment() {
             }
         }
 
+        PsychRepository.singlePsychLiveData.observe(viewLifecycleOwner, Observer { psychologist ->
+            psychologist?.let {
+                updateViews(it)
+            }
+        })
+
         binding.editPsyBtn.setOnClickListener {
             val intent= Intent(activity, PsyProfileActivity::class.java)
             startActivity(intent)
@@ -93,13 +101,14 @@ class PsyProfileFragment  : Fragment() {
         lifecycleScope.launch(Dispatchers.IO) {
             val psy = PsychRepository.fetchOnePsy(Firebase.auth.currentUser?.uid.toString())
             withContext(Dispatchers.Main) {
-                showLoading(false)
                 updateViews(psy)
+                showLoading(false)
             }
         }
     }
 
     private fun updateViews(psy: Psychologist?) {
+        Log.d("PsyProfileFragment", "AAAAAAAAAAAAAAAAAAAAAAAAAAAUpdating views with: $psy")
         psy?.let {
             binding.psyEmail.text = it.email
             binding.psyName.text = it.name
