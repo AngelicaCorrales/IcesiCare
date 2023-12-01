@@ -25,7 +25,6 @@ import java.util.Date
 class StudentChatActivity : AppCompatActivity() {
 
     private val viewModel : StudentChatViewModel by viewModels()
-    private lateinit var listener: ListenerRegistration
     private lateinit var adapter : MessageAdapter
 
     private val binding by lazy {

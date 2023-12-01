@@ -68,12 +68,14 @@ class PsychologistChatRepository {
         return message
     }
 
-    suspend fun sendMessage(chatId: String, message: Message){
+    suspend fun sendMessage(chatId: String, message: Message) : Message{
 
         val messageId = UUID.randomUUID()
         message.id = messageId.toString()
 
         Firebase.firestore.collection("chats")
             .document(chatId).collection("messages").document(messageId.toString()).set(message).await()
+
+        return message
     }
 }
