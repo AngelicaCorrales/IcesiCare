@@ -96,7 +96,9 @@ object AppointmentsRepository {
         val document = Firebase.firestore.collection("appointments")
             .document(appointmentId).get().await()
 
-        val appointment = document.toObject(Appointment::class.java)
+        val appointmentF = document.toObject(AppointmentFirebase::class.java)
+
+        val appointment = appointmentF?.let { AppointmentHelper.appointmentFirebaseToAppointment(it) }
 
         return appointment!!
     }

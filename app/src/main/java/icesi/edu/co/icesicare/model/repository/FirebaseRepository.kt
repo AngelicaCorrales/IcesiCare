@@ -27,27 +27,20 @@ class FirebaseRepository {
     suspend fun getAppointmentsForStudent(studentId: String, month : Int): ArrayList<Appointment> {
         val appointmentsList = ArrayList<Appointment>()
         try {
-            val appointmentIdsQuery = Firebase.firestore.collection("students")
-                .document(studentId)
-                .collection("appointment")
-                .get()
+            val appointmentIdsQuery = Firebase.firestore.collection("appointments")
+                .whereEqualTo("studentId",studentId)
+                .whereEqualTo("approved",true).get()
                 .await()
-            val appointmentIds = appointmentIdsQuery.documents.map { it.id }
-            appointmentIds.forEach {
-                val appointmentsQuery = Firebase.firestore.collection("appointments")
-                    .document(it)
-                    .get()
-                    .await()
-                val appointment = appointmentsQuery.toObject(AppointmentFirebase::class.java)
-                val event= appointment?.let { AppointmentHelper.appointmentFirebaseToAppointment(it) }
-                event?.let {
-                        app ->
 
-                    if (getMonthFromDate(event.date,month)) {
-                        appointmentsList.add(app)
-                    }
+            appointmentIdsQuery.forEach {
 
+                val appointmentF = it.toObject(AppointmentFirebase::class.java)
+                val appointment = appointmentF.let { AppointmentHelper.appointmentFirebaseToAppointment(it) }
+
+                if (getMonthFromDate(appointment.date,month)) {
+                    appointmentsList.add(appointment)
                 }
+
             }
         } catch (e: Exception) {
             e.printStackTrace()
