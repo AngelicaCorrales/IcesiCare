@@ -115,12 +115,16 @@ class EditPsyProfileFragment : Fragment() {
         }
 
         binding.saveChangesBtn.setOnClickListener {
-            saveChanges()
-            activity?.finish()
+            lifecycleScope.launch {
+                saveChanges()
+                activity?.finish()
+            }
         }
 
         binding.editScheduleBtn.setOnClickListener {
-            saveChanges()
+            lifecycleScope.launch {
+                saveChanges()
+            }
             fragmentActivity.showEditPsyScheduleFragment()
         }
 
@@ -178,7 +182,7 @@ class EditPsyProfileFragment : Fragment() {
     }
 
     private fun String.toEditable(): Editable =  Editable.Factory.getInstance().newEditable(this)
-    private fun saveChanges(){
+    private suspend fun saveChanges(){
         val updatedPsy = Psychologist(
             id = binding.psyId.text.toString(),
             role = binding.psyRole.text.toString(),
@@ -194,12 +198,11 @@ class EditPsyProfileFragment : Fragment() {
 
         )
 
-        lifecycleScope.launch(Dispatchers.IO) {
-            PsychRepository.updatePsy(Firebase.auth.currentUser?.uid.toString(), updatedPsy)
-            withContext(Dispatchers.Main) {
-                Toast.makeText(requireActivity(), "Changes saved successfully", Toast.LENGTH_SHORT).show()
-            }
+        PsychRepository.updatePsy(Firebase.auth.currentUser?.uid.toString(), updatedPsy)
+        withContext(Dispatchers.Main) {
+            Toast.makeText(requireActivity(), "Changes saved successfully", Toast.LENGTH_SHORT).show()
         }
+
     }
     companion object {
         private const val CAMERA_REQUEST_CODE = 100
