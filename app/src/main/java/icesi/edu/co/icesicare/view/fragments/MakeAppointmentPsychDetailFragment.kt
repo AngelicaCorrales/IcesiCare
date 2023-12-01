@@ -1,5 +1,7 @@
 package icesi.edu.co.icesicare.view.fragments
 
+import android.app.AlertDialog
+import android.content.Intent
 import android.content.res.ColorStateList
 import android.os.Bundle
 import android.util.Log
@@ -16,6 +18,7 @@ import com.bumptech.glide.Glide
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import icesi.edu.co.icesicare.R
+import icesi.edu.co.icesicare.activities.StudentMainActivity
 import icesi.edu.co.icesicare.databinding.FragmentMakeAppointmentPsychDetailBinding
 import icesi.edu.co.icesicare.model.entity.Psychologist
 import icesi.edu.co.icesicare.util.CalendarUtils
@@ -200,8 +203,7 @@ class MakeAppointmentPsychDetailFragment : Fragment() {
     }
 
     fun enableHoursBySchedule(startHour:Double?,endHour:Double?){
-
-
+        selected_hour=null
 
         if(startHour ==null && endHour==null){
             for (button in buttonHoursList) {
@@ -226,17 +228,47 @@ class MakeAppointmentPsychDetailFragment : Fragment() {
 
     fun makeAppointment(){
         binding.makeAppoBtn.setOnClickListener {
-            hoursMap[selected_hour]?.let {
-                appoinmentViewModel.saveAppointment(
-                    CalendarUtils.selectedDate.value!!,
-                    it,
-                    binding.motiveDescTV.text.toString(),
-                    psych!!.id,
-                )
+            if (selected_hour != null && !binding.motiveDescTV.text.toString().isEmpty()) {
+
+                hoursMap[selected_hour]?.let {
+                    appoinmentViewModel.saveAppointment(
+                        CalendarUtils.selectedDate.value!!,
+                        it,
+                        binding.motiveDescTV.text.toString(),
+                        psych!!.id,
+                    )
+
+                    showAlertDialog(
+                        "¡Solicitud enviada con éxito!",
+                        "Le informaremos cuando el psicólogo acepte la cita"
+                    )
+
+
+                }
+
+
+            } else {
+                Toast.makeText(
+                    requireContext(),
+                    "¡No te olvides de llenar toda la información!",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
+        }
+
+
+    private fun showAlertDialog(title:String,message:String){
+        val builder = AlertDialog.Builder(requireContext()).setTitle(title).setMessage(message) .setNeutralButton("Aceptar") { dialog, _ ->
+            val intent = Intent(requireContext(), StudentMainActivity::class.java)
+            startActivity(intent)
+            requireActivity().finish()
+            dialog.dismiss()
+        }
+        builder.create().show()
 
     }
+
     companion object {
         fun newInstance():MakeAppointmentPsychDetailFragment{
             return MakeAppointmentPsychDetailFragment()
