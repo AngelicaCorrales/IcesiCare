@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import icesi.edu.co.icesicare.activities.AcceptAppointmentActivity
 import icesi.edu.co.icesicare.activities.MakeAppointmentActivity
 import icesi.edu.co.icesicare.databinding.FragmentHomeStudBinding
 

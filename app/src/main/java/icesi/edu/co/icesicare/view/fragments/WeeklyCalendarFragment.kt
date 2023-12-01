@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import icesi.edu.co.icesicare.R
 import icesi.edu.co.icesicare.databinding.FragmentWeeklyCalendarBinding
 import icesi.edu.co.icesicare.util.CalendarUtils
 import icesi.edu.co.icesicare.util.CalendarUtils.daysInWeekArray
@@ -30,7 +31,7 @@ class WeeklyCalendarFragment : Fragment() , CalendarAdapter.OnItemListener {
     ): View? {
         binding = FragmentWeeklyCalendarBinding.inflate(inflater, container, false)
         initWidgets()
-        CalendarUtils.selectedDate = LocalDate.now()
+        CalendarUtils.selectedDate.value = LocalDate.now()
         setWeekView()
 
         previousWeekAction()
@@ -46,7 +47,7 @@ class WeeklyCalendarFragment : Fragment() , CalendarAdapter.OnItemListener {
     }
 
     private fun setWeekView() {
-        CalendarUtils.selectedDate?.let {
+        CalendarUtils.selectedDate.value?.let {
             monthYearText?.setText( monthYearFromDate(it))
             val days: ArrayList<LocalDate?> = daysInWeekArray(it)
             val calendarAdapter = CalendarAdapter(days, this)
@@ -60,7 +61,7 @@ class WeeklyCalendarFragment : Fragment() , CalendarAdapter.OnItemListener {
 
     private fun previousWeekAction() {
         binding.previousWeekBtn.setOnClickListener {
-            CalendarUtils.selectedDate = CalendarUtils.selectedDate!!.minusWeeks(1)
+            CalendarUtils.selectedDate.value = CalendarUtils.selectedDate.value!!.minusWeeks(1)
             setWeekView()
         }
 
@@ -68,14 +69,14 @@ class WeeklyCalendarFragment : Fragment() , CalendarAdapter.OnItemListener {
 
     private fun nextWeekAction() {
         binding.nextWeekBtn.setOnClickListener {
-            CalendarUtils.selectedDate = CalendarUtils.selectedDate!!.plusWeeks(1)
+            CalendarUtils.selectedDate.value = CalendarUtils.selectedDate.value!!.plusWeeks(1)
             setWeekView()
         }
 
     }
 
     override fun onItemClick(position: Int, date: LocalDate?) {
-        CalendarUtils.selectedDate = date
+        CalendarUtils.selectedDate.value = date
         setWeekView()
     }
 

@@ -139,7 +139,7 @@ class AdminEventsAddUpdateFragment (var isUpdating: Boolean, var event: Event?) 
             binding.eventDeleteImageBtn.visibility = View.VISIBLE
         }
 
-        val dateTime = event!!.date.toLocalDateTime
+        val dateTime = event!!.date
 
         date = dateTime.toLocalDate()
         time = dateTime.toLocalTime()
@@ -175,7 +175,7 @@ class AdminEventsAddUpdateFragment (var isUpdating: Boolean, var event: Event?) 
 
             if(isOkToUpdate) {
                 event!!.category = binding.eventCategorySpin.selectedItem.toString()
-                event?.date  = LocalDateTime.of(date,time).toDate
+                event?.date  = LocalDateTime.of(date,time)
                 event!!.name = name
                 event!!.space = space
 
@@ -206,14 +206,14 @@ class AdminEventsAddUpdateFragment (var isUpdating: Boolean, var event: Event?) 
 
             val category = binding.eventCategorySpin.selectedItem.toString()
 
-            var finalDate = Date()
+            var finalDate = LocalDateTime.now()
 
             if(date == null || time == null){
                 showAlertDialog("Es obligatorio especificar la fecha y hora del evento.")
                 isOkToCreate = false
             }
             else{
-                finalDate = LocalDateTime.of(date,time).toDate
+                finalDate = LocalDateTime.of(date,time)
             }
 
             val name = binding.eventNameET.text.toString()

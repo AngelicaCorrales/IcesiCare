@@ -30,7 +30,7 @@ class CalendarAdapter(
         val date = days?.get(position)
         if (date == null) holder.dayOfMonth.text = "" else {
             holder.dayOfMonth.text = date.dayOfMonth.toString()
-            if (date == CalendarUtils.selectedDate) holder.parentView.setBackgroundColor(Color.LTGRAY)
+            if (date == CalendarUtils.selectedDate.value) holder.parentView.setBackgroundColor(Color.LTGRAY)
         }
     }
 

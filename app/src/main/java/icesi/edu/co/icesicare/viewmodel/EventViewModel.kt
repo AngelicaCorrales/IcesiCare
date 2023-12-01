@@ -1,6 +1,5 @@
 package icesi.edu.co.icesicare.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -64,12 +63,12 @@ class EventViewModel : ViewModel() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 events.sortByDescending {
-                    it.date.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime()
+                    it.date
                 }
 
                 if(isFilterActive)
                     filteredEvents.sortByDescending {
-                        it.date.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime()
+                        it.date
                     }
 
                 withContext(Dispatchers.Main){
@@ -127,15 +126,15 @@ class EventViewModel : ViewModel() {
 
                 if(isActive){
                     eventsLD.value?.forEach{
-                        if(it.date.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime().isAfter(LocalDateTime.now())||
-                            it.date.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime().isEqual(LocalDateTime.now())){
+                        if(it.date.isAfter(LocalDateTime.now())||
+                            it.date.isEqual(LocalDateTime.now())){
                             filteredEventsList.add(it)
                         }
                     }
                 }
                 else{
                     eventsLD.value?.forEach{
-                        if(it.date.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime().isBefore(LocalDateTime.now())){
+                        if(it.date.isBefore(LocalDateTime.now())){
                             filteredEventsList.add(it)
                         }
                     }
@@ -195,7 +194,7 @@ class EventViewModel : ViewModel() {
         }
     }
 
-    fun createEvent(category: String, date : Date, name : String, imageUrl:String, space : String){
+    fun createEvent(category: String, date : LocalDateTime, name : String, imageUrl:String, space : String){
         viewModelScope.launch (Dispatchers.IO){
             try {
                 val event = Event(category,date,"","",imageUrl,name,space)

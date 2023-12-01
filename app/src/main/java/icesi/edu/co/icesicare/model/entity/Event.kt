@@ -1,20 +1,21 @@
 package icesi.edu.co.icesicare.model.entity
 
-import java.util.Date
 
-data class Event(
-    var category: String = "",
-    var date : Date = Date(),
+import java.time.LocalDateTime
+data class Event (
+    var category : String = "",
+    var date : LocalDateTime= LocalDateTime.now(),
     var id : String = "",
-    var imageId : String = "",
+    var imageId: String = "",
     var imageURL : String = "",
     var name : String = "",
     var space : String = ""
 )
 
+
 data class EventFirebase(
     var category: String = "",
-    var date : Date = Date(),
+    var date : LocalDateTime= LocalDateTime.now(),
     var id : String = "",
     var imageId : String = "",
     var name : String = "",
@@ -35,3 +36,4 @@ class EventsHelper{
         }
     }
 }
+

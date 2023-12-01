@@ -27,13 +27,13 @@ class HomeFragmentPsych : Fragment() {
 
         viewModel.getPsychologist(Firebase.auth.currentUser!!.uid)
         viewModel.psychologistLV.observe(viewLifecycleOwner){
-            val welcomeUser = "Hola, "+it.name
+            val welcomeUser = "Hola, "+it?.name
             binding.helloTv.text = welcomeUser
 
-            if (it.genre == "Femenino"){
+            if (it?.genre == "Femenino"){
                 binding.welcomeTV.text = "Bienvenida"
 
-            }else if (it.genre == "Otro"){
+            }else if (it?.genre == "Otro"){
                 binding.welcomeTV.text = "Bienvenide"
             }
         }

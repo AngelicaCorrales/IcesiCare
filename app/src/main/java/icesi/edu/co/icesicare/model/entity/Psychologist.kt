@@ -1,5 +1,7 @@
 package icesi.edu.co.icesicare.model.entity
 
+import com.google.firebase.firestore.PropertyName
+
 data class Psychologist(
 
     var description : String = "",
@@ -10,8 +12,9 @@ data class Psychologist(
     var profileImageId : String? = null,
     var profileImageURL : String? = null,
     var role : String = "",
+
     var scheduleId : String = "",
-    var isPendingApproval : Boolean = false,
-    var isApproved : Boolean = true
+    var pendingApproval : Boolean = true,
+    var approved : Boolean = false
 
 )

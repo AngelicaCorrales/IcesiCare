@@ -35,5 +35,4 @@ class StudentRepository {
             return null
         }
     }
-
 }

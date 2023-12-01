@@ -188,7 +188,9 @@ class EditPsyProfileFragment : Fragment() {
             description = binding.psyDescr.text.toString(),
             profileImageId = newImageURIStr,
             profileImageURL = newImageURIStr,
-            scheduleId = binding.psySchId.text.toString()
+            scheduleId = binding.psySchId.text.toString(),
+            approved = true,
+            pendingApproval = false
 
         )
 

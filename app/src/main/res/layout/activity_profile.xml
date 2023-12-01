@@ -69,7 +69,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textView6">
 
             <ImageView
-                android:id="@+id/studentImageProfile"
+                android:id="@+id/eventeImage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:srcCompat="@drawable/ic_launcher_background" />
