@@ -5,6 +5,7 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import icesi.edu.co.icesicare.model.entity.Event
+import icesi.edu.co.icesicare.model.entity.EventFirebase
 import icesi.edu.co.icesicare.model.entity.EventsHelper
 import kotlinx.coroutines.tasks.await
 import java.util.UUID
@@ -17,7 +18,10 @@ class EventRepository {
         val docEvent = Firebase.firestore.collection("events")
             .document(eventId).get().await()
 
-        val event = docEvent.toObject(Event::class.java)
+
+        val eventFirebase = docEvent.toObject(EventFirebase::class.java)
+
+        val event= eventFirebase?.let { EventsHelper.eventFirebaseToEvent(it) }
 
         event?.let {
 
@@ -39,8 +43,9 @@ class EventRepository {
         val events = arrayListOf<Event>()
 
         result.documents.forEach{document ->
-            val event = document.toObject(Event::class.java)
+            val eventFirebase = document.toObject(EventFirebase::class.java)
 
+            val event= eventFirebase?.let { EventsHelper.eventFirebaseToEvent(it) }
             event?.let {
                 if(it.imageId != "" ){
                     val url= Firebase.storage.reference
@@ -58,7 +63,11 @@ class EventRepository {
     suspend fun deleteEvent(eventId: String) {
         val docEvent = Firebase.firestore.collection("events")
             .document(eventId).get().await()
-        val event = docEvent.toObject(Event::class.java)
+
+        val eventFirebase = docEvent.toObject(EventFirebase::class.java)
+
+        val event= eventFirebase?.let { EventsHelper.eventFirebaseToEvent(it) }
+
 
         event?.let {
             if(it.imageId != ""){
