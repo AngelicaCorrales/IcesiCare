@@ -1,9 +1,12 @@
 package icesi.edu.co.icesicare.model.repository
 
 import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.toObject
 import com.google.firebase.ktx.Firebase
 import icesi.edu.co.icesicare.model.dto.`in`.ChatInDTO
+import icesi.edu.co.icesicare.model.entity.Chat
 import icesi.edu.co.icesicare.model.entity.Message
+import icesi.edu.co.icesicare.model.entity.Psychologist
 import kotlinx.coroutines.tasks.await
 
 class ChatRepository {
@@ -23,6 +26,30 @@ class ChatRepository {
             }
         }
         return chats
+    }
+
+    suspend fun getChat(chatId : String) : Chat{
+        val docChat = Firebase.firestore.collection("chats").document(chatId).get().await()
+        val chat = docChat.toObject(Chat::class.java)
+        chat!!.messages = getMessages(chatId)
+
+        return chat
+    }
+
+    private suspend fun getMessages(chatId: String): List<Message> {
+        val docMessages = Firebase.firestore.collection("chats").document(chatId)
+            .collection("messages").get().await()
+
+        return docMessages.toObjects(Message::class.java)
+    }
+
+    suspend fun getContact(chatId: String, studentId: String) : Psychologist{
+        val docChat = Firebase.firestore.collection("students").document(studentId).collection("chats")
+            .document(chatId).get().await()
+
+        val chat = docChat.toObject(ChatInDTO::class.java)
+
+        return PsychRepository.getPsychologist(chat!!.contactId)
     }
 
     suspend fun getLastMessageFromChat(chatId : String) : Message{

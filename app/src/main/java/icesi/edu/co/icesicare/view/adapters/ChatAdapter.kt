@@ -7,9 +7,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import icesi.edu.co.icesicare.R
 import icesi.edu.co.icesicare.model.dto.out.ChatOutDTO
+import icesi.edu.co.icesicare.model.service.GoObjectDetail
 import icesi.edu.co.icesicare.viewholder.ChatViewHolder
 
-class ChatAdapter : RecyclerView.Adapter<ChatViewHolder>() {
+class ChatAdapter(private val goDetail: GoObjectDetail) : RecyclerView.Adapter<ChatViewHolder>() {
 
     private var chats : ArrayList<ChatOutDTO> = arrayListOf()
 
@@ -29,6 +30,9 @@ class ChatAdapter : RecyclerView.Adapter<ChatViewHolder>() {
 
         if(chats[position].usrImage != ""){
             Glide.with(holder.usrImage.context).load(chats[position].usrImage).into(holder.usrImage)
+        }
+        holder.chatLayout.setOnClickListener {
+            goDetail.onItemClick(chats[position].chatId)
         }
     }
 

@@ -12,19 +12,20 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.IcesiCare"
         tools:targetApi="31">
-        <activity android:name=".activities.PsyProfileActivity">
-        </activity>
+        <activity
+            android:name=".activities.StudentChatActivity"
+            android:exported="false" />
+        <activity android:name=".activities.PsyProfileActivity"></activity>
         <activity
             android:name=".activities.StudentMainActivity"
-            android:exported="false">
-        </activity>
+            android:exported="false"></activity>
         <activity
             android:name=".activities.PsychologistMainActivity"
             android:exported="false" />
         <activity
             android:name=".activities.AuthActivity"
-            android:theme="@style/Theme.IcesiCare.SplashScreen"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@style/Theme.IcesiCare.SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
