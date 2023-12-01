@@ -18,4 +18,11 @@
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
 
+    <string name="admin_add_event_btn_txt">+ Añadir Evento</string>
+    <string name="admin_events_title_txt">Eventos</string>
+    <string name="admin_events_filter_active_txt">Activos</string>
+    <string name="admin_events_filter_all_txt">Todos</string>
+    <string name="admin_events_filter_inactive_btn">Inactivos</string>
+    <string name="admin_events_filter_txt">Filtros</string>
+
 </resources>

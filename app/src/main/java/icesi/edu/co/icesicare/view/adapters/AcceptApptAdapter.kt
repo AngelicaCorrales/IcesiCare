@@ -20,7 +20,7 @@ class AcceptApptAdapter(fragment: AcceptAppointmentFragment) :
     private var parentFragment: AcceptAppointmentFragment = fragment
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AcceptApptViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.accept_appt_card, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.card_accept_appt, parent, false)
         return AcceptApptViewHolder(view)
     }
 

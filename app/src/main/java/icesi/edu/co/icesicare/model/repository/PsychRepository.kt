@@ -52,7 +52,7 @@ object PsychRepository {
         psychsLiveData.postValue(psychs)
     }
 
-    suspend fun getPsychologist(psychologistId : String) : Psychologist {
+    suspend fun getPsychologist(psychologistId : String) : Psychologist? {
 
         try {
             val docStudent = Firebase.firestore.collection("psychologists")
@@ -61,21 +61,21 @@ object PsychRepository {
             val psychologist = docStudent.toObject(Psychologist::class.java)
 
             psychologist?.let {
-
                 if (it.profileImageId != ""){
                     val url = Firebase.storage.reference
                         .child("users")
                         .child("profileImages")
                         .child(it.profileImageId.toString()).downloadUrl.await()
 
-                    psychologist.profileImageURL = url.toString()
+                    it.profileImageURL = url.toString()
                 }
+                return it
             }
-
-            return psychologist!!
+            return null
 
         }catch (e : Exception){
-            return Psychologist("-1")
+            Log.e("PsychRepository","Error while fetching psychologist.")
+            return null
         }
     }
 
@@ -110,7 +110,7 @@ object PsychRepository {
     suspend fun updatePsy(psyId: String, updatedPsy: Psychologist) {
         try {
             val currentPsy = getPsychologist(psyId)
-            val oldImageId = currentPsy.profileImageId
+            val oldImageId = currentPsy?.profileImageId
 
             Firebase.firestore.collection("psychologists")
                 .document(psyId)

@@ -121,7 +121,7 @@ class MakeAppointmentPsychDetailFragment : Fragment() {
         selected_hour?.setBackgroundResource(R.drawable.appointment_button_background_not_selected)
         selected_hour?.setTextColor(textButtonColor)
 
-        button.setBackgroundResource(R.drawable.appointment_button_background)
+        button.setBackgroundResource(R.drawable.btn_bg_selected)
         button.setTextColor(getColor(requireContext(),R.color.neutral_white))
         selected_hour=button
        Log.e("<<<<",hoursMap[selected_hour].toString())
