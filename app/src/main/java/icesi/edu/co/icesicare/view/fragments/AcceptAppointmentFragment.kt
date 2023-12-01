@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.ktx.auth
@@ -14,6 +15,7 @@ import icesi.edu.co.icesicare.activities.AcceptAppointmentActivity
 import icesi.edu.co.icesicare.databinding.FragmentAcceptAppointmentBinding
 import icesi.edu.co.icesicare.model.repository.AppointmentsRepository
 import icesi.edu.co.icesicare.view.adapters.AcceptApptAdapter
+import icesi.edu.co.icesicare.viewmodel.ChatViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -23,6 +25,7 @@ class AcceptAppointmentFragment : Fragment() {
     private lateinit var adapter:AcceptApptAdapter
     private lateinit var fragmentActivity:AcceptAppointmentActivity
     private lateinit var psychId: String
+    private val chatViewModel : ChatViewModel by viewModels()
     @SuppressLint("NotifyDataSetChanged")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -62,12 +65,17 @@ class AcceptAppointmentFragment : Fragment() {
     fun updateAppointment(apptId: String, isAccepted:Boolean, isCanceled:Boolean){
         lifecycleScope.launch (Dispatchers.IO) {
             AppointmentsRepository.updateAppointmentStatus(apptId,isAccepted,isCanceled)
+
             fetchAppointmentsForPsychologist(psychId,false,false)
 
             withContext(Dispatchers.Main){
                 fragmentActivity.changeProgressBarVisibility(false)
             }
         }
+    }
+
+    fun initializeChat(studId:String,psychId:String){
+        chatViewModel.initializeChat(studId,psychId)
     }
 
     companion object {
