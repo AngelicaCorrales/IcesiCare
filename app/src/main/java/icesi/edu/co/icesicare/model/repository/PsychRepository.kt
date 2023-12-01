@@ -110,6 +110,7 @@ object PsychRepository {
     suspend fun updatePsy(psyId: String, updatedPsy: Psychologist) {
         try {
             val currentPsy = getPsychologist(psyId)
+
             val oldImageId = currentPsy?.profileImageId
 
             Firebase.firestore.collection("psychologists")
@@ -130,4 +131,38 @@ object PsychRepository {
         }
     }
 
+    suspend fun getPsychologistsPendingForApproval() : MutableList<Psychologist>{
+        val result = Firebase.firestore
+            .collection("psychologists")
+            .whereEqualTo("pendingApproval",true).get().await()
+
+        val psychsList = arrayListOf<Psychologist>()
+
+        result.documents.forEach{document ->
+            val psych = document.toObject(Psychologist::class.java)
+
+            psych?.let {
+                if(psych.profileImageId != null && psych.profileImageId != "" ){
+                    val url= Firebase.storage.reference
+                        .child("users")
+                        .child("profileImages")
+                        .child(psych.profileImageId!!).downloadUrl.await()
+                    psych.profileImageURL = url.toString()
+                }
+                psychsList.add(psych)
+            }
+        }
+        return psychsList
+    }
+
+    suspend fun updatePsychStatus(isAccepted: Boolean, psychId: String){
+        val psych = getPsychologist(psychId)
+
+        psych?.let {
+            psych.pendingApproval = false
+            psych.approved = isAccepted
+
+            updatePsy(psychId,psych)
+        }
+    }
 }
