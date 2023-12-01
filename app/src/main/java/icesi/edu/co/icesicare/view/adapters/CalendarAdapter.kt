@@ -5,6 +5,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import icesi.edu.co.icesicare.R
 import icesi.edu.co.icesicare.util.CalendarUtils
@@ -30,7 +32,9 @@ class CalendarAdapter(
         val date = days?.get(position)
         if (date == null) holder.dayOfMonth.text = "" else {
             holder.dayOfMonth.text = date.dayOfMonth.toString()
-            if (date == CalendarUtils.selectedDate) holder.parentView.setBackgroundColor(Color.LTGRAY)
+            if (date == CalendarUtils.selectedDate.value) {
+                holder.parentView.setBackgroundResource(R.color.purple_date)
+            }
         }
     }
 

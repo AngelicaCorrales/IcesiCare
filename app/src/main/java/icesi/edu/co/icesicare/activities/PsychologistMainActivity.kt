@@ -7,13 +7,12 @@ import androidx.fragment.app.Fragment
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import icesi.edu.co.icesicare.R
-import icesi.edu.co.icesicare.databinding.ActivityMainBinding
 import icesi.edu.co.icesicare.databinding.ActivityPsychologistMainBinding
 import icesi.edu.co.icesicare.view.fragments.ChatsFragment
 import icesi.edu.co.icesicare.view.fragments.HomeFragmentPsych
 import icesi.edu.co.icesicare.view.fragments.PsyProfileFragment
+import icesi.edu.co.icesicare.view.fragments.PsychologistChatFragment
 import icesi.edu.co.icesicare.view.fragments.ScheduleFragment
-import icesi.edu.co.icesicare.view.fragments.StudentProfileFragment
 
 class PsychologistMainActivity : AppCompatActivity() {
 
@@ -23,7 +22,7 @@ class PsychologistMainActivity : AppCompatActivity() {
 
     private val homeStud= HomeFragmentPsych.newInstance()
     private val schedule= ScheduleFragment.newInstance()
-    private val chats= ChatsFragment.newInstance()
+    private val chats= PsychologistChatFragment.newInstance()
     private val profile= PsyProfileFragment.newInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {

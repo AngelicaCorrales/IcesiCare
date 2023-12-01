@@ -11,7 +11,10 @@ import kotlinx.coroutines.withContext
 
 class PsychologistViewModel:ViewModel() {
 
-    val psychologistLV = MutableLiveData<Psychologist>()
+    val errorLD = MutableLiveData<Exception>()
+    val psychsPendingApprovalLD = MutableLiveData<MutableList<Psychologist>>()
+    private var psychsPendingApproval : MutableList<Psychologist> = arrayListOf<Psychologist>()
+    val psychologistLV = MutableLiveData<Psychologist?>()
 
     fun getPsychologist(psychologistId : String){
 
@@ -23,4 +26,36 @@ class PsychologistViewModel:ViewModel() {
             }
         }
     }
+
+    fun updatePsychStatus(isAccepted: Boolean, psychId: String) {
+        viewModelScope.launch (Dispatchers.IO) {
+            try {
+                PsychRepository.updatePsychStatus(isAccepted,psychId)
+                getPsychologistsPendingForApproval()
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main){
+                    errorLD.value = e
+                }
+            }
+        }
+    }
+
+    fun getPsychologistsPendingForApproval() {
+        viewModelScope.launch (Dispatchers.IO){
+            try {
+                val psychs = PsychRepository.getPsychologistsPendingForApproval()
+                psychsPendingApproval = psychs
+
+                withContext(Dispatchers.Main){
+                    psychsPendingApprovalLD.value = psychsPendingApproval
+                }
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main){
+                    errorLD.value = e
+                }
+            }
+        }
+    }
+
+
 }

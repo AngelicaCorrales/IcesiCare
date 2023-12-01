@@ -2,13 +2,21 @@ package icesi.edu.co.icesicare.model.repository
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
-import com.google.firebase.firestore.FieldPath
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import icesi.edu.co.icesicare.model.entity.Appointment
+import icesi.edu.co.icesicare.model.entity.AppointmentFirebase
+import icesi.edu.co.icesicare.model.entity.AppointmentHelper
+import icesi.edu.co.icesicare.model.entity.Psychologist
 import icesi.edu.co.icesicare.model.entity.Student
 import kotlinx.coroutines.tasks.await
+import java.sql.Timestamp
+import java.time.Instant
+import java.time.LocalDateTime
+import java.time.ZoneId
+import java.time.ZoneOffset
 
 object AppointmentsRepository {
 
@@ -18,7 +26,7 @@ object AppointmentsRepository {
     private val studRelatedAppt = HashMap<String,Student>()
     val studRelatedApptLiveData = MutableLiveData<HashMap<String,Student>> (studRelatedAppt)
 
-    //This will overwrite psychAppts data
+
     suspend fun fetchAppointmentsForPsychologist(psychId: String, isAccepted:Boolean, isCanceled:Boolean){
         try {
             appts.clear()
@@ -26,11 +34,13 @@ object AppointmentsRepository {
             val result = Firebase.firestore
                 .collection("appointments")
                 .whereEqualTo("psychologistId",psychId)
-                .whereEqualTo("isAccepted",isAccepted)
-                .whereEqualTo("isCanceled",isCanceled)
+                .whereEqualTo("accepted",isAccepted)
+                .whereEqualTo("canceled",isCanceled)
                 .get().await()
             result.documents.forEach {document ->
-                val appt = document.toObject(Appointment::class.java)
+                val apptF = document.toObject(AppointmentFirebase::class.java)
+
+                val appt = apptF?.let { AppointmentHelper.appointmentFirebaseToAppointment(it) }
 
                 appt?.let {
                     appts.add(it)
@@ -71,14 +81,59 @@ object AppointmentsRepository {
         try {
             Firebase.firestore
                 .collection("appointments")
-                .document(apptId).update("isAccepted",isAccepted).await()
+                .document(apptId).update("accepted",isAccepted).await()
 
             Firebase.firestore
                 .collection("appointments")
-                .document(apptId).update("isCanceled",isCanceled).await()
+                .document(apptId).update("canceled",isCanceled).await()
         }
         catch (e: Exception) {
             e.printStackTrace()
         }
+    }
+
+    suspend fun getAppointment(appointmentId : String) : Appointment {
+        val document = Firebase.firestore.collection("appointments")
+            .document(appointmentId).get().await()
+
+        val appointment = document.toObject(Appointment::class.java)
+
+        return appointment!!
+    }
+
+    suspend fun getPsychologistOfAppointment(psychologistId : String) : Psychologist {
+        val docPsy = Firebase.firestore.collection("psychologists")
+            .document(psychologistId.replace("\"", "")).get().await()
+
+        val psychologist = docPsy.toObject(Psychologist::class.java)
+
+        psychologist?.let {
+
+            if (it.profileImageId != ""){
+                val url = Firebase.storage.reference
+                    .child("users")
+                    .child("profileImages")
+                    .child(it.profileImageId.toString()).downloadUrl.await()
+
+                psychologist.profileImageURL = url.toString()
+            }
+        }
+
+        return psychologist!!
+    }
+
+    suspend fun saveAppointment(appointment: Appointment){
+        appointment.studentId=Firebase.auth.currentUser!!.uid
+
+        // LocalDateTime to epoch milliseconds
+        val milliseconds = appointment.date.atZone(ZoneId.of("America/Bogota"))?.toInstant()?.toEpochMilli()
+
+        val appoint= AppointmentFirebase(appointment.id,
+            Timestamp(milliseconds!!),appointment.canceled,appointment.approved,appointment.motive,appointment.psychologistId,appointment.studentId)
+       Firebase.firestore
+           .collection("appointments")
+           .document(appointment.id)
+           .set(appoint)
+           .await()
     }
 }

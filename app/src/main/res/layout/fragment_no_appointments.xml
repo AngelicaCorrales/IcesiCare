@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".view.fragments.NoAppointmentsFragment">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="294dp"
+        android:layout_height="185dp"
+        android:layout_marginTop="60dp"
+        app:layout_constraintBottom_toTopOf="@+id/textView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/opendoodlesthinking"
+        tools:srcCompat="@drawable/opendoodlesthinking" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="159dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="159dp"
+        android:text="No tienes citas"
+        android:textColor="#3A2A46"
+        android:textSize="23sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="232dp"
+        android:layout_height="38dp"
+        android:layout_marginStart="113dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="113dp"
+        android:text="Parece que todavía no has agendado una cita"
+        android:textAlignment="center"
+        android:textColor="#8F8899"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.51"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+    <Button
+        android:id="@+id/searchPsyBtn"
+        android:layout_width="191dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="114dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="114dp"
+        android:layout_marginBottom="30dp"
+        android:background="@drawable/btn_color_selected"
+        android:text="Consultar psicólogos"
+        android:textColor="#F6F3F3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+</androidx.constraintlayout.widget.ConstraintLayout>

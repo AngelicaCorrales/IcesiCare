@@ -13,6 +13,7 @@ import icesi.edu.co.icesicare.view.fragments.ChatsFragment
 import icesi.edu.co.icesicare.view.fragments.HomeFragmentStud
 import icesi.edu.co.icesicare.view.fragments.PsyProfileFragment
 import icesi.edu.co.icesicare.view.fragments.ScheduleFragment
+import icesi.edu.co.icesicare.view.fragments.StudentChatFragment
 import icesi.edu.co.icesicare.view.fragments.StudentProfileFragment
 
 class StudentMainActivity : AppCompatActivity() {
@@ -23,7 +24,7 @@ class StudentMainActivity : AppCompatActivity() {
 
     private val homeStud= HomeFragmentStud.newInstance()
     private val schedule= ScheduleFragment.newInstance()
-    private val chats= ChatsFragment.newInstance()
+    private val chats= StudentChatFragment.newInstance()
     private val profile= StudentProfileFragment.newInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {

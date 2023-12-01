@@ -14,6 +14,7 @@ object PsychRepository {
     private val psychs = arrayListOf<Psychologist>()
     private val filteredPsychs = arrayListOf<Psychologist>()
     val psychsLiveData = MutableLiveData<ArrayList<Psychologist>>(psychs)
+    val singlePsychLiveData = MutableLiveData<Psychologist?>()
 
     fun filterPsychsByName(name:String){
         filteredPsychs.clear()
@@ -27,6 +28,29 @@ object PsychRepository {
     fun clearFilter(){
         psychsLiveData.postValue(psychs)
         filteredPsychs.clear()
+    }
+
+    suspend fun fetchAllApprovedPsychs(){
+        psychs.clear()
+        val result = Firebase.firestore
+            .collection("psychologists")
+            .whereEqualTo("approved",true).whereEqualTo("pendingApproval",false).get().await()
+
+        result.documents.forEach{document ->
+            val psych = document.toObject(Psychologist::class.java)
+
+            psych?.let {
+                if(psych.profileImageId != null && psych.profileImageId != "" ){
+                    val url= Firebase.storage.reference
+                        .child("users")
+                        .child("profileImages")
+                        .child(psych.profileImageId!!).downloadUrl.await()
+                    psych.profileImageURL = url.toString()
+                }
+                psychs.add(psych)
+            }
+        }
+        psychsLiveData.postValue(psychs)
     }
 
     suspend fun fetchAllPsychs(){
@@ -52,7 +76,7 @@ object PsychRepository {
         psychsLiveData.postValue(psychs)
     }
 
-    suspend fun getPsychologist(psychologistId : String) : Psychologist {
+    suspend fun getPsychologist(psychologistId : String) : Psychologist? {
 
         try {
             val docStudent = Firebase.firestore.collection("psychologists")
@@ -61,21 +85,21 @@ object PsychRepository {
             val psychologist = docStudent.toObject(Psychologist::class.java)
 
             psychologist?.let {
-
                 if (it.profileImageId != ""){
                     val url = Firebase.storage.reference
                         .child("users")
                         .child("profileImages")
                         .child(it.profileImageId.toString()).downloadUrl.await()
 
-                    psychologist.profileImageURL = url.toString()
+                    it.profileImageURL = url.toString()
                 }
+                return it
             }
-
-            return psychologist!!
+            return null
 
         }catch (e : Exception){
-            return Psychologist("-1")
+            Log.e("PsychRepository","Error while fetching psychologist.")
+            return null
         }
     }
 
@@ -100,6 +124,7 @@ object PsychRepository {
                 }
             }
 
+            singlePsychLiveData.postValue(psy)
             return psy
         } catch (e: Exception) {
             Log.e("PsychRepository", "Error fetching psychologist", e)
@@ -109,13 +134,61 @@ object PsychRepository {
 
     suspend fun updatePsy(psyId: String, updatedPsy: Psychologist) {
         try {
+            val currentPsy = getPsychologist(psyId)
+
+            val oldImageId = currentPsy?.profileImageId
+
             Firebase.firestore.collection("psychologists")
                 .document(psyId)
                 .set(updatedPsy)
                 .await()
+
+            if (!oldImageId.isNullOrEmpty() && oldImageId != updatedPsy.profileImageId) {
+                try {
+                    val imageRef = Firebase.storage.reference.child("users").child("profileImages").child(oldImageId)
+                    imageRef.delete().await()
+                } catch (e: Exception) {
+                    Log.e("PsychRepository", "Error deleting old profile image", e)
+                }
+            }
+
         } catch (e: Exception) {
             Log.e("PsychRepository", "Error saving psychologist changes", e)
         }
     }
 
+    suspend fun getPsychologistsPendingForApproval() : MutableList<Psychologist>{
+        val result = Firebase.firestore
+            .collection("psychologists")
+            .whereEqualTo("pendingApproval",true).get().await()
+
+        val psychsList = arrayListOf<Psychologist>()
+
+        result.documents.forEach{document ->
+            val psych = document.toObject(Psychologist::class.java)
+
+            psych?.let {
+                if(psych.profileImageId != null && psych.profileImageId != "" ){
+                    val url= Firebase.storage.reference
+                        .child("users")
+                        .child("profileImages")
+                        .child(psych.profileImageId!!).downloadUrl.await()
+                    psych.profileImageURL = url.toString()
+                }
+                psychsList.add(psych)
+            }
+        }
+        return psychsList
+    }
+
+    suspend fun updatePsychStatus(isAccepted: Boolean, psychId: String){
+        val psych = getPsychologist(psychId)
+
+        psych?.let {
+            psych.pendingApproval = false
+            psych.approved = isAccepted
+
+            updatePsy(psychId,psych)
+        }
+    }
 }

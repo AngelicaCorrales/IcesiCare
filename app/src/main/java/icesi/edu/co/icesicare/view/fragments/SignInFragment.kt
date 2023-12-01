@@ -1,5 +1,6 @@
 package icesi.edu.co.icesicare.view.fragments
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,10 +11,12 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import icesi.edu.co.icesicare.activities.AdminMainActivity
 import icesi.edu.co.icesicare.activities.AuthActivity
 import icesi.edu.co.icesicare.activities.PsychologistMainActivity
 import icesi.edu.co.icesicare.activities.StudentMainActivity
 import icesi.edu.co.icesicare.databinding.FragmentSignInBinding
+import icesi.edu.co.icesicare.model.entity.Psychologist
 import icesi.edu.co.icesicare.model.entity.Student
 import icesi.edu.co.icesicare.viewmodel.AuthViewModel
 
@@ -32,10 +35,11 @@ class SignInFragment : Fragment() {
             authActivity.loadFragment(authActivity.signupFragment)
         }
         binding.loginBtn.setOnClickListener {
-            vm.signIn(
-                binding.emailET.text.toString(),
-                binding.passET.text.toString()
-            )
+
+            val email = binding.emailET.text.toString()
+            val password = binding.passET.text.toString()
+
+            vm.signIn(email,password)
         }
 
         binding.backBtnSignIn.setOnClickListener {
@@ -71,18 +75,33 @@ class SignInFragment : Fragment() {
     }
 
     private fun sendToCorrectActivity(userId : String){
-
-        vm.getRoleOfLoggedStudent(userId)
-
         vm.user.observe(viewLifecycleOwner){
-            if (it is Student){
-                startActivity(Intent(requireContext(), StudentMainActivity::class.java))
-
-            }else{
-                startActivity(Intent(requireContext(), PsychologistMainActivity::class.java))
-
+            when(it){
+                is Student
+                    -> startActivity(Intent(requireContext(), StudentMainActivity::class.java))
+                is Psychologist
+                    -> {
+                    if (it.approved && !it.pendingApproval)
+                        startActivity(Intent(requireContext(), PsychologistMainActivity::class.java))
+                    else{
+                        showAlertDialog("Su solicitud de registro como psicólogo ha sido negada.")
+                        vm.signOut()
+                    }
+                }
             }
         }
+        vm.isAdmin.observe(viewLifecycleOwner){
+            when(it){
+                true -> startActivity(Intent(requireContext(), AdminMainActivity::class.java))
+                else -> {}
+            }
+        }
+        vm.getRoleOfLoggedUser(userId)
+    }
+
+    private fun showAlertDialog(message:String){
+        val builder = AlertDialog.Builder(requireContext()).setTitle(message).setNeutralButton("OK",null)
+        builder.create().show()
     }
 
     companion object {
