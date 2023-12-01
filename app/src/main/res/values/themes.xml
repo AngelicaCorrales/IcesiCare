@@ -11,9 +11,13 @@
         <item name="fullscreenBackgroundColor">@color/light_blue_600</item>
         <item name="fullscreenTextColor">@color/light_blue_A200</item>
     </style>
-
-    <style name="SplashTheme" parent="Theme.IcesiCare">
-        <item name="android:windowBackground">@drawable/splash_screen</item>
+    
+    <style name="Theme.IcesiCare.SplashScreen" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/light_purple</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/vector_icesi_logo</item>
+        <item name="postSplashScreenTheme">@style/Base.Theme.IcesiCare</item>
     </style>
+
+
 
 </resources>
