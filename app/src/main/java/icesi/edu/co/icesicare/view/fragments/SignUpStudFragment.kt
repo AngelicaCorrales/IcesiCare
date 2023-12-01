@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import icesi.edu.co.icesicare.R
 import icesi.edu.co.icesicare.activities.AuthActivity
+import icesi.edu.co.icesicare.activities.IntroductionActivity
 import icesi.edu.co.icesicare.activities.StudentMainActivity
 import icesi.edu.co.icesicare.databinding.FragmentSignUpStudBinding
 import icesi.edu.co.icesicare.viewmodel.AuthViewModel
@@ -64,6 +65,11 @@ class SignUpStudFragment : Fragment() {
                 binding.passwordET.text.toString(),
                 binding.confirmPasswordET.text.toString()
             )
+        }
+
+        binding.backBtnSignUpStud.setOnClickListener {
+            val authActivity = activity as AuthActivity
+            authActivity.loadFragment(authActivity.signupFragment)
         }
 
         //Observer
