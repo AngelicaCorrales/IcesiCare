@@ -22,13 +22,8 @@ class PsychologistChatViewModel : ViewModel() {
     fun getChat(chatId : String){
 
         viewModelScope.launch(Dispatchers.IO) {
-            val chatOfDb = psychologistChatRepository.getChat(chatId)
-
             withContext(Dispatchers.Main){
                 studentLV.value = psychologistChatRepository.getContact(chatId, Firebase.auth.currentUser!!.uid)
-            }
-            withContext(Dispatchers.Main){
-                chatLV.value = chatOfDb
             }
         }
     }
